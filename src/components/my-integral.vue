@@ -1,0 +1,177 @@
+<template>
+  <div class="integral">
+    <div class="userBox">
+      <x-img :src="src" :webp-src="`${src}?type=webp`" class="ximg-bg" :offset="-100" container="#vux_view_box_body"></x-img>
+      <div class="userImg">
+        <div class="my-integral">我的积分：{{myScore.score}}</div>
+        <div class="user">
+          <img src="../common/image/head.png" class="img-user">
+        </div>
+        <div class="my-rank">我的排名：{{myScore.paiming}}</div>
+      </div>
+    </div>
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="messageID">
+      <div class="integral-item" v-for="(item,index) in currentMessage" :key="index">
+        <span class="create_time">{{item.create_time}}</span>
+        <group>
+          <cell v-for="(int,i) in item.integrals" :key="i" :title="int.title" :value="int.sum"></cell>
+        </group>
+      </div>
+    </v-scroll>
+  </div>
+</template>
+
+<script>
+  import VScroll from './pull-refresh'
+  import {XImg, Group, Cell} from 'vux'
+  import { mapGetters } from 'vuex'
+  export default {
+    components:{
+      XImg,
+      Group,
+      Cell,
+      VScroll
+    },
+    computed: {
+      ...mapGetters([
+        'myIntegral',
+        'integralDetails',
+        'integralTotal',
+
+
+        'integralScrollTop'
+      ])
+    },
+    activated() {
+      // this.currentMessage = this.integralDetails;
+      setTimeout(() => {
+        this.box.scrollTop = this.integralScrollTop
+      }, 100)
+    },
+    watch: {
+      myIntegral: function (val) {
+        let id = window.localStorage.getItem('user')
+        for (let item of val) {
+          if (item.id == id) this.myScore = item
+        }
+      },
+      integralList: function (value) {
+        // this.currentMessage = value;
+      }
+    },
+    created() {
+      this.$store.dispatch('getMyIntegral')
+      this.$store.dispatch('getIntegralDetail')
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.box = this.$el.querySelector('#messageID')
+        this.box.addEventListener('scroll', this.handler, false)
+      })
+    },
+    name: "my-integral",
+    data() {
+      return {
+        src: require('../common/image/findBg.png'),
+        myScore:{},
+        currentMessage: [{create_time:'2018-5-15',integrals:[{title:'每日签到',sum:'+1'}]},{create_time:'2018-5-15',integrals:[{title:'每日签到',sum:'+1'},{title:'美文阅读',sum:'+2'}]}],//当前项目消息列表,
+        //下拉刷新和上拉加载数据字段
+        counter: 1, //当前页
+        num: 10, // 一页显示多少条
+        scrollData: {
+          noFlag: false //暂无更多数据显示
+        }
+      }
+    },
+    methods: {
+      handler() {
+        this.box = document.querySelector('#messageID')
+        this.$store.dispatch('updateIntegralPosition', this.box.scrollTop)
+
+      },
+      onRefresh(done) {
+        this.$store.dispatch('getIntegralDetail')
+        this.counter = 1
+        done(); // call done
+      },
+      onInfinite(done) {
+        this.counter++;
+        let end = this.num * this.counter;
+        let i = end - this.num;
+        let more = this.$el.querySelector('.load-more')
+
+        this.$store.dispatch('getIntegralDetail', { page: this.counter }).then(() => {
+          for (i; i < end; i++) {
+            if (i >= this.integralTotal) {
+              more.style.display = 'none'; //隐藏加载条
+              //走完数据调用方法
+              this.scrollData.noFlag = true;
+              break;
+            } else {
+              // let newIndex = i % 10
+              // if (res.data.data.length !== 0) {
+              //     this.currentTime.push(res.data.data[newIndex])
+              // }
+              more.style.display = 'none'; //隐藏加载条
+            }
+          }
+        })
+        done();
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  .integral{
+    .userBox {
+      width: 100%;
+      .ximg-bg {
+        width: 100%;
+        height: 5rem;
+      }
+      .userImg {
+        display: flex;
+        justify-content: center;
+        .user{
+          height: 2rem;
+          width: 2rem;
+          margin: 0 .5rem;
+          padding: 2px;
+          display: flex;
+          align-items: center;
+          border:1px solid rgb(217, 217, 217);
+          box-sizing: border-box;
+          background: #fff;
+          transform: translateY(-1.1rem);
+          .img-user{
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .my-integral,
+        .my-rank{
+          color:#999;
+          font-size: .7rem;
+        }
+      }
+    }
+    .yo-scroll{
+      top:9rem;
+    }
+    .integral-item {
+      margin-bottom: 1rem;
+      .create_time {
+        margin-left: .5rem;
+        background-color: #999;
+        font-size: .5rem;
+        color: #fff;
+        border-radius: .2rem;
+        padding: .2rem;
+      }
+      .weui-cells{
+        margin-top: .3rem;
+      }
+    }
+  }
+</style>

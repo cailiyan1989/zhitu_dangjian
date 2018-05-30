@@ -1,0 +1,225 @@
+<template>
+  <div class="add-find">
+    <group>
+      <x-textarea :max="200" placeholder="这一刻想法..." v-model="myMessage"></x-textarea>
+      <div class="weui-cells weui-cells_form" id="uploaderCustom">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            <div class="weui-uploader">
+              <div class="weui-uploader__bd">
+                <ul class="weui-uploader__files" id="uploaderCustomFiles"></ul>
+                <div class="weui-uploader__input-box">
+                  <input id="uploaderCustomInput" multiple name="upimg[]" class="weui-uploader__input js_file" type="file">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </group>
+    <x-button type="primary" :show-loading="showLoading" :disabled="!isClicked" @click.native="submit">发布</x-button>
+  </div>
+</template>
+
+<script>
+  import {Group, XTextarea, XButton } from 'vux'
+  import api from '../fetch/api'
+  import axios from 'axios'
+  export default {
+    components: {
+      Group,
+      XTextarea,
+      XButton
+    },
+    activated() {
+      this.myMessage = '';
+
+      this.filesArr = [];
+
+      this.$el.querySelector('#uploaderCustomFiles').innerHTML = '';
+    },
+    data() {
+      return {
+        myMessage: '',
+        showLoading: false,
+        isClicked: false,
+        maxSize: 10240000,
+        maxCount: 9,
+        filesArr: []
+      }
+    },
+    name: "add-find",
+    mounted() {
+      this.bindEvent()
+    },
+    watch:  {
+      myMessage: function (val) {
+        if(val){
+          this.isClicked = true
+        }
+      },
+      filesArr: function (val) {
+        if(val) {
+          this.isClicked = true
+        }
+      }
+    },
+    methods: {
+      bindEvent() {
+        let self = this;
+        let uploader = self.$el.querySelector('#uploaderCustomInput')
+
+        // console.log(uploader)
+
+        uploader.addEventListener('change', function (event) {
+          let files = event.target.files;
+          // 如果没有选中文件，直接返回
+          if (files.length === 0) {
+            return;
+          }
+          for (var i = 0; i < files.length; i++) {
+            let file = files[i];
+            self.filesArr.push(file)
+
+            let reader = new FileReader();
+            if (file.size > self.maxSize) {
+              self.$vux.toast.text('图片太大，不允许上传！', 'middle');
+              continue;
+            }
+
+            let uploader_files = self.$el.querySelectorAll('.weui_uploader_file')
+            if (uploader_files.length >= self.maxCount) {
+              self.$vux.toast.text(`最多上传${self.maxCount}张`, 'middle')
+              return;
+            }
+            reader.onload = function (e) {
+              var img = new Image();
+              img.onload = function () {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var w = img.width;
+                var h = img.height;
+                // 设置 canvas 的宽度和高度
+                canvas.width = w;
+                canvas.height = h;
+                ctx.drawImage(img, 0, 0, w, h);
+                var base64 = canvas.toDataURL('image/png');
+
+
+                // 插入到预览
+                var $preview = `<li class="weui_uploader_file weui_uploader_status" style="background-image:url(${base64})"></li>`;
+                let preview = self.parseToDOM($preview)[0]
+
+                let uploaderCustomeFiles = self.$el.querySelector('#uploaderCustomFiles')
+                uploaderCustomeFiles .appendChild(preview);
+
+              }
+              img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+          }
+        })
+      },
+      parseToDOM(str) {
+        var ul = document.createElement("ul");
+        if (typeof str == "string")
+          ul.innerHTML = str;
+        return ul.childNodes;
+      },
+      submit() {
+        const _this = this
+
+        let config = {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+        _this.showLoading = true
+
+        let uploadData = new FormData()
+        _this.filesArr.map((file) => {
+          uploadData.append('upimg[]', file);
+        })
+
+        uploadData.append('form[content]',this.myMessage)
+
+        let ax = axios.create();
+
+        ax.post('/admin/index.php/portal/jishi/add',uploadData,config).then(res => {
+          if(res.data.code === 1) {
+            _this.showLoading=false
+
+            _this.$router.replace('/find')
+          } else {
+            this.$vux.toast.text(res.data.msg, 'middle')
+            _this.showLoading = false
+          }
+        })
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+.add-find{
+  font-size: .7rem;
+  .weui-uploader__bd {
+    margin-bottom: -4px;
+    margin-right: -9px;
+    overflow: hidden;
+  }
+
+  .weui-uploader__input-box {
+    float: left;
+    position: relative;
+    margin-right: 9px;
+    margin-bottom: 9px;
+    width: 3.85rem;
+    height: 3.85rem;
+    border: 1px solid #d9d9d9;
+  }
+
+  .weui_uploader_file {
+    float: left;
+    margin-right: 9px;
+    margin-bottom: 9px;
+    width: 3.95rem;
+    height: 3.95rem;
+    background: no-repeat center center;
+    background-size: cover;
+    list-style: none;
+  }
+
+  .weui-uploader__input {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .weui-uploader__input-box:before {
+    width: 2px;
+    height: 1.975rem;
+  }
+
+  .weui-uploader__input-box:after {
+    width: 1.975rem;
+    height: 2px;
+  }
+
+  .weui-uploader__input-box:after,
+  .weui-uploader__input-box:before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #d9d9d9;
+  }
+}
+</style>
