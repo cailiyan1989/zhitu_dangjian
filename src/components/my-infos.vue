@@ -1,12 +1,12 @@
 <template>
     <div class="my-infos">
       <group>
-        <cell title="头像" :isLink="isadmin === users.id ? true:false" class="headImg">
+        <cell title="头像" :isLink="isadmin == (users.id) ? true:false" class="headImg">
           <div class="show">
             <div class="picture" :style="'backgroundImage:url('+headerImage+')'">
             </div>
             <!--<span v-else>上传头像</span>-->
-            <input type="file" accept="image" @change="change" :disabled="isadmin === users.id ? false:true" style=" position: absolute;
+            <input type="file" accept="image" @change="change" :disabled="isadmin == (users.id) ? false:true" style=" position: absolute;
                                                                                                     left: 0; top:0;width:100%;height:100%;opacity: 0;">
           </div>
         </cell>
@@ -52,7 +52,7 @@
     },
     filters: {
       filterSex(value) {
-        if (value == 2) {
+        if (value == 0) {
           return '女'
         } else if (value == 1) {
           return '男'
@@ -87,8 +87,9 @@
     activated() {
       this.users = []
 
-      let id = this.$route.params.personid
-      this.$store.dispatch('getOtherInfo', {id: id})
+      let userid = this.$route.params.personid
+
+      this.$store.dispatch('getOtherInfo', {id: userid})
     },
     created() {
       this.isadmin = window.localStorage.getItem('user')

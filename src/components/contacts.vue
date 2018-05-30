@@ -49,26 +49,32 @@
     },
     methods: {
       resultClick (item) {
-       // this.$router.push({name:'PersonInfos',params:{personid:item.id}});
-        alert(item)
+       this.$router.push({name:'PersonInfos',params:{personid:item.id}});
+        console.log(item)
       },
       getResult (val) {
-        console.log('on-change', val)
+
         this.$store.dispatch('getPersonalList', {id: val})
+
         this.personalList.forEach(item => {
           this.results.push({
             title: item.realname,
             other: item.id
           });
         });
+        this.results = []
       },
       onSubmit () {
         this.$refs.search.setBlur()
-        this.$vux.toast.show({
-          type: 'text',
-          position: 'top',
-          text: 'on submit'
-        })
+        
+        this.$store.dispatch('getPersonalList', {id: this.value})
+
+        this.personalList.forEach(item => {
+          this.results.push({
+            title: item.realname,
+            other: item.id
+          });
+        });
       },
     },
     data() {

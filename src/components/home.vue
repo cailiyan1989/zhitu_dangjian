@@ -16,10 +16,11 @@
       </grid-item>
     </grid>
     <div class="newsList">
-      <cell title="党建动态" value="更多" link="/dynamic/dynamic-news?category=notice">
-        <img slot="icon" width="5" style="display:block;margin-right:5px;" src="../common/image/border.png">
-      </cell>
-      <!-- <div style="font-size: 17px;margin:5px 13px;border-left: 5px solid #c50000;padding-left: 5px">党建动态</div> -->
+      <group>
+        <cell title="党建动态">
+          <img slot="icon" width="5" style="display:block;margin-right:5px;" src="../common/image/border.png">
+        </cell>
+      </group>
       <template v-for="(item,index) of list">
         <router-link tag="div" class="list" :to="{name:'NewsDetail', params: {dynamicid: item.id, cate:'notice'}}" :key="index">
           <div class="list_content">
@@ -33,7 +34,7 @@
         </router-link>
       </template>
     </div>
-    <!-- <x-button plain type="warn" style="border-radius:99px;" link="/dynamic/dynamic-news?category=notice">查看更多</x-button> -->
+    <x-button plain type="primary" style="border-radius:99px;color:red;border-color:red;" link="/dynamic/dynamic-news?category=notice">查看更多</x-button>
   </div>
 </template>
 
@@ -112,23 +113,28 @@
       display: none;
     }
     .weui-grid{
-      &::before, 
-      &::after{
+      &::before{
         display: none;
       }
     }
     .weui-grid__icon{
-      width: 56px;
-      height: 56px;
+      width: 1.75rem;
+      height: 1.75rem;
     }
     .weui-grid__label {
-      font-size: .7rem;
-      margin-top: .5rem;
+      font-size: .5rem;
+      margin-top: .85rem;
+      color:#333;
     }
   }
   .newsList{
     margin-top: .5rem;
     background: #fff;
+    .weui-cells{
+      &::before{
+        display: none;
+      }
+    }
     .weui-cell{
       font-size: .7rem
     }
@@ -140,34 +146,24 @@
     box-sizing: border-box;
     background-color: #fff;
     position: relative;
-    // &:before{
-    //   content: '';
-    //   position: absolute;
-    //   top:0;
-    //   left:0;right: 0;height: 1px;
-    //   color:rgb(217, 217, 217);
-    //   transform-origin: 0px 0px 0px;
-    //   transform: scaleY(0.5);
-    //   border-top:1px solid rgb(217, 217, 217);
-    // }
-    // &:after{
-    //   content:'';
-    //   position: absolute;
-    //   left:0;
-    //   right:0;
-    //   bottom: 0;
-    //   height: 1px;
-    //   color:rgb(217, 217, 217);
-    //   transform-origin: 0px 100% 0px;
-    //   transform: scaleY(0.5);
-    //   border-bottom: 1px solid rgb(217, 217, 217);
-    // }
+    &:after{
+      content:'';
+      position: absolute;
+      left:0;
+      right:0;
+      bottom: 0;
+      height: 1px;
+      color:#d9d9d9;
+      transform-origin: 0px 100% 0px;
+      transform: scaleY(0.5);
+      border-bottom: 1px solid #d9d9d9;
+    }
     .list_img{
-      width: 3rem;
-      height: 3rem;
+      width: 4.625rem;
+      height: 2.75rem;
       line-height: 3rem;
       text-align: center;
-      margin-left: .7rem;
+      margin-left: .4rem;
       .ximg-demo {
         width: 100%;
         height: 100%;
@@ -180,7 +176,7 @@
         color:#000;
         width: auto;
         font-weight:400;
-        font-size: 14px;
+        font-size: .5rem;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -188,14 +184,15 @@
       }
       .list_time{
         color:#333;
-        font-size: 13px;
+        font-size: 0.425rem;
         line-height: 1.2;
         margin-top: .5rem;
       }
     }
   }
   .weui-btn{
-    margin-top: 1rem;
+    margin-top: .5rem;
+    font-size: .7rem
   }
 }
 </style>
