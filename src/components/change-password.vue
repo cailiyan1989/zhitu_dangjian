@@ -23,20 +23,11 @@
     name: "change-password",
     computed: {
       ...mapGetters([
-        'userInfo',
 
         'errorMemberMsg'
       ])
     },
     watch: {
-      userInfo: function (val) {
-        if (val) {
-          let id = window.localStorage.getItem('user')
-          for (let item of val) {
-            if (item.id == id) this.username = item.realname
-          }
-        }
-      },
       errorMemberMsg: function(val) {
         this.$vux.toast.text(val,'middle')
       }
@@ -55,7 +46,7 @@
       this.newPassword='',
       this.confirmPassword=''
 
-      this.$store.dispatch('getUserInfo')
+      this.username = window.localStorage.getItem('username');
     },
     methods: {
       changePassword() {

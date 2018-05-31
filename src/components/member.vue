@@ -78,7 +78,8 @@
     },
     computed: {
       ...mapGetters([
-        'otherInfo',
+        'userInfo',
+
         'errorMemberMsg'
       ])
     },
@@ -88,21 +89,18 @@
 
       },
       otherInfo: function (val) {
-        this.myInfo = val[0]
-
-        window.localStorage.setItem('department',this.myInfo.department_id)
-        // if (val) {
-        //   let id = window.localStorage.getItem('user')
-        //   for (let item of val) {
-        //     if (item.id == id) this.myInfo = item
-        //   }
-        //   window.localStorage.setItem('department',this.myInfo.department_id)
-        // }
+        if (val) {
+          let id = window.localStorage.getItem('user')
+          for (let item of val) {
+            if (item.id == id) this.myInfo = item
+          }
+          window.localStorage.setItem('department',this.myInfo.department_id)
+          window.localStorage.set('username', this.myInfo.username);
+        }
       }
     },
     created() {
-      let id = window.localStorage.getItem('user')
-      this.$store.dispatch('getOtherInfo', {id: id});
+      this.$store.dispatch('getUserInfo');
     },
     mounted() {
       //初始化这个裁剪框

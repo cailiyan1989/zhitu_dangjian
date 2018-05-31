@@ -63,8 +63,8 @@
     },
     methods: {
       resultClick (item) {
+        
        this.$router.push({name:'PersonInfos',params:{personid:item.id}});
-        // console.log(item)
       },
       getResult :_.debounce(function(val){
         this.results = []

@@ -6,8 +6,7 @@
             <div class="picture" :style="'backgroundImage:url('+headerImage+')'">
             </div>
             <!--<span v-else>上传头像</span>-->
-            <input type="file" accept="image" @change="change" :disabled="isadmin == (users.id) ? false:true" style=" position: absolute;
-                                                                                                    left: 0; top:0;width:100%;height:100%;opacity: 0;">
+            <input type="file" accept="image" @change="change" :disabled="isadmin == (users.id) ? false:true" style=" position: absolute;left: 0; top:0;width:100%;height:100%;opacity: 0;">
           </div>
         </cell>
         <cell title="姓名" :value="users.realname"></cell>
