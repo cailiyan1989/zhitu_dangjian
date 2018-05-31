@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/dangjian': {
-        target: 'http://localhost:8080/dangjian',
+        target: 'http://yf.ztemap.com:8091/dangjian',
         changeOrigin: true,
         pathRewrite: {
           '^/dangjian': ''

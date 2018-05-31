@@ -23,13 +23,13 @@
       </group>
       <template v-for="(item,index) of list">
         <router-link tag="div" class="list" :to="{name:'NewsDetail', params: {dynamicid: item.id, cate:'notice'}}" :key="index">
-          <div class="list_content">
-            <div class="list_title">{{item.title}}</div>
-            <div class="list_time">{{item.create_time}}</div>
-          </div>
           <div class="list_img">
             <span>Loading</span>
             <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo"  container="#vux_view_box_body"></x-img>
+          </div>
+          <div class="list_content">
+            <div class="list_title">{{item.title}}</div>
+            <div class="list_time">{{item.create_time}}</div>
           </div>
         </router-link>
       </template>
@@ -54,6 +54,8 @@
     },
     computed: {
       ...mapGetters([
+        'errorNewsMsg',
+
         'noticedNewsList'
       ])
     },
@@ -61,6 +63,9 @@
       this.$store.dispatch('getNoticedNewsList')
     },
     watch: {
+      errorNewsMsg: function (value) {
+        this.$vux.toast.text(value, 'middle')
+      },
       noticedNewsList: function (val) {
         this.list = val.slice(0,9);
       }
@@ -123,7 +128,7 @@
     }
     .weui-grid__label {
       font-size: .5rem;
-      margin-top: .85rem;
+      margin-top: .45rem;
       color:#333;
     }
   }
@@ -142,15 +147,15 @@
   .list {
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: .75rem;
     box-sizing: border-box;
     background-color: #fff;
     position: relative;
     &:after{
       content:'';
       position: absolute;
-      left:0;
-      right:0;
+      left:.75rem;
+      right:.75rem;
       bottom: 0;
       height: 1px;
       color:#d9d9d9;
@@ -161,9 +166,9 @@
     .list_img{
       width: 4.625rem;
       height: 2.75rem;
-      line-height: 3rem;
+      line-height: 2.75rem;
       text-align: center;
-      margin-left: .4rem;
+      margin-right: .4rem;
       .ximg-demo {
         width: 100%;
         height: 100%;
@@ -176,7 +181,7 @@
         color:#000;
         width: auto;
         font-weight:400;
-        font-size: .5rem;
+        font-size: .6rem;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
@@ -186,13 +191,13 @@
         color:#333;
         font-size: 0.425rem;
         line-height: 1.2;
-        margin-top: .5rem;
+        margin-top: .4rem;
       }
     }
   }
   .weui-btn{
     margin-top: .5rem;
-    font-size: .7rem
+    font-size: .7rem !important;
   }
 }
 </style>

@@ -14,7 +14,7 @@ const state = {
   jobsNewsTotal: 0,
   democracyNewsTotal: 0,
 
-  errorNewsMsg: '',
+  errorAnNewsMsg: '',
 
   policyNewsScrollTop: 0,
   deedsNewsScrollTop: 0,
@@ -94,13 +94,15 @@ const getters = {
   deedsNewsScrollTop: state => state.deedsNewsScrollTop,
   guideNewsScrollTop: state => state.guideNewsScrollTop,
   jobsNewsScrollTop: state => state.jobsNewsScrollTop,
-  democracyNewsScrollTop: state => state.democracyNewsScrollTop
+  democracyNewsScrollTop: state => state.democracyNewsScrollTop,
+
+  errorAnNewsMsg: state => state.errorAnNewsMsg
 }
 
 const mutations = {
   [types.GET_POLICY_NEWS_LIST](state, res) {
     if(res.code == 0){
-      state.errorNewsMsg = res.msg
+      state.errorAnNewsMsg = res.msg
       state.policyNewsList = []
       state.policyNewsTotal = 0
     } else {
@@ -126,7 +128,7 @@ const mutations = {
   },
   [types.GET_DEEDS_NEWS_LIST](state, res) {
     if(res.code == 0){
-      state.errorNewsMsg = res.msg
+      state.errorAnNewsMsg = res.msg
       state.deedsNewsList = []
       state.deedsNewsTotal = 0
     } else {
@@ -152,7 +154,7 @@ const mutations = {
   },
   [types.GET_GUIDE_NEWS_LIST](state, res) {
     if(res.code == 0){
-      state.errorNewsMsg = res.msg
+      state.errorAnNewsMsg = res.msg
       state.guideNewsList = []
       state.guideNewsTotal = 0
     } else {
@@ -178,7 +180,7 @@ const mutations = {
   },
   [types.GET_JOBS_NEWS_LIST](state, res) {
     if(res.code == 0){
-      state.errorNewsMsg = res.msg
+      state.errorAnNewsMsg = res.msg
       state.jobsNewsList = []
       state.jobsNewsTotal = 0
     } else {
@@ -204,7 +206,7 @@ const mutations = {
   },
   [types.GET_DEMOCRACY_NEWS_LIST](state, res) {
     if(res.code == 0){
-      state.errorNewsMsg = res.msg
+      state.errorAnNewsMsg = res.msg
       state.democracyNewsList = []
       state.democracyNewsTotal = 0
     } else {
@@ -230,7 +232,7 @@ const mutations = {
   },
 
   clearNewsMsg(state) {
-    state.errorNewsMsg = ''
+    state.errorAnNewsMsg = ''
   },
 
   updatePolicyNewsPosition(state, payload) {

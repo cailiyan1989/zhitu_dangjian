@@ -132,7 +132,7 @@ export default {
 
   .weui-btn {
     margin-top: 20%;
-    font-size: 16px !important;
+    font-size: .8rem !important;
   }
   .weui-tabbar__item {
     &.weui-bar__item_on {

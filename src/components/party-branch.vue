@@ -11,7 +11,9 @@
   export default {
     computed: {
       ...mapGetters([
-        'branch'
+        'branch',
+
+        'errorMemberMsg'
       ])
     },
     watch: {
@@ -21,6 +23,9 @@
           if (item.id == id) this.department = item
           break;
         }
+      },
+      errorMemberMsg: function(val) {
+        this.$vux.toast.text(val,'middle')
       }
     },
     created() {

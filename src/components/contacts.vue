@@ -21,6 +21,7 @@
 <script>
   import { Search, Group, Cell} from 'vux'
   import { mapGetters } from 'vuex'
+  import _ from 'lodash';
   export default {
     components: {
       Search,
@@ -30,51 +31,52 @@
     computed: {
       ...mapGetters([
         'partysList',
-        'personalList'
+        'searchInfo',
+
+        'errorContactMsg'
       ])
     },
     created() {
       this.$store.dispatch('getPartyList')
     },
     activated() {
+      this.value = ''
+      this.results = []
+      this.searchInfo = []
       this.partys = this.partysList
     },
     watch: {
       partysList: function (val) {
         this.partys = val
       },
-      // personalList:function (val) {
-      //   this.results = val
-      // }
+      searchInfo: function (val) {
+        val.forEach(item => {
+          this.results.push({
+            title: item.username,
+            id: item.id
+          })
+        })
+      },
+      errorContactMsg: function(val) {
+        this.$vux.toast.text(val,'middle')
+      }
     },
     methods: {
       resultClick (item) {
        this.$router.push({name:'PersonInfos',params:{personid:item.id}});
-        console.log(item)
+        // console.log(item)
       },
-      getResult (val) {
-
-        this.$store.dispatch('getPersonalList', {id: val})
-
-        this.personalList.forEach(item => {
-          this.results.push({
-            title: item.realname,
-            other: item.id
-          });
-        });
+      getResult :_.debounce(function(val){
         this.results = []
-      },
+
+        if (val !== '') {
+          this.$store.dispatch('getSearchInfo', {con: val})
+        }  
+      }, 500) ,
       onSubmit () {
         this.$refs.search.setBlur()
         
-        this.$store.dispatch('getPersonalList', {id: this.value})
-
-        this.personalList.forEach(item => {
-          this.results.push({
-            title: item.realname,
-            other: item.id
-          });
-        });
+        // this.$store.dispatch('getPersonalList', {id: this.value})
       },
     },
     data() {
@@ -91,8 +93,22 @@
 <style lang="less">
 .contact{
   font-size: .7rem;
-  .weui-cell_access .weui-cell__ft:after{
-    display: none;
+  .weui-cell{
+    &::before{
+      display: none;
+    }
+    &::after{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      border:1px solid #d9d9d9;
+      color:#d9d9d9;
+      transform-origin: 0 100%;
+      transform: scaleY(0.5);
+      right: .75rem;
+      left: .75rem;
+    }
   }
+  
 }
 </style>

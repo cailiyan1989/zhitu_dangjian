@@ -31,7 +31,9 @@
         'examList',
         'examTotal',
 
-        'examScrollTop'
+        'examScrollTop',
+
+        'errorExamMsg'
       ])
     },
     created() {
@@ -40,6 +42,9 @@
     watch: {
       examList: function (val) {
         this. currentExam = val
+      },
+      errorExamMsg: function(val) {
+        this.$vux.toast.text(val,'middle')
       }
     },
     name: "my-exam",

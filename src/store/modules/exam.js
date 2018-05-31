@@ -5,16 +5,20 @@ const state = {
   examList: [],
   examTotal: 0,
 
-  examScrollTop: 0
+  examScrollTop: 0,
+
+  errorExamMsg: ''
 }
 
 const actions = {
   getExamList({ commit }, params) {
+    commit('clearExamMsg')
     api.get_exam_list(params).then(res => {
       commit(types.GET_EXAM_LIST, res)
     })
   },
   updateExamPosition({ commit }, top) {
+    commit('clearExamMsg')
     commit({type: 'updateExamPosition', top: top})
   }
 }
@@ -23,13 +27,15 @@ const getters = {
   examList: state => state.examList,
   examTotal: state => state.examTotal,
 
-  examScrollTop:state => state.examScrollTop
+  examScrollTop: state => state.examScrollTop,
+
+  errorExamMsg: state => state.errorExamMsg
 }
 
 const mutations = {
   [types.GET_EXAM_LIST](state, res) {
     if (res.code == 0) {
-      state.errorMessageMsg = res.msg
+      state.errorExamMsg= res.msg
     } else {
       if (res.data.data.length !==0 && res.data.current_page !== 1) {
         let end = res.data.current_page * 10
@@ -52,6 +58,10 @@ const mutations = {
 
   updateExamPosition (state, payload) {
     state.examScrollTop = payload.top
+  },
+
+  clearExamMsg(state) {
+    state.errorExamMsg = ''
   }
 }
 

@@ -18,7 +18,9 @@
     },
     computed: {
       ...mapGetters([
-        'personalList'
+        'personalList',
+
+        'errorContactMsg'
       ])
     },
     created() {
@@ -33,11 +35,9 @@
       personalList: function (val) {
         this.lists = val
       },
-      // $route (to, from) {
-      //   if(/personnel/.test(to.path)){
-      //     this.$store.dispatch('getPersonalList', {id: to.params.partyid})
-      //   }
-      // }
+      errorContactMsg: function(val) {
+        this.$vux.toast.text(val,'middle')
+      }
     },
     data() {
       return {

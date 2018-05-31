@@ -69,16 +69,16 @@
     },
     filters: {
       filterSex(value) {
-        if (value == 2) {
+        if (value == 1) {
           return '女'
-        } else if (value == 1) {
+        } else if (value == 0) {
           return '男'
         }
       }
     },
     computed: {
       ...mapGetters([
-        'userInfo',
+        'otherInfo',
         'errorMemberMsg'
       ])
     },
@@ -87,18 +87,22 @@
         this.$vux.toast.text(value, 'middle')
 
       },
-      userInfo: function (val) {
-        if (val) {
-          let id = window.localStorage.getItem('user')
-          for (let item of val) {
-            if (item.id == id) this.myInfo = item
-          }
-          window.localStorage.setItem('department',this.myInfo.department_id)
-        }
+      otherInfo: function (val) {
+        this.myInfo = val[0]
+
+        window.localStorage.setItem('department',this.myInfo.department_id)
+        // if (val) {
+        //   let id = window.localStorage.getItem('user')
+        //   for (let item of val) {
+        //     if (item.id == id) this.myInfo = item
+        //   }
+        //   window.localStorage.setItem('department',this.myInfo.department_id)
+        // }
       }
     },
     created() {
-      this.$store.dispatch('getUserInfo')
+      let id = window.localStorage.getItem('user')
+      this.$store.dispatch('getOtherInfo', {id: id});
     },
     mounted() {
       //初始化这个裁剪框
@@ -199,6 +203,9 @@
 <style lang="less">
   @import '../common/style/uploadImg.less';
   .member {
+    .weui-cells{
+      margin-top: .7rem;
+    }
     .vux-cell-bd {
       font-size: .7rem;
     }

@@ -7,6 +7,7 @@ export const UPDATE_LOGIN = 'UPDATE_LOGIN'
 export const GET_USER_INFO = 'GET_USER_INFO'
 export const GET_BRANCH_INFO = 'GET_BRANCH_INFO'
 export const GET_OTHER_INFO = 'GET_OTHER_INFO'
+export const GET_SEARCH_USER = 'GET_SEARCH_USER'
 
 //党建动态
 export const GET_NOTICED_NEWS_LIST = 'GET_NOTICED_NEWS_LIST'

@@ -147,13 +147,17 @@ export default {
   get_other_info(params) {
     return fetch('/admin/index.php/base/admin/getInfo', params, 'post')
   },
+  //搜索用户
+  get_search_user(params) {
+    return fetch('/admin/index.php/base/admin/getFuzzyQuery', params, 'post')
+  },
 
   //修改密码
   get_password_change(params) {
-    return fetch('/admin/index.php/', params,'post')
+    return fetch('/admin/index.php/base/user/changePw', params,'post')
   },
   //退出
   get_user_out(params) {
-    return fetch('/admin/login/logout', params, 'post')
+    return fetch('/admin/index.php/base/login/logout', params, 'post')
   }
 }

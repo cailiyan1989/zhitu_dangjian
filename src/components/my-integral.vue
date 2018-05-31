@@ -1,7 +1,7 @@
 <template>
   <div class="integral">
     <div class="userBox">
-      <x-img :src="src" :webp-src="`${src}?type=webp`" class="ximg-bg" :offset="-100" container="#vux_view_box_body"></x-img>
+      <img src="../common/image/findBg.png" class="ximg-bg">
       <div class="userImg">
         <div class="my-integral">我的积分：{{myScore.score}}</div>
         <div class="user">
@@ -39,7 +39,9 @@
         'integralTotal',
 
 
-        'integralScrollTop'
+        'integralScrollTop',
+
+        'errorMessageMsg'
       ])
     },
     activated() {
@@ -57,6 +59,9 @@
       },
       integralList: function (value) {
         // this.currentMessage = value;
+      },
+      errorMessageMsg: function(value) {
+        this.$vux.toast.text(value,'middle')
       }
     },
     created() {
@@ -72,7 +77,7 @@
     name: "my-integral",
     data() {
       return {
-        src: require('../common/image/findBg.png'),
+        // src: require('../common/image/findBg.png'),
         myScore:{},
         currentMessage: [{create_time:'2018-5-15',integrals:[{title:'每日签到',sum:'+1'}]},{create_time:'2018-5-15',integrals:[{title:'每日签到',sum:'+1'},{title:'美文阅读',sum:'+2'}]}],//当前项目消息列表,
         //下拉刷新和上拉加载数据字段
@@ -160,7 +165,7 @@
       top:9rem;
     }
     .integral-item {
-      margin-bottom: 1rem;
+      margin-bottom: .7rem;
       .create_time {
         margin-left: .5rem;
         background-color: #999;

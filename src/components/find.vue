@@ -104,7 +104,7 @@
     },
     data() {
       return {
-        src: require('../common/image/findBg.png'),
+        // src: require('../common/image/findBg.png'),
         counter: 1, //当前页
         num: 10, //一页显示多少条数据，
         workList: [], //下拉更新数据存放数组

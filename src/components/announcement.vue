@@ -27,7 +27,7 @@
   </template>
   <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="newsID">
     <template v-for="(item,index) in currentNews">
-      <router-link tag="div" class="list" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}">
+      <router-link tag="div" class="list" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}" :key="index">
         <div class="list_img">
           <span>Loading</span>
           <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo"  container="#vux_view_box_body"></x-img>
@@ -84,7 +84,7 @@
         'democracyNewsTotal',
 
 
-        'errorNewsMsg',
+        'errorAnNewsMsg',
 
         'policyNewsScrollTop',
         'deedsNewsScrollTop',
@@ -131,7 +131,7 @@
     },
     name: "announcement",
     watch: {
-      errorNewsMsg: function (value) {
+      errorAnNewsMsg: function (value) {
         this.$vux.toast.text(value, 'middle')
       },
       policyNewsList: function (value) {
@@ -440,26 +440,15 @@
   padding-top: 2.3rem;
   padding-bottom: 2rem;
   .yo-scroll {
-    top: 4.6rem;
+    top: 5rem;
   }
   .list {
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: .75rem;
     box-sizing: border-box;
     background-color: #fff;
     position: relative;
-    margin-top: 10px;
-    &:before{
-      content: '';
-      position: absolute;
-      top:0;
-      left:0;right: 0;height: 1px;
-      color:rgb(217, 217, 217);
-      transform-origin: 0px 0px 0px;
-      transform: scaleY(0.5);
-      border-top:1px solid rgb(217, 217, 217);
-    }
     &:after{
       content:'';
       position: absolute;
@@ -467,17 +456,17 @@
       right:0;
       bottom: 0;
       height: 1px;
-      color:rgb(217, 217, 217);
+      color:#d9d9d9;
       transform-origin: 0px 100% 0px;
       transform: scaleY(0.5);
-      border-bottom: 1px solid rgb(217, 217, 217);
+      border-bottom: 1px solid #d9d9d9;
     }
     .list_img{
-      width: 3rem;
-      height: 3rem;
-      line-height: 3rem;
+      width: 4.625rem;
+      height: 2.75rem;
+      line-height: 2.75rem;
       text-align: center;
-      margin-right: .8em;
+      margin-right: .4em;
       .ximg-demo {
         width: 100%;
         height: 100%;
@@ -489,15 +478,17 @@
       .list_title{
         width: auto;
         font-weight:400;
-        font-size: 14px;
+        font-size: .6rem;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
       .list_time{
-        color:#999;
-        font-size: 13px;
+        color:#333;
+        font-size: 0.425rem;
         line-height: 1.2;
+        margin-top: .5rem;
       }
     }
   }

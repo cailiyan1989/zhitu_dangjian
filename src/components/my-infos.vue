@@ -52,20 +52,20 @@
     },
     filters: {
       filterSex(value) {
-        if (value == 0) {
+        if (value == 1) {
           return '女'
-        } else if (value == 1) {
+        } else if (value == 0) {
           return '男'
         }
       },
       filterStatus(value) {
-        if(value == 1) {
+        if(value == 0) {
           return '党员'
-        } else if (value == 2) {
+        } else if (value == 1) {
           return '预备党员'
-        } else if (value == 3) {
+        } else if (value == 2) {
           return '共青团员'
-        } else if (value == 4) {
+        } else if (value == 3) {
           return '群众'
         }
       }
@@ -73,6 +73,7 @@
     computed: {
       ...mapGetters([
         'otherInfo',
+        
         'errorMemberMsg'
       ])
     },
@@ -198,6 +199,9 @@
 <style lang="less">
   @import '../common/style/uploadImg.less';
   .my-infos{
+    .weui-cells{
+      margin-top: .7rem;
+    }
     .headImg {
       .show {
         width: 2rem;

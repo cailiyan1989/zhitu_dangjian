@@ -24,6 +24,8 @@
     computed: {
       ...mapGetters([
         'userInfo',
+
+        'errorMemberMsg'
       ])
     },
     watch: {
@@ -34,6 +36,9 @@
             if (item.id == id) this.username = item.realname
           }
         }
+      },
+      errorMemberMsg: function(val) {
+        this.$vux.toast.text(val,'middle')
       }
     },
     data() {
