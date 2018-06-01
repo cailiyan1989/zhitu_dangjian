@@ -70,6 +70,10 @@
           }
           api.get_password_change(data).then((res) => {
             if (res.code == 1) {
+              _this.oldPassword = ''
+              _this.newPassword = ''
+              _this.confirmPassword = ''
+              
               _this.$vux.toast.show({
                 text: '密码修改成功',
                 onHide() {

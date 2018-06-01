@@ -88,19 +88,20 @@
         this.$vux.toast.text(value, 'middle')
 
       },
-      otherInfo: function (val) {
+      userInfo: function (val) {
         if (val) {
           let id = window.localStorage.getItem('user')
           for (let item of val) {
             if (item.id == id) this.myInfo = item
           }
           window.localStorage.setItem('department',this.myInfo.department_id)
-          window.localStorage.set('username', this.myInfo.username);
+          window.localStorage.setItem('username', this.myInfo.username);
         }
       }
     },
     created() {
-      this.$store.dispatch('getUserInfo');
+      let id = window.localStorage.getItem('user')
+      this.$store.dispatch('getUserInfo', {id: id});
     },
     mounted() {
       //初始化这个裁剪框

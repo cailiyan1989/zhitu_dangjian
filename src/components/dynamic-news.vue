@@ -409,6 +409,7 @@
         line-height: 2.75rem;
         text-align: center;
         margin-right: .4em;
+        font-size: .7rem;
         .ximg-demo {
           width: 100%;
           height: 100%;

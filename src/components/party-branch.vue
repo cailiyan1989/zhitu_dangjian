@@ -18,18 +18,16 @@
     },
     watch: {
       branch: function (val) {
-        let id = window.localStorage.getItem('department')
-        for (let item of val) {
-          if (item.id == id) this.department = item
-          break;
-        }
+        this.department = val
       },
       errorMemberMsg: function(val) {
         this.$vux.toast.text(val,'middle')
       }
     },
     created() {
-      this.$store.dispatch('getBranchInfo')
+      let id = window.localStorage.getItem('department')
+      
+      this.$store.dispatch('getBranchInfo', {id: id})
     },
     name: "party-branch",
     data() {

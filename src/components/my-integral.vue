@@ -12,9 +12,9 @@
     </div>
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="messageID">
       <div class="integral-item" v-for="(item,index) in currentMessage" :key="index">
-        <span class="create_time">{{item.create_time}}</span>
+        <!-- <span class="create_time">{{item.create_time}}</span> -->
         <group>
-          <cell v-for="(int,i) in item.integrals" :key="i" :title="int.title" :value="int.sum"></cell>
+          <cell title="美文阅读" :value="'+'+item.score" :inline-desc="item.create_time"></cell>
         </group>
       </div>
     </v-scroll>
@@ -57,16 +57,18 @@
           if (item.id == id) this.myScore = item
         }
       },
-      integralList: function (value) {
-        // this.currentMessage = value;
+      integralDetails: function (value) {
+        this.currentMessage = value;
       },
       errorMessageMsg: function(value) {
         this.$vux.toast.text(value,'middle')
       }
     },
     created() {
+      let id = window.localStorage.getItem('user')
+
       this.$store.dispatch('getMyIntegral')
-      this.$store.dispatch('getIntegralDetail')
+      this.$store.dispatch('getIntegralDetail', {id: id})
     },
     mounted() {
       this.$nextTick(() => {
@@ -79,7 +81,7 @@
       return {
         // src: require('../common/image/findBg.png'),
         myScore:{},
-        currentMessage: [{create_time:'2018-5-15',integrals:[{title:'每日签到',sum:'+1'}]},{create_time:'2018-5-15',integrals:[{title:'每日签到',sum:'+1'},{title:'美文阅读',sum:'+2'}]}],//当前项目消息列表,
+        currentMessage: [],//当前项目消息列表,
         //下拉刷新和上拉加载数据字段
         counter: 1, //当前页
         num: 10, // 一页显示多少条
@@ -95,7 +97,9 @@
 
       },
       onRefresh(done) {
-        this.$store.dispatch('getIntegralDetail')
+        let id = window.localStorage.getItem('user')
+
+        this.$store.dispatch('getIntegralDetail', {id: id})
         this.counter = 1
         done(); // call done
       },
@@ -104,8 +108,9 @@
         let end = this.num * this.counter;
         let i = end - this.num;
         let more = this.$el.querySelector('.load-more')
+        let id = window.localStorage.getItem('user')
 
-        this.$store.dispatch('getIntegralDetail', { page: this.counter }).then(() => {
+        this.$store.dispatch('getIntegralDetail', { page: this.counter, id: id }).then(() => {
           for (i; i < end; i++) {
             if (i >= this.integralTotal) {
               more.style.display = 'none'; //隐藏加载条
@@ -162,7 +167,7 @@
       }
     }
     .yo-scroll{
-      top:9rem;
+      top: 10rem;
     }
     .integral-item {
       margin-bottom: .7rem;
@@ -175,7 +180,10 @@
         padding: .2rem;
       }
       .weui-cells{
-        margin-top: .3rem;
+        margin-top: .7rem;
+      }
+      .vux-label-desc{
+        font-size: .6rem
       }
     }
   }

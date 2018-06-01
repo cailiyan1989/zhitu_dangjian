@@ -121,7 +121,7 @@ export default {
   },
   //获取党支部
   get_branch_info(params) {
-    return fetch('/admin/index.php/base/company/index',params, 'post')
+    return fetch('/admin/index.php/base/company/view',params, 'post')
   },
   //我的积分
   get_integral_list(params) {

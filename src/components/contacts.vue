@@ -66,7 +66,7 @@
         
        this.$router.push({name:'PersonInfos',params:{personid:item.id}});
       },
-      getResult :_.debounce(function(val){
+      getResult :_.debounce(function(val) {
         this.results = []
 
         if (val !== '') {

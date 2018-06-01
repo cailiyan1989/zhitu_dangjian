@@ -49,22 +49,24 @@ const mutations = {
     if (res.code == 0) {
       state.errorMessageMsg = res.msg
     } else {
-      if (res.data.data.length !==0 && res.data.current_page !== 1) {
-        let end = res.data.current_page * 10
-        let start = end - 10
-        for(start; start < end; start++) {
-          if(start < res.data.total) {
-            let newIndex = start % 10;
-            state.integralDetails.push(res.data.data[newIndex])
-          }
-        }
-      } else if (res.data.current_page == 1 && res.data.data.length !==0) {
-        state.integralDetails = res.data.data
-        state.integralTotal = res.data.total
-      } else if (res.data.current_page == 1 && res.data.total == 0) {
-        state.integralDetails = res.data.data
-        state.integralTotal = res.data.total
-      }
+      state.integralDetails = res.data
+      state.integralTotal = res.data.length
+      // if (res.data.data.length !==0 && res.data.current_page !== 1) {
+      //   let end = res.data.current_page * 10
+      //   let start = end - 10
+      //   for(start; start < end; start++) {
+      //     if(start < res.data.total) {
+      //       let newIndex = start % 10;
+      //       state.integralDetails.push(res.data.data[newIndex])
+      //     }
+      //   }
+      // } else if (res.data.current_page == 1 && res.data.data.length !==0) {
+      //   state.integralDetails = res.data.data
+      //   state.integralTotal = res.data.total
+      // } else if (res.data.current_page == 1 && res.data.total == 0) {
+      //   state.integralDetails = res.data.data
+      //   state.integralTotal = res.data.total
+      // }
     }
   },
 

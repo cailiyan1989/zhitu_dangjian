@@ -208,8 +208,8 @@
           _this.showLoading = true
 
           let data = {
-            poster: '党员',
-            message: _this.postMessages
+            realname: '党员',
+            content: _this.postMessages
           }
 
           let author_uid = window.localStorage.getItem('user')

@@ -11,38 +11,38 @@
               <swipeout-button @click.native="deleteItem(item)" type="warn">删除</swipeout-button>
             </div>
             <div slot="content" class="find_list" :key="index">
-              <div class="find_user"><img src="../common/image/logo.jpg" alt=""></div>
+              <div class="find_user"><img src="../common/image/head.png" alt=""></div>
               <div class="find_list_content">
                 <div class="list_header">
-                  <span class="list_poster">{{item.user}}</span>
+                  <span class="list_poster">{{item.realname}}</span>
                   <span class="list_date">{{item.create_time}}</span>
                 </div>
                 <div class="list_body">
                   <div class="list_title">{{item.content}}</div>
                   <div class="list_imgs">
-                    <img :src="imgBase+item.img" alt="" :key="index">
+                    <img v-for="(src,index) of item.img"  :src="imgBase+src" alt="" :key="index">
                   </div>
                 </div>
                 <div class="list_footer">
                   <div class="like">
                     <i class="iconfont" :class="item.isLiked?'icon-dianzanjihuob':'icon-dianzanb'" @click="liking(item)"></i>
-                    <span>{{item.isLikedNum}}</span>
+                    <span>{{item.like || 0}}</span>
                   </div>
                   <div class="comment">
                     <i class="iconfont icon-liaotian" @click="commented(item)"></i>
-                    <span>{{item.comments}}</span>
+                    <span>{{item.comments || 0}}</span>
                     <div v-transfer-dom>
                       <popup v-model="isComment" position="bottom" max-height="50%" should-scroll-top-on-show>
                         <group>
-                          <cell v-for="(comment, index) in currentComments" :key="index" :title="comment.poster">
-                            <p slot="after-title" class="vux-label-desc">{{comment.message}}</p>
+                          <cell v-for="(comment, index) in currentComments" :key="index" :title="comment.realname">
+                            <p slot="after-title" class="vux-label-desc">{{comment.content}}</p>
                           </cell>
                         </group>
                         <group>
-                          <x-input placeholder="评价" v-model="postMessages" @on-enter="submit"></x-input>
+                          <x-input placeholder="评论" v-model="postMessages" @on-enter="submit(clickedComment)"></x-input>
                         </group>
                         <div style="padding: 15px;">
-                          <x-button @click.native="submit" :show-loading="showLoading" plain type="primary">发送</x-button></div>
+                          <x-button @click.native="submit(clickedComment)" :show-loading="showLoading" plain type="primary">发送</x-button></div>
                       </popup>
                     </div>
                   </div>
@@ -81,6 +81,8 @@
         'userLists',
         'userFindsTotal',
 
+        'commentList',
+
         'errorTaskMsg',
 
         'scrollTop'
@@ -92,6 +94,9 @@
       },
       userLists: function (value) {
         this.workList = value
+      },
+      commentList: function (val) {
+        this.currentComments = val
       }
     },
     name: "my-find",
@@ -107,7 +112,8 @@
         currentComments: [],
         showLoading:false,
         postMessages:'',
-        imgBase:'data:image/png;'
+        imgBase:'data:image/png;',
+        clickedComment:null
       }
     },
     mounted() {
@@ -170,26 +176,26 @@
         done();
       },
       liking(item){
-        item.isLiked = !item.isLiked
-        if (item.isLiked) {
-          this.$vux.toast.text('已点赞', 'middle')
-          item.isLikedNum = Number(item.isLikedNum)+1
-        } else {
-          this.$vux.toast.text('已取消', 'middle')
-          item.isLikedNum = Number(item.isLikedNum)-1
-        }
-        api.isLiking({ isLiked: item.isLiked,isLikedNum: item.isLikedNum}).then(res => {
-          if(res.code == 1){
+        // item.isLiked = !item.isLiked
+        // if (item.isLiked) {
+        //   this.$vux.toast.text('已点赞', 'middle')
+        //   item.isLikedNum = Number(item.isLikedNum)+1
+        // } else {
+        //   this.$vux.toast.text('已取消', 'middle')
+        //   item.isLikedNum = Number(item.isLikedNum)-1
+        // }
 
-          } else {
-
-          }
+        let author_uid = window.localStorage.getItem('user')
+        api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
+          console.log(res)
         })
       },
       commented(item) {
         this.isComment = true
 
-        this.currentComments = item.comments
+        this.clickedComment = item.id
+
+        this.$store.dispatch('getCommentList',{id: item.id});
       },
       deleteItem(item) {
         //请求接口
@@ -218,7 +224,7 @@
         // })
 
       },
-      submit() {
+      submit(commentid) {
         if (this.postMessages == '') {
           this.$vux.toast.text('请发表评论', 'middle')
         } else {
@@ -227,14 +233,16 @@
           _this.showLoading = true
 
           let data = {
-            poster: '党员',
-            message: _this.postMessages
+            realname: '党员',
+            content: _this.postMessages
           }
-          api.add_comment(data).then(res => {
+
+          let author_uid = window.localStorage.getItem('user')
+          api.add_comment({id: commentid, author_uid: author_uid, comment:_this.postMessages}).then(res => {
             if(res.code == 1) {
               _this.showLoading = false
 
-              _this.currentComments.push(data)
+              // _this.currentComments.push(data)
 
               _this.isComment = false
 
