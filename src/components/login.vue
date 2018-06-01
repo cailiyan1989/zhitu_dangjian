@@ -155,7 +155,7 @@
       color: #000;
     }
     .head {
-      padding: 4.65rem 1rem 2.2875rem;
+      padding: 3.65rem 1rem 2.2875rem;
       display: flex;
       justify-content: center;
       img{
@@ -239,8 +239,8 @@
       justify-content: flex-end;
       .forget_icon{
         display: inline-block;
-        width: 13px;
-        height: 13px;
+        width: 0.65rem;
+        height: 0.65rem;
         margin-right: .4875rem;
         background: url('../common/image/wangji.png') no-repeat;
         background-size: 100% 100%;

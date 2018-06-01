@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="height:100%;">
+  <div id="app" style="height:100vh;">
     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px" :class="{'hide':$route.path=='/login'}">
       <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;background-color:#c50000;" :left-options="leftOptions" :title="title" :transition="headerTransition"></x-header>
       <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
@@ -132,7 +132,7 @@ export default {
 
   .weui-btn {
     margin-top: 20%;
-    font-size: .8rem !important;
+    font-size: .7rem !important;
   }
   .weui-tabbar__item {
     &.weui-bar__item_on {
@@ -143,6 +143,18 @@ export default {
       }
     }
   }
+
+  // .weui-tabbar__icon {
+  //   width: 1.35rem !important;
+  //   height: 1.35rem !important;
+  // }
+  // i.weui-tabbar__icon, 
+  // .weui-tabbar__icon > i{
+  //   font-size: 1.2rem !important;
+  // }
+  // .weui-tabbar__label{
+  //   font-size: .5rem !important;
+  // }
 
   .router-view {
     width: 100%; // padding-bottom: 55px;
@@ -157,5 +169,11 @@ export default {
     .vux-tab-item {
       line-height: 2.3rem !important;
     }
+    .vux-tab-ink-bar{
+      display: none !important;
+    }
+  }
+  .vux-tab-container{
+    height: 2.3rem !important;
   }
 </style>

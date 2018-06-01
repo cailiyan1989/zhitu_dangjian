@@ -225,6 +225,9 @@
         }
       }
     }
+    .weui-cell__hd{
+      font-size: .7rem;
+    }
     .weui-cell__ft{
       font-size: .6rem;
     }

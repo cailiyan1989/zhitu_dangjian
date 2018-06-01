@@ -167,7 +167,7 @@
       }
     }
     .yo-scroll{
-      top: 10rem;
+      top:180px;
     }
     .integral-item {
       margin-bottom: .7rem;

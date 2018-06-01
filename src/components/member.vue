@@ -83,6 +83,11 @@
         'errorMemberMsg'
       ])
     },
+    activated() {
+      this.userInfo.forEach(item => {
+      
+      });
+    },
     watch: {
       errorMemberMsg: function (value) {
         this.$vux.toast.text(value, 'middle')

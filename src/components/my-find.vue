@@ -14,7 +14,7 @@
               <div class="find_user"><img src="../common/image/head.png" alt=""></div>
               <div class="find_list_content">
                 <div class="list_header">
-                  <span class="list_poster">{{item.realname}}</span>
+                  <span class="list_poster">{{username}}</span>
                   <span class="list_date">{{item.create_time}}</span>
                 </div>
                 <div class="list_body">
@@ -102,6 +102,7 @@
     name: "my-find",
     data() {
       return {
+        username:'',
         counter: 1, //当前页
         num: 10, //一页显示多少条数据，
         workList: [], //下拉更新数据存放数组
@@ -130,6 +131,8 @@
         this.box.scrollTop = this.scrollTop
       }, 100)
       this.$store.dispatch('getUserList')
+
+      this.username =window.localStorage.getItem('username');
     },
     methods: {
       handler() {

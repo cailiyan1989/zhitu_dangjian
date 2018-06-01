@@ -99,7 +99,6 @@
 <style lang="less">
   @import '~vux/src/styles/center.less';
   .announcement-cate{
-    margin-top: 2.3rem;
     .box {
       padding: 15px;
     }
@@ -111,7 +110,6 @@
       position: fixed;
       z-index: 10;
       width: 100%;
-      margin-top: -2.3rem;
     }
   }
 </style>

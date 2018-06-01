@@ -42,5 +42,12 @@
 </script>
 
 <style lang="less">
-
+.settings {
+  .weui-cells{
+    margin-top: .7rem;
+  }
+  .vux-cell-bd {
+    font-size: .7rem;
+  }
+}
 </style>
