@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 8000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.headers.post['x-requested-with'] = 'xmlhttprequest';//ajax请求
 axios.defaults.headers.get['x-requested-with'] = 'xmlhttprequest';//ajax请求

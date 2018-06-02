@@ -53,21 +53,19 @@ const mutations = {
       state.findsLists = []
       state.findsTotal = 0
     } else {
-      state.findsLists = res.data
-      state.findsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !== 1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for (start; start < end; start++) {
-      //     if(start < res.data.total) {
-      //       let newIndex = start % 10;
-      //       state.findsLists.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if (res.data.current_page == 1) {
-      //   state.findsLists = res.data.data
-      //   state.findsTotal = res.data.total
-      // }
+      if (res.data.data.length !== 0 && res.data.current_page !== 1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for (start; start < end; start++) {
+          if(start < res.data.total) {
+            let newIndex = start % 10;
+            state.findsLists.push(res.data.data[newIndex])
+          }
+        }
+      } else if (res.data.current_page == 1) {
+        state.findsLists = res.data.data
+        state.findsTotal = res.data.total
+      }
     }
   },
   [types.GET_USER_LIST](state, res) {
@@ -76,21 +74,19 @@ const mutations = {
       state.userLists = []
       state.userFindsTotal = 0
     } else {
-      state.userLists = res.data
-      state.userFindsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !== 1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for (start; start < end; start++) {
-      //     if(start < res.data.total) {
-      //       let newIndex = start % 10;
-      //       state.userLists.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if (res.data.current_page == 1) {
-      //   state.userLists = res.data.data
-      //   state.userFindsTotal = res.data.total
-      // }
+      if (res.data.data.length !== 0 && res.data.current_page !== 1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for (start; start < end; start++) {
+          if(start < res.data.total) {
+            let newIndex = start % 10;
+            state.userLists.push(res.data.data[newIndex])
+          }
+        }
+      } else if (res.data.current_page == 1) {
+        state.userLists = res.data.data
+        state.userFindsTotal = res.data.total
+      }
     }
   },
   [types.GET_COMMENT](state, res) {

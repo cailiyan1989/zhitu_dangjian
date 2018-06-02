@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="height:100vh;">
+  <div id="app" style="height:100%;">
     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px" :class="{'hide':$route.path=='/login'}">
       <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;background-color:#c50000;" :left-options="leftOptions" :title="title" :transition="headerTransition"></x-header>
       <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
@@ -131,7 +131,6 @@ export default {
   }
 
   .weui-btn {
-    margin-top: 20%;
     font-size: .7rem !important;
   }
   .weui-tabbar__item {

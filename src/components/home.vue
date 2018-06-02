@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <swiper loop auto height="9rem" :list="banner_list" :index="banner_index" @on-index-change="banner_onIndexChange"></swiper>
+    <swiper loop auto :aspect-ratio="361/750" :list="banner_list" :index="banner_index" @on-index-change="banner_onIndexChange"></swiper>
     <grid :cols="4">
       <grid-item label="党政公告" link="/dynamic/dynamic-news?category=notice">
         <img slot="icon" src="../common/image/gonggao2.png" />

@@ -50,7 +50,7 @@
     name: "my-exam",
     data() {
       return {
-        currentExam: [{title:'考试一',create_time:'2018-5-21',sum:'100',my_sum:'90',status:'200'}],
+        currentExam: [],
         counter: 1, //当前页
         num: 10, // 一页显示多少条
         scrollData: {

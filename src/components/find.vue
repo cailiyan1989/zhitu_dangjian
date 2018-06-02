@@ -35,28 +35,27 @@
               <div class="comment">
                 <i class="iconfont icon-liaotian" @click="commented(item)"></i>
                 <span>{{item.comments || 0}}</span>
+                <div v-transfer-dom>
+                    <popup v-model="isComment" position="bottom" height="50%" should-scroll-top-on-show>
+                      <group class="postComment">
+                        <x-input class="postMsg weui-vcode" placeholder="评论" v-model="postMessages" @on-enter="submit(clickedComment)" ref="postmessage">
+                          <x-button slot="right" @click.native="submit(clickedComment)" :show-loading="showLoading" plain type="primary" mini>发送</x-button>
+                        </x-input>
+                      </group>
+                      <div class="comment-title">评论专区</div>
+                      <group class="commentMsg">
+                        <cell v-for="(comment, index) in currentComments" :key="index" :title="comment.realname" align-items="flex-start" :value="item.create_time">
+                          <p slot="after-title" class="vux-label-desc">{{comment.content}}</p>
+                        </cell>
+                      </group>
+                    </popup>
+                  </div>
               </div>
             </div>
           </div>
         </div>
       </template>
     </v-scroll>
-    <div v-transfer-dom> 
-      <div class="comment-parent" v-show="isComment">
-        <div class="comment-title">评论专区</div>
-        <group class="commentMsg">
-          <cell v-for="(comment, index) in currentComments" :key="index" :title="comment.realname">
-            <p slot="after-title" class="vux-label-desc">{{comment.content}}</p>
-          </cell>
-        </group>
-        <group class="postComment">
-          <x-input class="postMsg weui-vcode" placeholder="评论" v-model="postMessages" @on-focus="scrollContent" @on-blur="clearSrcoll" @on-enter="submit(clickedComment)" ref="postmessage">
-            <x-button slot="right" @click.native="submit(clickedComment)" :show-loading="showLoading" plain type="primary" mini>发送</x-button>
-          </x-input>
-        </group>
-      </div>   
-    </div>
-    <a class="popup-mask" href="javascript:void(0)" @click.prevent="hideComment"></a>
     <router-link tag="div" to="/find/my/add" class="create_find">
       <div></div>
       <i class="iconfont icon-tianjia"></i>
@@ -66,9 +65,10 @@
 
 <script>
   import VScroll from './pull-refresh'
-  import { TransferDom,  Popup, Group, Cell, XButton, XInput } from 'vux'
+  import { TransferDom,  Popup, Group, Cell, XButton, XInput} from 'vux'
   import { mapGetters } from 'vuex'
   import api from '../fetch/api'
+  import { setTimeout } from 'timers';
   export default {
     directives: {
       TransferDom
@@ -136,6 +136,12 @@
       }, 100)
       this.$store.dispatch('getFindsList')
     },
+    filters: {
+      fmtDate(time) {
+        let date = new Date(time)
+        return fmtDate(date, 'yyyy-MM-dd')
+      }
+    },
     methods: {
       handler() {
         this.box = document.querySelector('#findsID')
@@ -200,45 +206,6 @@
         this.clickedComment = item.id
 
         this.$store.dispatch('getCommentList',{id: item.id});
-
-        this.popup = this.$el.querySelector('.popup-mask');
-        this.popup.style.zIndex = '500';
-        this.classVal = this.popup.getAttribute('class');
-        this.classVal += ' popup-show';
-        this.popup.setAttribute('class', this.classVal);
-      },
-      hideComment() {
-        this.isComment = false
-
-        this.popup = this.$el.querySelector('.popup-mask');
-        
-        this.classVal = this.popup.getAttribute('class');
-        this.classVal = 'popup-mask'
-        this.popup.setAttribute('class', this.classVal);
-
-        this.popup.style.zIndex = '-1';
-      },
-      updateHeight(event) {
-        console.log(event.currentTarget)
-        let that = event.currentTarget;
-        setTimeout(function(){
-          that.scrollIntoView(true);
-          that.scrollIntoViewIfNeeded();
-          // alert('scrollIntoViewIfNeeded');
-        },400);
-      },
-      scrollContent() {
-        this.interval = setInterval(() => {
-            this.scrollToEnd();
-        }, 500)
-      },
-      scrollToEnd() {
-          document.documentElement.scrollTop = (parseInt(document.body.scrollHeight)-50)+'px';;
-          console.log(document.body.scrollHeight)
-          console.log(document.documentElement.scrollTop)
-      },
-      clearSrcoll() {
-          clearInterval(this.interval);
       },
       submit(commentid) {
         if (this.postMessages == '') {
@@ -271,7 +238,8 @@
 
           })
         }
-      }
+      },
+      
     }
   }
 </script>
@@ -432,77 +400,54 @@
         position: relative;
       }
     }
-  
   }
   .vux-popup-dialog{
-    background: #fff;
+    background-color: #fff !important;
     border-top-left-radius:.4rem;
     border-top-right-radius: .4rem;
-  }
-  .comment-parent{
-    width: 100%;
-    height: 60%;
-    background-color: #fff;
-    border-top-left-radius:.4rem;
-    border-top-right-radius: .4rem;
-    box-shadow: 0px -3px 10px #333;
-    margin:0 auto;
-    padding-top:.5rem;
-    position: fixed;
-    bottom:0;
-    z-index: 501;
-    .comment-title{
-      font-size: .7rem;
-      position: absolute;
-      top:0.5rem;
-      left:.7rem;
-      right:0;
-      z-index: 100;
-    }
-    .weui-cells{
+    .weui-cells {
+      margin: 0;
       font-size: .8rem;
-      margin-top: 0;
-    }
-    .commentMsg{
-      position: absolute;
-      top:1.5rem;
-      right: 0;left:0;
-      bottom:2.3rem;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
     }
     .postComment{
       box-sizing: border-box;
-      position: fixed;
-      bottom: 0;
+      position: absolute;
+      top: .5rem;
       width: 100%;
       box-shadow: 0px -3px 10px #333;
       background: #fff;
       border-top-left-radius: .4rem;
       border-top-right-radius: .4rem;
       z-index: 10;
+      .weui-cells {
+        border-top-left-radius: .4rem;
+        border-top-right-radius: .4rem;
+      }
+    }
+    .comment-title{
+      font-size: .7rem;
+      position: absolute;
+      top:3.5rem;
+      left:.7rem;
+      right:0;
+      z-index: 100;
+    }
+    .commentMsg{
+      position: absolute;
+      top:4.5rem;
+      right: 0;left:0;
+      bottom:.5rem;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
     }
     .vux-label {
       font-size: .8rem;
       color: #000;
     }
-    .vux-label-desc {
+    .vux-label-desc,
+    .weui-cell__ft {
       font-size: .7rem;
     }
   }
-  .popup-mask{
-    display: block;
-    position: fixed;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    z-index: -1;
-    transition: opacity 400ms;
-    &.popup-show{
-      opacity: 1;
-    }
-  }
+  
 </style>

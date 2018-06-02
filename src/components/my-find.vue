@@ -32,17 +32,18 @@
                     <i class="iconfont icon-liaotian" @click="commented(item)"></i>
                     <span>{{item.comments || 0}}</span>
                     <div v-transfer-dom>
-                      <popup v-model="isComment" position="bottom" max-height="50%" should-scroll-top-on-show>
-                        <group>
-                          <cell v-for="(comment, index) in currentComments" :key="index" :title="comment.realname">
+                      <popup v-model="isComment" position="bottom" height="50%" should-scroll-top-on-show>
+                        <group class="postComment">
+                          <x-input class="postMsg weui-vcode" placeholder="评论" v-model="postMessages" @on-enter="submit(clickedComment)" ref="postmessage">
+                            <x-button slot="right" @click.native="submit(clickedComment)" :show-loading="showLoading" plain type="primary" mini>发送</x-button>
+                          </x-input>
+                        </group>
+                        <div class="comment-title">评论专区</div>
+                        <group class="commentMsg">
+                          <cell v-for="(comment, index) in currentComments" :key="index" :title="comment.realname" align-items="flex-start" :value="item.create_time">
                             <p slot="after-title" class="vux-label-desc">{{comment.content}}</p>
                           </cell>
                         </group>
-                        <group>
-                          <x-input placeholder="评论" v-model="postMessages" @on-enter="submit(clickedComment)"></x-input>
-                        </group>
-                        <div style="padding: 15px;">
-                          <x-button @click.native="submit(clickedComment)" :show-loading="showLoading" plain type="primary">发送</x-button></div>
                       </popup>
                     </div>
                   </div>
@@ -369,4 +370,52 @@
     }
   }
 }
+.vux-popup-dialog{
+    background-color: #fff !important;
+    border-top-left-radius:.4rem;
+    border-top-right-radius: .4rem;
+    .weui-cells {
+      margin: 0;
+      font-size: .8rem;
+    }
+    .postComment{
+      box-sizing: border-box;
+      position: absolute;
+      top: .5rem;
+      width: 100%;
+      box-shadow: 0px -3px 10px #333;
+      background: #fff;
+      border-top-left-radius: .4rem;
+      border-top-right-radius: .4rem;
+      z-index: 10;
+      .weui-cells {
+        border-top-left-radius: .4rem;
+        border-top-right-radius: .4rem;
+      }
+    }
+    .comment-title{
+      font-size: .7rem;
+      position: absolute;
+      top:3.5rem;
+      left:.7rem;
+      right:0;
+      z-index: 100;
+    }
+    .commentMsg{
+      position: absolute;
+      top:4.5rem;
+      right: 0;left:0;
+      bottom:.5rem;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+    .vux-label {
+      font-size: .8rem;
+      color: #000;
+    }
+    .vux-label-desc,
+    .weui-cell__ft {
+      font-size: .7rem;
+    }
+  }
 </style>
