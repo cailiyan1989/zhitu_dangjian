@@ -57,7 +57,7 @@ export function fetch(url, params, method,config) {
 
 export default {
   isLogin(params) {
-    return fetch('/admin/login/is_login', params, 'post')
+    return fetch('/admin/index.php/base/login/is_login', params, 'post')
   },
   login(params) {
     return fetch('/admin/index.php/base/login/index', params, 'post');

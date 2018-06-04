@@ -1,7 +1,7 @@
 <template>
 <div class="personal">
   <group>
-    <cell v-for="(item,index) of lists" :key="index" :title="item.realname" :inline-desc="item.job" :link="{name:'PersonInfos',params:{personid:item.id}}">
+    <cell v-for="(item,index) of lists" :key="index" :title="item.realname" :inline-desc="item.job">
       <img slot="icon" width="30" style="display:block;margin-right:5px;" src="../common/image/head.png">
     </cell>
   </group>

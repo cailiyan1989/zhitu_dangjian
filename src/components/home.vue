@@ -5,7 +5,7 @@
       <grid-item label="党政公告" link="/dynamic/dynamic-news?category=notice">
         <img slot="icon" src="../common/image/gonggao2.png" />
       </grid-item>
-      <grid-item label="党员学习" link="/dynamic/dynamic-news?category=learn">
+      <grid-item label="基层党建" link="/dynamic/dynamic-news?category=learn">
         <img slot="icon" src="../common/image/xuexi2.png" />
       </grid-item>
       <grid-item label="百姓心声" link="/dynamic/dynamic-news?category=people">

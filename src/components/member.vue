@@ -21,18 +21,18 @@
       <cell title="我的积分" :link="{path:'/member/my/integral'}">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/jifen.png">
       </cell>
-      <cell title="我的考试" :link="{path:'/member/my/exam'}">
+      <!-- <cell title="我的考试" :link="{path:'/member/my/exam'}">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/kaoshi.png">
       </cell>
       <cell title="党费缴纳" :link="{path:'/member/party/fees'}">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/dangfei.png">
-      </cell>
+      </cell> -->
     </group>
-    <group>
+    <!-- <group>
       <cell title="通讯录" :link="{path:'/member/contacts'}">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/tongxun.png">
       </cell>
-    </group>
+    </group> -->
 
     <group>
       <cell title="设置" :link="{path:'/member/settings'}">

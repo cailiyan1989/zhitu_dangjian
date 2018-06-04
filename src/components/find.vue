@@ -29,12 +29,12 @@
             </div>
             <div class="list_footer">
               <div class="like">
-                <i class="iconfont" :class="item.like?'icon-dianzanjihuob':'icon-dianzanb'" @click="liking(item)"></i>
+                <i class="iconfont" :class="item.is_like ? 'icon-dianzanjihuob' : 'icon-dianzanb'"  @click="liking(item)"></i>
                 <span>{{item.like || 0}}</span>
               </div>
               <div class="comment">
                 <i class="iconfont icon-liaotian" @click="commented(item)"></i>
-                <span>{{item.comments || 0}}</span>
+                <!-- <span>{{item.comments || 0}}</span> -->
                 <div v-transfer-dom>
                     <popup v-model="isComment" position="bottom" height="50%" should-scroll-top-on-show>
                       <group class="postComment">
@@ -187,17 +187,24 @@
         done();
       },
       liking(item){
-        // if (isLiked) {
-        //   this.$vux.toast.text('已点赞', 'middle')
-        //   item.isLikedNum = Number(item.like)+1
-        // } else {
-        //   this.$vux.toast.text('已取消', 'middle')
-        //   item.isLikedNum = Number(item.like)-1
-        // }
+        item.is_like = !item.is_like
+
+        if (item.is_like) {
+          this.$vux.toast.text('已点赞', 'middle')
+          if(!item.like) {
+            item.like = 1
+          } else {
+            item.like = Number(item.like) + 1
+          }
+        } else {
+          this.$vux.toast.text('已取消', 'middle')
+          item.like = Number(item.like) - 1
+        }
+      
         let author_uid = window.localStorage.getItem('user')
 
         api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
-          console.log(res)
+          // item.like = res.data[0].like  
         })
       },
       commented(item) {

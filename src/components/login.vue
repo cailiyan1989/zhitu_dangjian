@@ -55,22 +55,21 @@
     },
     name: "login",
     created() {
-      // api.isLogin().then(res => {
-      //   console.log(res);
-      //   if(res.code === 1) {
-      //     this.$store.dispatch('updateLoginStatus', {isLogin: true})
-      //     window.localStorage.removeItem('user')
-      //
-      //     window.localStorage.setItem('user', res.data.id)
-      //
-      //     this.$router.replace('/home');
-      //   } else if(res.code === 0) {
-      //     let username = cookie.getCookie('This is username');
-      //     this.username = username
-      //   }
-      // }).catch(err => {
-      //   console.log(err)
-      // })
+      api.isLogin().then(res => {
+        if(res.code === 1) {
+          this.$store.dispatch('updateLoginStatus', {isLogin: true})
+          window.localStorage.removeItem('user')
+      
+          window.localStorage.setItem('user', res.data.id)
+      
+          this.$router.replace('/home');
+        } else if(res.code === 0) {
+          let username = cookie.getCookie('This is username');
+          this.username = username
+        }
+      }).catch(err => {
+        console.log(err)
+      })
     },
     methods: {
       checkItem() {

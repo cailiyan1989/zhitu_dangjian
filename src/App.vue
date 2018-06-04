@@ -17,9 +17,9 @@
           <i slot="icon" class="iconfont icon-browse"></i>
           <span slot="label">发现</span>
         </tabbar-item>
-        <tabbar-item :selected="$route.path === '/announcement'" link="/announcement?status=policy">
+        <tabbar-item :selected="$route.path === '/contacts'" link="/contacts">
           <i slot="icon" class="iconfont icon-remind"></i>
-          <span slot="label">公告</span>
+          <span slot="label">通讯录</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/member'" link="/member">
           <i slot="icon" class="iconfont icon-account"></i>
@@ -69,7 +69,7 @@ export default {
     },
     leftOptions() {
       return {
-        showBack: this.$route.path !== '/home' && this.$route.path !== '/find' && this.$route.path !== '/member' && this.$route.path !== '/announcement'
+        showBack: this.$route.path !== '/home' && this.$route.path !== '/find' && this.$route.path !== '/member' && this.$route.path !== '/contacts'
       }
     },
     headerTransition() {
@@ -92,7 +92,7 @@ export default {
       if (this.$route.path === '/member/my/integral') return '积分明细'
       if (this.$route.path === '/member/my/exam') return '考试中心'
       if (this.$route.path === '/member/party/fees') return '党费缴纳'
-      if (this.$route.path === '/member/contacts') return '通讯录'
+      if (this.$route.path === '/contacts') return '通讯录'
       if (this.$route.path === '/member/settings') return '设置'
       if (this.$route.path === '/member/password/change') return '更改密码'
 

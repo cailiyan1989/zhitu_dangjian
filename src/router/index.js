@@ -102,6 +102,34 @@ export default new Router({
       }
     },
     {
+      path:'/contacts',
+      name: 'Contact',
+      component: resolve => require(['../components/contacts'], resolve),
+      meta: {
+        title: '通讯录',
+        requiresAuth: true
+      }
+    },
+    {
+      path:'/contacts/personnel/:partyid',
+      name:'Personnel',
+      component:resolve => require(['../components/personal-list'], resolve),
+      name: 'Personnel',
+      meta: {
+        title:'通讯录',
+        requiresAuth:true
+      }
+    },
+    {
+      path:'/contacts/infos/:personid',
+      name: 'PersonInfos',
+      component: resolve => require(['../components/my-infos'], resolve),
+      meta: {
+        title: '个人资料',
+        requiresAuth: true
+      }
+    },
+    {
       path: '/member',
       name: 'Member',
       component: resolve => require(['../components/member'], resolve),
@@ -153,34 +181,6 @@ export default new Router({
       mate: {
         title: '党费缴纳',
         requiresAuth:true
-      }
-    },
-    {
-      path:'/member/contacts',
-      name: 'Contact',
-      component: resolve => require(['../components/contacts'], resolve),
-      meta: {
-        title: '通讯录',
-        requiresAuth: true
-      }
-    },
-    {
-      path:'/member/contacts/personnel/:partyid',
-      name:'Personnel',
-      component:resolve => require(['../components/personal-list'], resolve),
-      name: 'Personnel',
-      meta: {
-        title:'通讯录',
-        requiresAuth:true
-      }
-    },
-    {
-      path:'/member/contacts/infos/:personid',
-      name: 'PersonInfos',
-      component: resolve => require(['../components/my-infos'], resolve),
-      meta: {
-        title: '个人资料',
-        requiresAuth: true
       }
     },
     {
