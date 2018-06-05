@@ -3,7 +3,7 @@
     <card>
       <div slot="header" class="detail_title">{{news.title}}</div>
       <div slot="content" class="card-padding">
-        <p class="detail_date"><span style="margin-right: 15px">{{news.create_time}}</span><span>{{news.realname}}</span></p>
+        <p class="detail_date"><span style="margin-right: 15px">{{news.create_time|fmtDate}}</span><span>{{news.realname}}</span></p>
         <p style="font-size:14px;line-height:1.2;padding: .4rem" v-html="news.content"></p>
       </div>
     </card>
@@ -13,6 +13,7 @@
 <script>
   import { Card } from 'vux'
   import { mapGetters } from 'vuex'
+  import {fmtDate} from '../filters/date.js'
   export default {
     components:{
       Card
@@ -57,6 +58,12 @@
     data() {
       return {
         news:{}   //详细动态
+      }
+    },
+    filters: {
+      fmtDate(time) {
+        let date = new Date(time)
+        return fmtDate(date, 'yyyy-MM-dd')
       }
     },
   }

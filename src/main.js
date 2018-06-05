@@ -26,7 +26,6 @@ FastClick.attach(document.body)
 // 注册全局过滤器
 filters(Vue)
 
-
 const history = window.sessionStorage
 
 history.clear()

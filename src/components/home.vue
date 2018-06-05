@@ -32,7 +32,7 @@
           </div>
           <div class="list_content">
             <div class="list_title">{{item.title}}</div>
-            <div class="list_time">{{item.create_time}}</div>
+            <div class="list_time">{{item.create_time|fmtDate}}</div>
           </div>
         </router-link>
       </template>
@@ -44,6 +44,7 @@
 <script>
   import { Swiper,SwiperItem,Grid, GridItem,Group, Cell, XImg, XButton} from 'vux'
   import { mapGetters } from 'vuex'
+  import {fmtDate} from '../filters/date.js'
   export default {
     components: {
       Swiper,
@@ -107,6 +108,12 @@
         // console.log('error load', msg, src)
         const span = ele.parentNode.querySelector('span')
         span.innerText = 'load error'
+      }
+    },
+    filters: {
+      fmtDate(time) {
+        let date = new Date(time)
+        return fmtDate(date, 'yyyy-MM-dd')
       }
     }
   }

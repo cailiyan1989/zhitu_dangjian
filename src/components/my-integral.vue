@@ -14,7 +14,7 @@
       <div class="integral-item" v-for="(item,index) in currentMessage" :key="index">
         <!-- <span class="create_time">{{item.create_time}}</span> -->
         <group>
-          <cell title="美文阅读" :value="'+'+item.score" :inline-desc="item.create_time"></cell>
+          <cell title="美文阅读" :value="'+'+item.score" :inline-desc="item.create_time|fmtDate"></cell>
         </group>
       </div>
     </v-scroll>
@@ -25,6 +25,7 @@
   import VScroll from './pull-refresh'
   import {XImg, Group, Cell} from 'vux'
   import { mapGetters } from 'vuex'
+  import {fmtDate} from '../filters/date.js'
   export default {
     components:{
       XImg,
@@ -88,6 +89,12 @@
         scrollData: {
           noFlag: false //暂无更多数据显示
         }
+      }
+    },
+    filters: {
+      fmtDate(time) {
+        let date = new Date(time)
+        return fmtDate(date, 'yyyy-MM-dd')
       }
     },
     methods: {

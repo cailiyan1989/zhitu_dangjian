@@ -15,12 +15,12 @@
               <div class="find_list_content">
                 <div class="list_header">
                   <span class="list_poster">{{username}}</span>
-                  <span class="list_date">{{item.create_time}}</span>
+                  <span class="list_date">{{item.create_time|fmtDate}}</span>
                 </div>
                 <div class="list_body">
                   <div class="list_title">{{item.content}}</div>
                   <div class="list_imgs">
-                    <img v-for="(src,index) of item.img"  :src="imgBase+src" alt="" :key="index">
+                    <img v-for="(src,index) of item.img"  :src="imgBase+src.slice(16)" alt="" :key="index">
                   </div>
                 </div>
                 <div class="list_footer">
@@ -62,6 +62,7 @@
   import { Swipeout, SwipeoutItem, SwipeoutButton, TransferDom,  Popup, Group, Cell, XButton, XInput } from 'vux'
   import api from '../fetch/api'
   import { mapGetters } from 'vuex'
+  import {fmtDate} from '../filters/date.js'
   export default {
     directives: {
       TransferDom
@@ -114,7 +115,7 @@
         currentComments: [],
         showLoading:false,
         postMessages:'',
-        imgBase:'data:image/png;',
+        imgBase:'http://yf.ztemap.com:8091/',
         clickedComment:null
       }
     },
@@ -134,6 +135,12 @@
       this.$store.dispatch('getUserList')
 
       this.username =window.localStorage.getItem('username');
+    },
+    filters: {
+      fmtDate(time) {
+        let date = new Date(time)
+        return fmtDate(date, 'yyyy-MM-dd')
+      }
     },
     methods: {
       handler() {
