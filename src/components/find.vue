@@ -24,7 +24,7 @@
             <div class="list_body">
               <div class="list_title">{{item.content}}</div>
               <div class="list_imgs">
-                  <img v-for="(src,index) of item.img"  :src="imgBase+src.slice(16)" alt="" :key="index">
+                  <img class="previewer-demo-img" v-for="(src,i) of item.img"  :src="imgBase+src.slice(16)" alt="" :key="i">
               </div>
             </div>
             <div class="list_footer">
@@ -118,7 +118,8 @@
         showLoading:false,
         postMessages:'',
         imgBase:'http://yf.ztemap.com:8091/',
-        clickedComment:null
+        clickedComment:null,
+
       }
     },
     mounted() {

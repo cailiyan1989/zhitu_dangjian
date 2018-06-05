@@ -61,6 +61,11 @@
       filesArr: function (val) {
         if(val) {
           this.isClicked = true
+          console.log(val.length)
+        }
+        if(val.length >= this.maxCount) {
+          let uploader = document.querySelector('.weui-uploader__input-box')
+          uploader.style.display = 'none'
         }
       }
     },
@@ -119,6 +124,7 @@
             reader.readAsDataURL(file);
           }
         })
+
       },
       parseToDOM(str) {
         var ul = document.createElement("ul");
@@ -165,29 +171,34 @@
   font-size: .7rem;
   .weui-uploader__bd {
     margin-bottom: -4px;
-    margin-right: -9px;
     overflow: hidden;
   }
 
   .weui-uploader__input-box {
     float: left;
     position: relative;
-    margin-right: 9px;
-    margin-bottom: 9px;
+    margin-right: 0.45rem;
+    margin-bottom: .45rem;
     width: 3.85rem;
     height: 3.85rem;
     border: 1px solid #d9d9d9;
   }
-
+  .weui-uploader__files{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
   .weui_uploader_file {
-    float: left;
-    margin-right: 9px;
-    margin-bottom: 9px;
+    margin-right: .45rem;
+    margin-bottom: .45rem;
     width: 3.95rem;
     height: 3.95rem;
     background: no-repeat center center;
     background-size: cover;
     list-style: none;
+    &:nth-child(3n){
+      margin-right: 0;
+    }
   }
 
   .weui-uploader__input {
