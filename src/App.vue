@@ -10,19 +10,19 @@
       <!--底部导航 路由 -->
       <tabbar class="vux-demo-tabbar" v-show="!isTabbarDemo"  slot="bottom">
         <tabbar-item :selected="$route.path === '/home'" link="/home">
-          <i slot="icon" class="iconfont icon-home"></i>
+          <i slot="icon" class="iconfont icon-home1"></i>
           <span slot="label">首页</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/find'" link="/find">
-          <i slot="icon" class="iconfont icon-browse"></i>
+          <i slot="icon" class="iconfont icon-mokuai"></i>
           <span slot="label">发现</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/contacts'" link="/contacts">
-          <i slot="icon" class="iconfont icon-remind"></i>
+          <i slot="icon" class="iconfont icon-tongxunlu"></i>
           <span slot="label">通讯录</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/member'" link="/member">
-          <i slot="icon" class="iconfont icon-account"></i>
+          <i slot="icon" class="iconfont icon-navig-wode"></i>
           <span slot="label">我的</span>
         </tabbar-item>
       </tabbar>
