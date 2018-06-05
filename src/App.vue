@@ -100,9 +100,9 @@ export default {
       if (/contacts/.test(this.$route.path) && /infos/.test(this.$route.path)) return '个人信息'
 
       if (/dynamic/.test(this.$route.path) && /detail/.test(this.$route.path)) return '新闻详情'
-      if (/people/.test(this.$route.query.category)) return '百姓心声'
+      if (/guide/.test(this.$route.query.category)) return '办事指南'
       if (/notice/.test(this.$route.query.category)) return '党政公告'
-      if (/learn/.test(this.$route.query.category)) return '党员学习'
+      if (/learn/.test(this.$route.query.category)) return '基层党建'
       if (/news/.test(this.$route.query.category)) return '消息通知'
     }
   }

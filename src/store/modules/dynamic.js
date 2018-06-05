@@ -38,7 +38,7 @@ const actions = {
   getPeopledNewsList({commit}, params) {
     commit('clearNewsMsg')
 
-    api.get_people_list(params).then(res => {
+    api.get_news_list(params).then(res => {
       commit(types.GET_PEOPLED_NEWS_LIST, res)
     })
   },

@@ -1,15 +1,18 @@
 <template>
   <div class="home">
     <swiper loop auto :aspect-ratio="361/750" :list="banner_list" :index="banner_index" @on-index-change="banner_onIndexChange"></swiper>
-    <grid :cols="4">
+    <grid :cols="5">
       <grid-item label="党政公告" link="/dynamic/dynamic-news?category=notice">
         <img slot="icon" src="../common/image/gonggao2.png" />
       </grid-item>
       <grid-item label="基层党建" link="/dynamic/dynamic-news?category=learn">
         <img slot="icon" src="../common/image/xuexi2.png" />
       </grid-item>
-      <grid-item label="百姓心声" link="/dynamic/dynamic-news?category=people">
-        <img slot="icon" src="../common/image/xinsheng2.png" />
+      <grid-item label="组织架构" link="">
+        <img slot="icon" src="../common/image/jiagou.png" />
+      </grid-item>
+      <grid-item label="办事指南" link="/dynamic/dynamic-news?category=guide">
+        <img slot="icon" src="../common/image/zhinan.png" />
       </grid-item>
       <grid-item label="消息通知" link="/dynamic/dynamic-news?category=news">
         <img slot="icon" src="../common/image/xiaoxi2.png" />

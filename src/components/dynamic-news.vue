@@ -90,10 +90,10 @@
         this.$store.dispatch('getNoticedNewsList', { 'type': 0,'cate':1 })
       } else if (this.$route.query.category == 'learn') {
         this.$store.dispatch('getLearnedNewsList', { 'type': 2,'cate':13  })
-      } else if (this.$route.query.category == 'people') {
-        this.$store.dispatch('getPeopledNewsList')
+      } else if (this.$route.query.category == 'guide') {
+        this.$store.dispatch('getPeopledNewsList', { 'type': 1, 'cate': 6 })
       } else if (this.$route.query.category == 'news'){
-        this.$store.dispatch('getNewedNewsList',{ 'type':0,'cate':2 })
+        this.$store.dispatch('getNewedNewsList', { 'type':0,'cate':2 })
       }
 
     },
@@ -113,7 +113,7 @@
           this.box.scrollTop = this.noticedNewsScrollTop
         } else if (this.$route.query.category == "learn") {
           this.box.scrollTop = this.learnedNewsScrollTop
-        } else if (this.$route.query.category == "people") {
+        } else if (this.$route.query.category == "guide") {
           this.box.scrollTop = this.peopledNewsScrollTop
         } else if (this.$route.query.category == 'news') {
           this.box.scrollTop = this.newedNewsScrollTop
@@ -164,10 +164,10 @@
             this.box.scrollTop = this.learnedNewsScrollTop
           })
           this.currentNews = this.learnedNewsList
-        } else if (to.query.category == 'people') {
+        } else if (to.query.category == 'guide') {
           if (this.peopledNewsList.length == 0) {
             this.$el.querySelector('.nullData').style.display = 'none';
-            this.$store.dispatch('getPeopledNewsList')
+            this.$store.dispatch('getPeopledNewsList', { 'type': 1, 'cate': 6 })
           }
           this.$nextTick(() => {
             this.box.scrollTop = this.peopledNewsScrollTop
@@ -192,7 +192,7 @@
           this.$store.dispatch('updateNoticedNewsPosition', this.box.scrollTop)
         } else if (this.$route.query.category == "learn") {
           this.$store.dispatch('updateLearnedNewsPosition', this.box.scrollTop)
-        } else if (this.$route.query.category == "people") {
+        } else if (this.$route.query.category == "guide") {
           this.$store.dispatch('updatePeopledNewsPosition', this.box.scrollTop)
         } else if (this.$route.query.category == "news") {
           this.$store.dispatch('updateNewedNewsPosition', this.box.scrollTop)
@@ -206,8 +206,8 @@
         } else if (this.$route.query.category == 'learn') {
           this.$store.dispatch('getLearnedNewsList', { 'type': 2,'cate':13 })
           this.newsLearnedCounter = 1
-        } else if (this.$route.query.category == 'people') {
-          this.$store.dispatch('getPeopledNewsList')
+        } else if (this.$route.query.category == 'guide') {
+          this.$store.dispatch('getPeopledNewsList', { 'type': 1, 'cate': 6 })
           this.newsPeopledCounter = 1
         } else if (this.$route.query.category == 'news') {
           this.$store.dispatch('getNewedNewsList',{ 'type':0,'cate':2})
@@ -281,13 +281,13 @@
 
 
 
-        } else if (this.$route.query.category == 'people') {
+        } else if (this.$route.query.category == 'guide') {
           this.newsPeopledCounter++;
           let end = this.num * this.newsPeopledCounter;
           let i = end - this.num;
           let more = this.$el.querySelector('.load-more')
 
-          this.$store.dispatch('getPeopledNewsList', { page: this.newsPeopledCounter}).then(() => {
+          this.$store.dispatch('getPeopledNewsList', { page: this.newsPeopledCounter, 'type': 1, 'cate': 6 }).then(() => {
             for (i; i < end; i++) {
               if (i >= this.peopledNewsTotal) {
                 more.style.display = 'none'; //隐藏加载条

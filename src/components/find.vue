@@ -24,7 +24,7 @@
             <div class="list_body">
               <div class="list_title">{{item.content}}</div>
               <div class="list_imgs">
-                  <img v-for="(src,index) of item.img"  :src="imgBase+src" alt="" :key="index">
+                  <img v-for="(src,index) of item.img"  :src="src.slice(11)" alt="" :key="index">
               </div>
             </div>
             <div class="list_footer">

@@ -15,7 +15,7 @@
   import {  Tab, TabItem, } from 'vux'
   import { mapState } from 'vuex'
 
-  const list = () => ['党政公告', '党员学习', '百姓心声', '消息通知']
+  const list = () => ['党政公告', '党员学习', '办事指南', '消息通知']
   export default {
     components: {
       Tab,
@@ -42,8 +42,8 @@
         }else if (to.query.category == "learn") {
           this.selected = "党员学习"
           this.index = 1
-        } else if (to.query.category == "people") {
-          this.selected = "百姓心声"
+        } else if (to.query.category == "guide") {
+          this.selected = "办事指南"
           this.index  =2
         } else if (to.query.category == "news") {
           this.selected = "消息通知"
@@ -57,8 +57,8 @@
         this.selected = "党政公告"
       } else if (currentSelected == 'learn') {
         this.selected = "党员学习"
-      } else if (currentSelected == 'people') {
-        this.selected = "百姓心声"
+      } else if (currentSelected == 'guide') {
+        this.selected = "办事指南"
       } else if (currentSelected == 'news'){
         this.selected = '消息通知'
       }
@@ -81,11 +81,11 @@
             this.$router.replace(`${path}?category=learn`)
           }
 
-        } else if (item == "百姓心声") {
+        } else if (item == "办事指南") {
           if (this.$route.params.category) {
             this.$router.replace({ name: 'Status', params: { category: this.$route.params.category} });
           } else {
-            this.$router.replace(`${path}?category=people`)
+            this.$router.replace(`${path}?category=guide`)
           }
 
         } else if (item == '消息通知') {
