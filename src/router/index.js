@@ -53,6 +53,15 @@ export default new Router({
       }
     },
     {
+      path: '/architecture',
+      name: 'Architecture',
+      component: resolve => require(['../components/architecture'], resolve),
+      meta: {
+        title: '组织架构',
+        requiresAuth: true
+      }
+    },
+    {
       path: '/announcement',
       component: resolve => require(['../components/announcement-news'], resolve),
       children: [{

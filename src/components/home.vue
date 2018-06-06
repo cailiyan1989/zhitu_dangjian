@@ -8,7 +8,7 @@
       <grid-item label="基层党建" link="/dynamic/dynamic-news?category=learn">
         <img slot="icon" src="../common/image/xuexi2.png" />
       </grid-item>
-      <grid-item label="组织架构" link="">
+      <grid-item label="组织架构" link="/architecture">
         <img slot="icon" src="../common/image/jiagou.png" />
       </grid-item>
       <grid-item label="办事指南" link="/dynamic/dynamic-news?category=guide">

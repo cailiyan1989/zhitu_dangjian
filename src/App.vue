@@ -82,6 +82,8 @@ export default {
       if (this.$route.path === '/find') return '党员动态'
       if (this.$route.path === '/find/my/all') return '我的动态'
       if (this.$route.path === '/find/my/add') return '发布动态'
+      
+      if (this.$route.path === '/architecture') return '组织架构'
 
       if (this.$route.path === '/announcement') return '公告信息'
       if (/announcement/.test(this.$route.path) && /detail/.test(this.$route.path)) return '新闻详情'
