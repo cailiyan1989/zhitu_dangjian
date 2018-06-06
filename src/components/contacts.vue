@@ -108,6 +108,32 @@
       right: .75rem;
       left: .75rem;
     }
+    .vux-label{
+      font-size: .7rem
+    }
+  }
+  .weui-search-bar__box{
+    padding: 0 1.5rem;
+  }
+  .weui-icon-search{
+    font-size: .7rem
+  }
+  .weui-search-bar__box{
+    .weui-icon-search{
+      line-height: 1.4rem;
+    }
+    .weui-search-bar__input{
+      font-size:.7rem;
+    }
+    .weui-icon-clear{
+      line-height: 1.4rem;
+    }
+  }
+  .weui-search-bar__label span{
+    font-size: .7rem
+  } 
+  .weui-search-bar__cancel-btn{
+    line-height: 1.4rem;
   }
   
 }

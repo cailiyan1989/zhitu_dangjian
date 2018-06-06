@@ -393,7 +393,7 @@
     }
     .list {
       display: flex;
-      align-items: center;
+     /*  align-items: center; */
       padding: 15px;
       box-sizing: border-box;
       background-color: #fff;

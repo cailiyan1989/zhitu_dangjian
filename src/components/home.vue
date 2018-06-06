@@ -156,7 +156,7 @@
   }
   .list {
     display: flex;
-    align-items: center;
+   /*  align-items: center; */
     padding: .75rem;
     box-sizing: border-box;
     background-color: #fff;

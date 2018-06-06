@@ -174,7 +174,7 @@
       }
     }
     .yo-scroll{
-      top:180px;
+      top:8.5rem;
     }
     .integral-item {
       margin-bottom: .7rem;
@@ -189,7 +189,13 @@
       .weui-cells{
         margin-top: .7rem;
       }
+      .vux-label{
+        font-size: .7rem
+      }
       .vux-label-desc{
+        font-size: .6rem
+      }
+      .weui-cell__ft{
         font-size: .6rem
       }
     }

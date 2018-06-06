@@ -14,12 +14,12 @@
         <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/geren.png">
       </cell>
       <cell title="政企党支部" :link="{path:'/member/party/branch'}">
-        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/zhibu.png">
+        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/zhibu.png">
       </cell>
     </group>
     <group>
       <cell title="我的积分" :link="{path:'/member/my/integral'}">
-        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/jifen.png">
+        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/jifen.png">
       </cell>
       <!-- <cell title="我的考试" :link="{path:'/member/my/exam'}">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/kaoshi.png">

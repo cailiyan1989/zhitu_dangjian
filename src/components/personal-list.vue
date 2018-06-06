@@ -53,5 +53,8 @@
   .weui-cell_access .weui-cell__ft:after{
     display: none;
   }
+  .vux-label{
+    font-size: .7rem;
+  }
 }
 </style>
