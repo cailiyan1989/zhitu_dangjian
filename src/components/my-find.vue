@@ -138,8 +138,32 @@
     },
     filters: {
       fmtDate(time) {
-        let date = new Date(time)
-        return fmtDate(date, 'yyyy-MM-dd')
+        let publishTime = Date.parse(time)/1000;
+        let timeNow = Date.now()/1000;
+
+        let d = timeNow - publishTime,
+          d_days = parseInt(d / 86400),
+          d_hours = parseInt(d / 3600),
+          d_minutes = parseInt(d / 60),
+          d_seconds = parseInt(d);
+          
+        if (d_days > 0 && d_days < 3) {
+          return d_days + '天前';
+        } else if (d_days <= 0 && d_hours > 0) {
+          return d_hours + '小时前';
+        } else if (d_hours <= 0 && d_minutes > 0) {
+          return d_minutes + '分钟前';
+        } else if (d_seconds < 60) {
+          if (d_seconds <= 0) {
+            return '刚刚';
+          } else {
+            return d_seconds + '秒前';
+          }
+        } else if (d_days >= 3 && d_days < 30) {
+          return fmtDate(publishTime, 'MM-dd');
+        } else if (d_days >= 30) {
+          return fmtDate(publishTime, 'yyyy-MM-dd')
+        } 
       }
     },
     methods: {

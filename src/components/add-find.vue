@@ -61,11 +61,10 @@
       filesArr: function (val) {
         if(val) {
           this.isClicked = true
-          console.log(val.length)
         }
         if(val.length >= this.maxCount) {
-          let uploader = document.querySelector('.weui-uploader__input-box')
           uploader.style.display = 'none'
+          let uploader = document.querySelector('.weui-uploader__input-box')
         }
       }
     },
@@ -75,6 +74,7 @@
         let uploader = self.$el.querySelector('#uploaderCustomInput')
 
         // console.log(uploader)
+        let arr =[]
 
         uploader.addEventListener('change', function (event) {
           let files = event.target.files;
@@ -82,8 +82,16 @@
           if (files.length === 0) {
             return;
           }
+
           for (var i = 0; i < files.length; i++) {
             let file = files[i];
+            
+            for(var j = 0; j < self.filesArr.length; j++) {
+              if(self.filesArr[j].name === file.name) {
+                self.$vux.toast.text('不能上传同一张图片！', 'middle');
+                return
+              }
+            }
             self.filesArr.push(file)
 
             let reader = new FileReader();
@@ -173,26 +181,28 @@
     margin-bottom: -4px;
     overflow: hidden;
   }
-
+  .weui-cells_form .weui-cell{
+    padding: .5rem .75rem;
+  }
   .weui-uploader__input-box {
     float: left;
     position: relative;
-    margin-right: 0.45rem;
     margin-bottom: .45rem;
-    width: 3.85rem;
-    height: 3.85rem;
+    width: 4.4rem;
+    height: 4.4rem;
     border: 1px solid #d9d9d9;
   }
-  .weui-uploader__files{
+  /* .weui-uploader__files{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-  }
+  } */
   .weui_uploader_file {
+    float: left;
     margin-right: .45rem;
     margin-bottom: .45rem;
-    width: 3.95rem;
-    height: 3.95rem;
+    width: 4.5rem;
+    height: 4.5rem;
     background: no-repeat center center;
     background-size: cover;
     list-style: none;
