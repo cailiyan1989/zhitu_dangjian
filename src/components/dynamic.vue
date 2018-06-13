@@ -15,7 +15,7 @@
   import {  Tab, TabItem, } from 'vux'
   import { mapState } from 'vuex'
 
-  const list = () => ['党政公告', '党员学习', '办事指南', '消息通知']
+  const list = () => ['党政公告', '基层党建', '办事指南', '消息通知']
   export default {
     components: {
       Tab,
@@ -40,7 +40,7 @@
           this.selected = "党政公告"
           this.index = 0
         }else if (to.query.category == "learn") {
-          this.selected = "党员学习"
+          this.selected = "基层党建"
           this.index = 1
         } else if (to.query.category == "guide") {
           this.selected = "办事指南"
@@ -56,7 +56,7 @@
       if (currentSelected == 'notice') {
         this.selected = "党政公告"
       } else if (currentSelected == 'learn') {
-        this.selected = "党员学习"
+        this.selected = "基层党建"
       } else if (currentSelected == 'guide') {
         this.selected = "办事指南"
       } else if (currentSelected == 'news'){
@@ -74,7 +74,7 @@
             this.$router.replace(`${path}?category=notice`)
           }
 
-        } else if (item == "党员学习") {
+        } else if (item == "基层党建") {
           if (this.$route.params.category) {
             this.$router.replace({ name: 'Status', params: { category: this.$route.params.category} });
           } else {

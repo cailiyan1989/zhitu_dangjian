@@ -62,7 +62,7 @@ const mutations = {
             state.findsLists.push(res.data.data[newIndex])
           }
         }
-      } else if (res.data.current_page == 1) {
+      } else if (res.data.current_page == 1 && res.data.data.length !==0) {
         state.findsLists = res.data.data
         state.findsTotal = res.data.total
       }
@@ -83,7 +83,7 @@ const mutations = {
             state.userLists.push(res.data.data[newIndex])
           }
         }
-      } else if (res.data.current_page == 1) {
+      } else if (res.data.current_page == 1 && res.data.data.length !==0) {
         state.userLists = res.data.data
         state.userFindsTotal = res.data.total
       }

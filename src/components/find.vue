@@ -24,7 +24,7 @@
             <div class="list_body">
               <div class="list_title">{{item.content}}</div>
               <div class="list_imgs">
-                  <img class="previewer-demo-img" v-for="(src,i) of item.images"  :src="imgBase+src.slice(16)" alt="" :key="i">
+                  <img class="previewer-demo-img" v-for="(src,i) of item.images"  :src="src" alt="" :key="i">
               </div>
             </div>
             <div class="list_footer">
@@ -185,6 +185,7 @@
         let more = this.$el.querySelector('.load-more')
         // this.$store.dispatch('getTaskTimeList',{ page: this.counter });
         this.$store.dispatch('getFindsList', { page: this.counter }).then(() => {
+        
           // if (res.code == 1) {
           for (i; i < end; i++) {
             if (i >= this.findsTotal) {

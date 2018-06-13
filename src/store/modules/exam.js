@@ -37,6 +37,7 @@ const mutations = {
     if (res.code == 0) {
       state.errorExamMsg= res.msg
     } else {
+
       if (res.data.data.length !==0 && res.data.current_page !== 1) {
         let end = res.data.current_page * 10
         let start = end - 10
