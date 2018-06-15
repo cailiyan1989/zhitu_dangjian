@@ -145,8 +145,7 @@
                 canvas.height = h;
                 ctx.drawImage(img, 0, 0, w, h);
                 var base64 = canvas.toDataURL(file.type);
-
-                
+   
                 let uploaderCustomeFiles = self.$el.querySelector('#uploaderCustomFiles')
 
                 var $preview = `<li class="weui_uploader_file weui_uploader_status" style="background-image:url(${base64})"></li>`;
