@@ -2,7 +2,7 @@
   <div class="party">
     <img src="../common/image/bg.png" class="ximg-bg">
     <div class="party_name">{{department.title}}</div>
-    <div class="party_descript">{{department.desc}}</div>
+    <div class="party_descript" v-html="department.desc"></div>
   </div>
 </template>
 
@@ -41,6 +41,10 @@
 
 <style lang="less">
 .party{
+  width: 100%;
+  height: 100%;
+  background: url('../common/image/bgd.png') no-repeat;
+  background-size: 100% 100%;
   .ximg-bg{
     width: 100%;
     height: 6rem;

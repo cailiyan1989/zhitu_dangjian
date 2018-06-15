@@ -15,7 +15,7 @@
   import {  Tab, TabItem, } from 'vux'
   import { mapState } from 'vuex'
 
-  const list = () => ['党政政策', '先锋事迹', '办事指南', '工作监办','民主评议']
+  const list = () => ['方针政策', '党建ABC', '基本纪律']
   export default {
     components:{
       Tab,
@@ -37,60 +37,62 @@
     watch:{
       $route(to, from) {
         if (to.query.status == 'policy') {
-          this.selected = '党政政策'
+          this.selected = '方针政策'
         }
       }
     },
     created() {
       let currentSelected = this.$route.query.status;
       if (currentSelected == 'policy') {
-        this.selected = '党政政策'
+        this.selected = '方针政策'
       } else if (currentSelected == 'deeds') {
-        this.selected = '先锋事迹'
+        this.selected = '党建ABC'
       } else if (currentSelected == 'guide') {
-        this.selected = '办事指南'
-      } else if (currentSelected == 'jobs') {
-        this.selected = '工作监办'
-      } else if (currentSelected == 'democracy') {
-        this.selected = '民主评议'
-      }
+        this.selected = '基本纪律'
+      } 
+      // else if (currentSelected == 'jobs') {
+      //   this.selected = '工作监办'
+      // } else if (currentSelected == 'democracy') {
+      //   this.selected = '民主评议'
+      // }
     },
     methods: {
       handler: function (item) {
         this.selected = item
         let path = this.$route.path;
 
-        if (item == "党政政策") {
+        if (item == "方针政策") {
           if (this.$route.params.status) {
             this.$router.replace({ name: 'Status', params: { status: this.$route.params.status} });
           } else {
             this.$router.replace(`${path}?status=policy`)
           }
-        } else if (item == '先锋事迹') {
+        } else if (item == '党建ABC') {
           if (this.$route.params.status) {
             this.$router.replace({ name: 'Status', params: { status: this.$route.params.status} });
           } else {
             this.$router.replace(`${path}?status=deeds`)
           }
-        } else if (item == '办事指南') {
+        } else if (item == '基本纪律') {
           if (this.$route.params.status) {
             this.$router.replace({ name: 'Status', params: { status: this.$route.params.status} });
           } else {
             this.$router.replace(`${path}?status=guide`)
           }
-        } else if (item == '工作监办') {
-          if (this.$route.params.status) {
-            this.$router.replace({ name: 'status', params: { status: this.$route.params.status} });
-          } else {
-            this.$router.replace(`${path}?status=jobs`)
-          }
-        } else if (item == '民主评议') {
-          if (this.$route.params.status) {
-            this.$router.replace({ name: 'Status', params: { status: this.$route.params.status} });
-          } else {
-            this.$router.replace(`${path}?status=democracy`)
-          }
-        }
+        } 
+        // else if (item == '工作监办') {
+        //   if (this.$route.params.status) {
+        //     this.$router.replace({ name: 'status', params: { status: this.$route.params.status} });
+        //   } else {
+        //     this.$router.replace(`${path}?status=jobs`)
+        //   }
+        // } else if (item == '民主评议') {
+        //   if (this.$route.params.status) {
+        //     this.$router.replace({ name: 'Status', params: { status: this.$route.params.status} });
+        //   } else {
+        //     this.$router.replace(`${path}?status=democracy`)
+        //   }
+        // }
       }
     }
   }

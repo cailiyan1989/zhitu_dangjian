@@ -31,20 +31,24 @@ export default new Router({
       }
     },
     {
-      path:'/dynamic',
-      component: resolve => require(['../components/dynamic'],resolve),
-      children:[{
-        path: 'dynamic-news',
-        name: 'dynamicNews',
-        component: resolve => require(['../components/dynamic-news'],resolve),
-        meta: {
-          title:'党建动态',
-          requiresAuth: true
-        }
-      }]
+      path: '/intro',
+      component: resolve => require(['../components/intro'], resolve),
+      meta: {
+        title:'e家行',
+        requiresAuth: true
+      }
     },
     {
-      path: '/dynamic/detail/:dynamicid/:cate',
+      path: '/dynamic-news',
+      name: 'dynamicNews',
+      component: resolve => require(['../components/dynamic-news'],resolve),
+      meta: {
+        title:'党建动态',
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/dynamic/detail/:dynamicid',
       name: 'NewsDetail',
       component: resolve => require(['../components/dynamic-detail'],resolve),
       meta: {
@@ -62,20 +66,38 @@ export default new Router({
       }
     },
     {
-      path: '/announcement',
+      path: '/care',
+      name: 'Care',
+      component: resolve => require(['../components/care'], resolve),
+      meta: {
+        title: '党员关怀',
+        requiresAuth: true
+      }
+    },
+    // {
+    //   path: '/learn',
+    //   name: 'Learn',
+    //   component: resolve => require(['../components/learn'], resolve),
+    //   meta: {
+    //     title: '在线学习',
+    //     requiresAuth: true
+    //   }
+    // },
+    {
+      path: '/learn',
       component: resolve => require(['../components/announcement-news'], resolve),
       children: [{
         path: '/',
         name: 'Announcement',
         component: resolve => require(['../components/announcement'], resolve),
         meta: {
-          title:'公告信息',
+          title:'在线学习',
           requiresAuth: true
         }
       }]
     },
     {
-      path:'/announcement/detail/:announcementid/:state',
+      path:'/learn/detail/:announcementid/:state',
       name: 'announcementDetail',
       component: resolve => require(['../components/announcement-detail'],resolve),
       meta: {

@@ -15,7 +15,7 @@
       <span>暂时没有数据。。。</span>
     </div>
   </template>
-  <template v-if="$route.query.status=='jobs'">
+  <!-- <template v-if="$route.query.status=='jobs'">
     <div v-show="!jobsNewsList" class="showNull">
       <span>暂时没有数据。。。</span>
     </div>
@@ -24,7 +24,7 @@
     <div v-show="!democracyNewsTotal" class="showNull">
       <span>暂时没有数据。。。</span>
     </div>
-  </template>
+  </template> -->
   <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="newsID">
     <template v-for="(item,index) in currentNews">
       <router-link tag="div" class="list" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}" :key="index">
@@ -95,16 +95,17 @@
     },
     created() {
       if (this.$route.query.status == 'policy') {
-        this.$store.dispatch('getPolicyNewsList', { 'type': 1, 'cate': 4})
+        this.$store.dispatch('getPolicyNewsList', { 'type': 2, 'cate': 13})
       } else if (this.$route.query.status == 'deeds') {
-        this.$store.dispatch('getDeedsNewsList', { 'type': 1, 'cate': 7 })
+        this.$store.dispatch('getDeedsNewsList', { 'type': 2, 'cate': 14 })
       } else if (this.$route.query.status == 'guide') {
-        this.$store.dispatch('getGuideNewsList', { 'type': 1, 'cate': 6 })
-      } else if (this.$route.query.status == 'jobs'){
-        this.$store.dispatch('getJobsNewsList')
-      } else if (this.$route.query.status == 'democracy') {
-        this.$store.dispatch('getDemocracyNewsList')
-      }
+        this.$store.dispatch('getGuideNewsList', { 'type': 2, 'cate': 15 })
+      } 
+      // else if (this.$route.query.status == 'jobs'){
+      //   this.$store.dispatch('getJobsNewsList')
+      // } else if (this.$route.query.status == 'democracy') {
+      //   this.$store.dispatch('getDemocracyNewsList')
+      // }
     },
     mounted() {
       this.$nextTick(() => {
@@ -121,11 +122,12 @@
           this.box.scrollTop = this.deedsNewsScrollTop
         } else if (this.$route.query.status== "guide") {
           this.box.scrollTop = this.guideNewsScrollTop
-        } else if (this.$route.query.status == 'jobs') {
-          this.box.scrollTop = this.jobsNewsScrollTop
-        } else if (this.$route.query.status == 'democracy') {
-          this.box.scrollTop = this.democracyNewsScrollTop()
-        }
+        } 
+        // else if (this.$route.query.status == 'jobs') {
+        //   this.box.scrollTop = this.jobsNewsScrollTop
+        // } else if (this.$route.query.status == 'democracy') {
+        //   this.box.scrollTop = this.democracyNewsScrollTop()
+        // }
 
       })
     },
@@ -159,7 +161,7 @@
         if (to.query.status == 'policy') {
           if (this.policyNewsList.length == 0) {
             this.$el.querySelector('.nullData').style.display = 'none';
-            this.$store.dispatch('getPolicyNewsList', { 'type': 1,'cate':4 })
+            this.$store.dispatch('getPolicyNewsList', { 'type': 2,'cate':13 })
           }
 
           this.$nextTick(() => {
@@ -169,7 +171,7 @@
         } else if (to.query.status == 'deeds') {
           if (this.deedsNewsList.length == 0) {
             this.$el.querySelector('.nullData').style.display = 'none';
-            this.$store.dispatch('getDeedsNewsList', { 'type':1,'cate':7 })
+            this.$store.dispatch('getDeedsNewsList', { 'type':2,'cate':14 })
           }
 
           this.$nextTick(() => {
@@ -179,31 +181,32 @@
         } else if (to.query.status == 'guide') {
           if (this.guideNewsList.length == 0) {
             this.$el.querySelector('.nullData').style.display = 'none';
-            this.$store.dispatch('getGuideNewsList', { 'type': 1, 'cate': 6 })
+            this.$store.dispatch('getGuideNewsList', { 'type': 2, 'cate': 15 })
           }
           this.$nextTick(() => {
             this.box.scrollTop = this.guideNewsScrollTop
           })
           this.currentNews = this.guideNewsList
-        } else if (to.query.status == 'jobs') {
-          if (this.jobsNewsList.length == 0) {
-            this.$el.querySelector('.nullData').style.display = 'none';
-            this.$store.dispatch('getJobsNewsList')
-          }
-          this.$nextTick(() => {
-            this.box.scrollTop = this.jobsNewsScrollTop
-          })
-          this.currentNews = this.jobsNewsList
-        } else if (to.query.status == 'democracy') {
-          if (this.democracyNewsList.length == 0) {
-            this.$el.querySelector('.nullData').style.display = 'none';
-            this.$store.dispatch('getDemocracyNewsList')
-          }
-          this.$nextTick(() => {
-            this.box.scrollTop = this.democracyNewsScrollTop
-          })
-          this.currentNews = this.democracyNewsList
-        }
+        } 
+        // else if (to.query.status == 'jobs') {
+        //   if (this.jobsNewsList.length == 0) {
+        //     this.$el.querySelector('.nullData').style.display = 'none';
+        //     this.$store.dispatch('getJobsNewsList')
+        //   }
+        //   this.$nextTick(() => {
+        //     this.box.scrollTop = this.jobsNewsScrollTop
+        //   })
+        //   this.currentNews = this.jobsNewsList
+        // } else if (to.query.status == 'democracy') {
+        //   if (this.democracyNewsList.length == 0) {
+        //     this.$el.querySelector('.nullData').style.display = 'none';
+        //     this.$store.dispatch('getDemocracyNewsList')
+        //   }
+        //   this.$nextTick(() => {
+        //     this.box.scrollTop = this.democracyNewsScrollTop
+        //   })
+        //   this.currentNews = this.democracyNewsList
+        // }
       }
     },
     methods: {
@@ -215,30 +218,32 @@
           this.$store.dispatch('updateDeedsNewsPosition', this.box.scrollTop)
         } else if (this.$route.query.status == "guide") {
           this.$store.dispatch('updateGuideNewsPosition', this.box.scrollTop)
-        } else if (this.$route.query.status == "jobs") {
-          this.$store.dispatch('updateJobsNewsPosition', this.box.scrollTop)
-        } else if (this.$route.query.status == "democracy") {
-          this.$store.dispatch('updateDemocracyNewsPosition', this.box.scrollTop)
-        }
+        } 
+        // else if (this.$route.query.status == "jobs") {
+        //   this.$store.dispatch('updateJobsNewsPosition', this.box.scrollTop)
+        // } else if (this.$route.query.status == "democracy") {
+        //   this.$store.dispatch('updateDemocracyNewsPosition', this.box.scrollTop)
+        // }
 
       },
       onRefresh(done) {
         if (this.$route.query.status== 'policy') {
-          this.$store.dispatch('getPolicyNewsList', { 'type': 1,'cate':4 })
+          this.$store.dispatch('getPolicyNewsList', { 'type': 2,'cate':13 })
           this.newsPolicyCounter = 1
         } else if (this.$route.query.status == 'deeds') {
-          this.$store.dispatch('getDeedsNewsList', { 'type':1,'cate':7 })
+          this.$store.dispatch('getDeedsNewsList', { 'type':2,'cate':14 })
           this.newsDeedsCounter = 1
         } else if (this.$route.query.status == 'guide') {
-          this.$store.dispatch('getGuideNewsList', { 'type': 1, 'cate': 6 })
+          this.$store.dispatch('getGuideNewsList', { 'type': 2, 'cate': 15 })
           this.newsGuideCounter= 1
-        } else if (this.$route.query.status == 'jobs') {
-          this.$store.dispatch('getJobsNewsList')
-          this.newsJobsCounter = 1
-        } else if (this.$route.query.status == 'democracy') {
-          this.$store.dispatch('getDemocracyNewsList')
-          this.newsDemocracyCounter = 1
-        }
+        } 
+        // else if (this.$route.query.status == 'jobs') {
+        //   this.$store.dispatch('getJobsNewsList')
+        //   this.newsJobsCounter = 1
+        // } else if (this.$route.query.status == 'democracy') {
+        //   this.$store.dispatch('getDemocracyNewsList')
+        //   this.newsDemocracyCounter = 1
+        // }
         done(); // call done
       },
       onInfinite(done) {
@@ -248,7 +253,7 @@
           let i = end - this.num;
           let more = this.$el.querySelector('.load-more')
 
-          this.$store.dispatch('getPolicyNewsList', { page: this.newsPolicyCounter, 'type': 1,'cate':4 }).then(() => {
+          this.$store.dispatch('getPolicyNewsList', { page: this.newsPolicyCounter, 'type': 2,'cate':13 }).then(() => {
             for (i; i < end; i++) {
               if (i >= this.policyNewsTotal) {
                 more.style.display = 'none'; //隐藏加载条
@@ -279,7 +284,7 @@
           let i = end - this.num;
           let more = this.$el.querySelector('.load-more')
 
-          this.$store.dispatch('getDeedsNewsList', { page: this.newsDeedsCounter, 'type':1,'cate':7 }).then(() => {
+          this.$store.dispatch('getDeedsNewsList', { page: this.newsDeedsCounter, 'type':2,'cate':14 }).then(() => {
             for (i; i < end; i++) {
               if (i >= this.deedsNewsTotal) {
                 more.style.display = 'none'; //隐藏加载条
@@ -313,7 +318,7 @@
           let i = end - this.num;
           let more = this.$el.querySelector('.load-more')
 
-          this.$store.dispatch('getGuideNewsList', { page: this.newsGuideCounter, 'type': 1, 'cate': 6 }).then(() => {
+          this.$store.dispatch('getGuideNewsList', { page: this.newsGuideCounter, 'type': 2 ,'cate':15 }).then(() => {
             for (i; i < end; i++) {
               if (i >= this.guideNewsTotal) {
                 more.style.display = 'none'; //隐藏加载条
@@ -339,71 +344,72 @@
             }
           })
 
-        } else if (this.$route.query.status == 'jobs') {
-          this.newsJobsCounter++;
-          let end = this.num * this.newsJobsCounter;
-          let i = end - this.num;
-          let more = this.$el.querySelector('.load-more')
+        } 
+        // else if (this.$route.query.status == 'jobs') {
+        //   this.newsJobsCounter++;
+        //   let end = this.num * this.newsJobsCounter;
+        //   let i = end - this.num;
+        //   let more = this.$el.querySelector('.load-more')
 
-          this.$store.dispatch('getJobsNewsList', { page: this.newsJobsCounter }).then(() => {
-            for (i; i < end; i++) {
-              if (i >= this.jobsNewsTotal) {
-                more.style.display = 'none'; //隐藏加载条
-                //走完数据调用方法
-                this.scrollData.noFlag = true;
-                break;
-              } else {
-                // let newIndex = i % 10
-                // if (res.data.data.length !== 0) {
-                //     this.currentTime.push(res.data.data[newIndex])
-                // }
-                more.style.display = 'none'; //隐藏加载条
-              }
-            }
-            if (!this.jobsNewsTotal) {
-              this.$nextTick(() => {
-                this.$el.querySelector('.nullData').style.display = 'none';
-              })
-            } else {
-              this.$nextTick(() => {
-                this.$el.querySelector('.nullData').style.display = '';
-              })
-            }
-          })
+        //   this.$store.dispatch('getJobsNewsList', { page: this.newsJobsCounter }).then(() => {
+        //     for (i; i < end; i++) {
+        //       if (i >= this.jobsNewsTotal) {
+        //         more.style.display = 'none'; //隐藏加载条
+        //         //走完数据调用方法
+        //         this.scrollData.noFlag = true;
+        //         break;
+        //       } else {
+        //         // let newIndex = i % 10
+        //         // if (res.data.data.length !== 0) {
+        //         //     this.currentTime.push(res.data.data[newIndex])
+        //         // }
+        //         more.style.display = 'none'; //隐藏加载条
+        //       }
+        //     }
+        //     if (!this.jobsNewsTotal) {
+        //       this.$nextTick(() => {
+        //         this.$el.querySelector('.nullData').style.display = 'none';
+        //       })
+        //     } else {
+        //       this.$nextTick(() => {
+        //         this.$el.querySelector('.nullData').style.display = '';
+        //       })
+        //     }
+        //   })
 
-        } else if (this.$route.query.status == 'democracy') {
-          this.newsDemocracyCounter++;
-          let end = this.num * this.newsDemocracyCounter;
-          let i = end - this.num;
-          let more = this.$el.querySelector('.load-more')
+        // } else if (this.$route.query.status == 'democracy') {
+        //   this.newsDemocracyCounter++;
+        //   let end = this.num * this.newsDemocracyCounter;
+        //   let i = end - this.num;
+        //   let more = this.$el.querySelector('.load-more')
 
-          this.$store.dispatch('getDemocracyNewsList', { page: this.newsDemocracyCounter }).then(() => {
-            for (i; i < end; i++) {
-              if (i >= this.democracyNewsTotal) {
-                more.style.display = 'none'; //隐藏加载条
-                //走完数据调用方法
-                this.scrollData.noFlag = true;
-                break;
-              } else {
-                // let newIndex = i % 10
-                // if (res.data.data.length !== 0) {
-                //     this.currentTime.push(res.data.data[newIndex])
-                // }
-                more.style.display = 'none'; //隐藏加载条
-              }
-            }
-            if (!this.democracyNewsTotal) {
-              this.$nextTick(() => {
-                this.$el.querySelector('.nullData').style.display = 'none';
-              })
-            } else {
-              this.$nextTick(() => {
-                this.$el.querySelector('.nullData').style.display = '';
-              })
-            }
-          })
+        //   this.$store.dispatch('getDemocracyNewsList', { page: this.newsDemocracyCounter }).then(() => {
+        //     for (i; i < end; i++) {
+        //       if (i >= this.democracyNewsTotal) {
+        //         more.style.display = 'none'; //隐藏加载条
+        //         //走完数据调用方法
+        //         this.scrollData.noFlag = true;
+        //         break;
+        //       } else {
+        //         // let newIndex = i % 10
+        //         // if (res.data.data.length !== 0) {
+        //         //     this.currentTime.push(res.data.data[newIndex])
+        //         // }
+        //         more.style.display = 'none'; //隐藏加载条
+        //       }
+        //     }
+        //     if (!this.democracyNewsTotal) {
+        //       this.$nextTick(() => {
+        //         this.$el.querySelector('.nullData').style.display = 'none';
+        //       })
+        //     } else {
+        //       this.$nextTick(() => {
+        //         this.$el.querySelector('.nullData').style.display = '';
+        //       })
+        //     }
+        //   })
 
-        }
+        // }
         done();
       },
       success (src, ele) {

@@ -21,37 +21,37 @@
     computed: {
       ...mapGetters([
         'noticedNewsList',
-        'learnedNewsList',
-        'peopledNewsList',
-        'newedNewsList',
+        // 'learnedNewsList',
+        // 'peopledNewsList',
+        // 'newedNewsList',
       ])
     },
     activated() {
-      if (this.$route.params.cate == 'notice') {
+      // if (this.$route.params.cate == 'notice') {
         this.noticedNewsList.forEach((value, index) => {
           if (value.id == this.$route.params.dynamicid) {
             this.news = value
           }
         })
-      } else if (this.$route.params.cate == 'learn') {
-        this.learnedNewsList.forEach((value, index) => {
-          if (value.id == this.$route.params.dynamicid) {
-            this.news = value
-          }
-        })
-      } else if (this.$route.params.cate == 'people') {
-        this.peopledNewsList.forEach((value, index) => {
-          if (value.id == this.$route.params.dynamicid) {
-            this.news = value
-          }
-        })
-      } else if (this.$route.params.cate == 'news') {
-        this.newedNewsList.forEach((value, index) => {
-          if (value.id == this.$route.params.dynamicid) {
-            this.news = value
-          }
-        })
-      }
+      // } else if (this.$route.params.cate == 'learn') {
+      //   this.learnedNewsList.forEach((value, index) => {
+      //     if (value.id == this.$route.params.dynamicid) {
+      //       this.news = value
+      //     }
+      //   })
+      // } else if (this.$route.params.cate == 'people') {
+      //   this.peopledNewsList.forEach((value, index) => {
+      //     if (value.id == this.$route.params.dynamicid) {
+      //       this.news = value
+      //     }
+      //   })
+      // } else if (this.$route.params.cate == 'news') {
+      //   this.newedNewsList.forEach((value, index) => {
+      //     if (value.id == this.$route.params.dynamicid) {
+      //       this.news = value
+      //     }
+      //   })
+      // }
 
     },
     name: "dynamic-detail",

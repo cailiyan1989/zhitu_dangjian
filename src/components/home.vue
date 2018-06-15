@@ -2,19 +2,19 @@
   <div class="home">
     <swiper loop auto :aspect-ratio="361/750" :list="banner_list" :index="banner_index" @on-index-change="banner_onIndexChange"></swiper>
     <grid :cols="5">
-      <grid-item label="党政公告" link="/dynamic/dynamic-news?category=notice">
+      <grid-item label="e家行" link="/intro">
         <img slot="icon" src="../common/image/gonggao2.png" />
       </grid-item>
-      <grid-item label="基层党建" link="/dynamic/dynamic-news?category=learn">
+      <grid-item label="党建动态" link="/dynamic-news">
         <img slot="icon" src="../common/image/xuexi2.png" />
       </grid-item>
-      <grid-item label="组织架构" link="/architecture">
+      <grid-item label="支部情况" link="/architecture">
         <img slot="icon" src="../common/image/jiagou.png" />
       </grid-item>
-      <grid-item label="办事指南" link="/dynamic/dynamic-news?category=guide">
+      <grid-item label="党员关怀" link="/care?status=relation">
         <img slot="icon" src="../common/image/zhinan.png" />
       </grid-item>
-      <grid-item label="消息通知" link="/dynamic/dynamic-news?category=news">
+      <grid-item label="在线学习" link="/learn?status=policy">
         <img slot="icon" src="../common/image/xiaoxi2.png" />
       </grid-item>
     </grid>
@@ -25,19 +25,19 @@
         </cell>
       </group>
       <template v-for="(item,index) of list">
-        <router-link tag="div" class="list" :to="{name:'NewsDetail', params: {dynamicid: item.id, cate:'notice'}}" :key="index">
+        <router-link tag="div" class="list" :to="{name:'NewsDetail', params: {dynamicid: item.id}}" :key="index">
           <div class="list_img">
             <span>Loading</span>
             <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo"  container="#vux_view_box_body"></x-img>
           </div>
           <div class="list_content">
             <div class="list_title">{{item.title}}</div>
-            <div class="list_time">{{item.create_time|fmtDate}}</div>
+            <div class="list_time">{{item.create_time}}</div>
           </div>
         </router-link>
       </template>
     </div>
-    <x-button plain type="primary" style="border-radius:99px;color:red;border-color:red;" link="/dynamic/dynamic-news?category=notice">查看更多</x-button>
+    <x-button plain type="primary" style="border-radius:99px;color:red;border-color:red;" link="/dynamic-news">查看更多</x-button>
   </div>
 </template>
 
@@ -83,15 +83,12 @@
 
         }, {
           url: 'javascript:',
-          img: require('../common/image/banner2.png'),
+          img: require('../common/image/banner45.png'),
 
-        }, {
-          url: 'javascript:',
-          img: require('../common/image/banner3.png'),
         }],
         banner_index:0,
         items: [],
-        src:require('../common/image/normal.png'),
+        src:require('../common/image/78781.png'),
         list: [],
       }
     },

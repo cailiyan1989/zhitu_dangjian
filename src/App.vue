@@ -77,13 +77,17 @@ export default {
     },
     title() {
       if (this.$route.path === '/home') return '党建e家行'
+      if (this.$route.path === '/intro') return '党建e家行'
+      if (this.$route.path === '/dynamic-news') return '党建动态'
       // if (this.$route.path == '/dynamic/dynamic-news') return '党建动态'
 
       if (this.$route.path === '/find') return '党员动态'
       if (this.$route.path === '/find/my/all') return '我的动态'
       if (this.$route.path === '/find/my/add') return '发布动态'
       
-      if (this.$route.path === '/architecture') return '组织架构'
+      if (this.$route.path === '/architecture') return '支部情况'
+      if (this.$route.path === '/care') return '党员关怀'
+      if (this.$route.path === '/learn') return '在线学习'
 
       if (this.$route.path === '/announcement') return '公告信息'
       if (/announcement/.test(this.$route.path) && /detail/.test(this.$route.path)) return '新闻详情'
@@ -94,6 +98,7 @@ export default {
       if (this.$route.path === '/member/my/integral') return '积分明细'
       if (this.$route.path === '/member/my/exam') return '考试中心'
       if (this.$route.path === '/member/party/fees') return '党费缴纳'
+      
       if (this.$route.path === '/contacts') return '通讯录'
       if (this.$route.path === '/member/settings') return '设置'
       if (this.$route.path === '/member/password/change') return '更改密码'
@@ -102,10 +107,10 @@ export default {
       if (/contacts/.test(this.$route.path) && /infos/.test(this.$route.path)) return '个人信息'
 
       if (/dynamic/.test(this.$route.path) && /detail/.test(this.$route.path)) return '新闻详情'
-      if (/guide/.test(this.$route.query.category)) return '办事指南'
-      if (/notice/.test(this.$route.query.category)) return '党政公告'
-      if (/learn/.test(this.$route.query.category)) return '基层党建'
-      if (/news/.test(this.$route.query.category)) return '消息通知'
+      // if (/guide/.test(this.$route.query.category)) return '办事指南'
+      // if (/notice/.test(this.$route.query.category)) return '党政公告'
+      // if (/learn/.test(this.$route.query.category)) return '基层党建'
+      // if (/news/.test(this.$route.query.category)) return '消息通知'
     }
   }
 }

@@ -63,8 +63,8 @@
           this.isClicked = true
         }
         if(val.length >= this.maxCount) {
-          uploader.style.display = 'none'
           let uploader = document.querySelector('.weui-uploader__input-box')
+          uploader.style.display = 'none'
         }
       }
     },
@@ -72,6 +72,7 @@
       bindEvent() {
         let self = this;
         let uploader = self.$el.querySelector('#uploaderCustomInput')
+        let ajaxBtn = self.$el.querySelector('.weui-uploader__input-box')
 
         // console.log(uploader)
         let arr =[]
@@ -80,6 +81,10 @@
           let files = event.target.files;
           // 如果没有选中文件，直接返回
           if (files.length === 0) {
+            return;
+          }
+          if(files.length >= self.maxCount) {
+            self.$vux.toast.text(`最多上传${self.maxCount}张`, 'middle')
             return;
           }
 
@@ -92,6 +97,11 @@
                 return
               }
             }
+            if (self.filesArr.length >= self.maxCount) {
+              self.$vux.toast.text(`最多上传${self.maxCount}张`, 'middle')
+              return;
+            }
+
             self.filesArr.push(file)
 
             let reader = new FileReader();
@@ -101,6 +111,7 @@
             }
 
             let uploader_files = self.$el.querySelectorAll('.weui_uploader_file')
+            
             if (uploader_files.length >= self.maxCount) {
               self.$vux.toast.text(`最多上传${self.maxCount}张`, 'middle')
               return;
@@ -132,6 +143,10 @@
             reader.readAsDataURL(file);
           }
         })
+        if(self.filesArr.length >= self.maxCount) {
+          alert('aaa')
+          ajaxBtn.style.display = 'none';
+        }
 
       },
       parseToDOM(str) {
