@@ -8,7 +8,7 @@
 
         <div class="care_content">   
             <template v-if="$route.query.status=='relation'">
-                <div class="showNull">
+                <div class="rela_content">
                     <img src="../common/image/zhuan.jpg" alt="" width="100%">
                 </div>
             </template>

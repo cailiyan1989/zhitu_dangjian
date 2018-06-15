@@ -65,6 +65,9 @@
         if(val.length >= this.maxCount) {
           let uploader = document.querySelector('.weui-uploader__input-box')
           uploader.style.display = 'none'
+        } else {
+          let uploader = document.querySelector('.weui-uploader__input-box')
+          uploader.style.display = 'block'
         }
       }
     },
@@ -72,7 +75,6 @@
       bindEvent() {
         let self = this;
         let uploader = self.$el.querySelector('#uploaderCustomInput')
-        let ajaxBtn = self.$el.querySelector('.weui-uploader__input-box')
 
         // console.log(uploader)
         let arr =[]
@@ -97,6 +99,7 @@
                 return
               }
             }
+
             if (self.filesArr.length >= self.maxCount) {
               self.$vux.toast.text(`最多上传${self.maxCount}张`, 'middle')
               return;
@@ -105,49 +108,57 @@
             self.filesArr.push(file)
 
             let reader = new FileReader();
-            if (file.size > self.maxSize) {
-              self.$vux.toast.text('图片太大，不允许上传！', 'middle');
-              continue;
-            }
 
             let uploader_files = self.$el.querySelectorAll('.weui_uploader_file')
             
-            if (uploader_files.length >= self.maxCount) {
-              self.$vux.toast.text(`最多上传${self.maxCount}张`, 'middle')
-              return;
-            }
             reader.onload = function (e) {
+              var src = e.target.result;
+
+              var maxWidth = 800, maxHeight = 800;
               var img = new Image();
+              img.src = src;
+
               img.onload = function () {
+                var width = img.width;
+                var height = img.height;
+                var shouldResize = (width > maxWidth) || (height > maxHeight);
+                // if (!shouldResize) {
+                //     // 无需压缩
+                //     return;
+                // }
+                var newWidth, newHeight;
+                // 等比压缩
+                if (width > height) {
+                    newHeight = height * (maxWidth / width);
+                    newWidth = maxWidth;
+                } else {
+                    newWidth = width * (maxHeight / height);
+                    newHeight = maxHeight;
+                }
+
                 var canvas = document.createElement('canvas');
                 var ctx = canvas.getContext('2d');
-                var w = img.width;
-                var h = img.height;
+                var w = newWidth;
+                var h = newHeight;
                 // 设置 canvas 的宽度和高度
                 canvas.width = w;
                 canvas.height = h;
                 ctx.drawImage(img, 0, 0, w, h);
-                var base64 = canvas.toDataURL('image/png');
+                var base64 = canvas.toDataURL(file.type);
 
+                
+                let uploaderCustomeFiles = self.$el.querySelector('#uploaderCustomFiles')
 
-                // 插入到预览
                 var $preview = `<li class="weui_uploader_file weui_uploader_status" style="background-image:url(${base64})"></li>`;
                 let preview = self.parseToDOM($preview)[0]
 
-                let uploaderCustomeFiles = self.$el.querySelector('#uploaderCustomFiles')
-                uploaderCustomeFiles .appendChild(preview);
-
+                uploaderCustomeFiles.append(preview);
+                
               }
-              img.src = e.target.result;
             }
             reader.readAsDataURL(file);
           }
         })
-        if(self.filesArr.length >= self.maxCount) {
-          alert('aaa')
-          ajaxBtn.style.display = 'none';
-        }
-
       },
       parseToDOM(str) {
         var ul = document.createElement("ul");

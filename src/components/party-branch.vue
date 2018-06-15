@@ -42,7 +42,7 @@
 <style lang="less">
 .party{
   width: 100%;
-  height: 100%;
+  height: calc(100% + 55px);
   background: url('../common/image/bgd.png') no-repeat;
   background-size: 100% 100%;
   .ximg-bg{

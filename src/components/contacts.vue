@@ -11,7 +11,7 @@
         @on-submit="onSubmit"
         ref="search"></search>
       <group>
-        <cell :title="item.title" v-for="(item,index) of partys" :key="index" :link="{name:'Personnel',params:{partyid:item.id}}">
+        <cell :title="item.title" v-for="(item,index) of partys" :key="index" :link="{name:'Personnel',params:{partyid:item.id}}" v-if="item.title">
           <img slot="icon" width="30" style="display:block;margin-right:5px;" src="../common/image/logo.jpg">
         </cell>
       </group>
