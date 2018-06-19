@@ -10,11 +10,11 @@
       <!--底部导航 路由 -->
       <tabbar class="vux-demo-tabbar" v-show="!isTabbarDemo"  slot="bottom">
         <tabbar-item :selected="$route.path === '/home'" link="/home">
-          <i slot="icon" class="iconfont icon-home1"></i>
+          <i slot="icon" class="iconfont icon-shouye"></i>
           <span slot="label">首页</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/find'" link="/find">
-          <i slot="icon" class="iconfont icon-mokuai"></i>
+          <i slot="icon" class="iconfont icon-faxian"></i>
           <span slot="label">发现</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/contacts'" link="/contacts">
@@ -22,7 +22,7 @@
           <span slot="label">通讯录</span>
         </tabbar-item>
         <tabbar-item :selected="$route.path === '/member'" link="/member">
-          <i slot="icon" class="iconfont icon-navig-wode"></i>
+          <i slot="icon" class="iconfont icon-wode"></i>
           <span slot="label">我的</span>
         </tabbar-item>
       </tabbar>
@@ -135,6 +135,10 @@ export default {
 
   .weui-tabbar {
     position: fixed !important;
+    background: red!important;
+    &::before{
+      display: none;
+    }
   }
 
   .weui-btn {
@@ -145,9 +149,16 @@ export default {
       .weui-tabbar__icon,
       .weui-tabbar__icon > i,
       .weui-tabbar__label {
-        color: red!important;
+        color: #fff!important;
       }
     }
+  }
+  i.weui-tabbar__icon, .weui-tabbar__icon > i{
+    color:rgb(71,26,26)!important;
+  }
+  .weui-tabbar__label{
+    color:rgb(71,26,26)!important;
+    margin-top: 5px;
   }
 
   // .weui-tabbar__icon {

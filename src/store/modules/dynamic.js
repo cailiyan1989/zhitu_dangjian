@@ -117,24 +117,24 @@ const mutations = {
       state.learnedNewsList = []
       state.learnedNewsTotal = 0
     } else {
-      state.learnedNewsList = res.data
-      state.learnedNewsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !==1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for(start; start < end; start++){
-      //     if(start < res.data.total) {
-      //       let newIndex = start%10;
-      //       state.learnedNewsList.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-      //   state.learnedNewsList = res.data.data
-      //   state.learnedNewsTotal = res.data.total
-      // } else if (res.data.current_page ==1 && res.data.total == 0){
-      //   state.learnedNewsList = res.data.data
-      //   state.learnedNewsTotal = res.data.total
-      // }
+      // state.learnedNewsList = res.data
+      // state.learnedNewsTotal = res.data.length
+      if (res.data.data.length !== 0 && res.data.current_page !==1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for(start; start < end; start++){
+          if(start < res.data.total) {
+            let newIndex = start%10;
+            state.learnedNewsList.push(res.data.data[newIndex])
+          }
+        }
+      } else if(res.data.current_page ==1 && res.data.data.length !==0) {
+        state.learnedNewsList = res.data.data
+        state.learnedNewsTotal = res.data.total
+      } else if (res.data.current_page ==1 && res.data.total == 0){
+        state.learnedNewsList = res.data.data
+        state.learnedNewsTotal = res.data.total
+      }
     }
   },
   [types.GET_PEOPLED_NEWS_LIST](state, res) {
@@ -143,24 +143,24 @@ const mutations = {
       state.peopledNewsList = []
       state.peopledNewsTotal = 0
     } else {
-      state.peopledNewsList = res.data
-      state.peopledNewsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !==1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for(start; start < end; start++){
-      //     if(start < res.data.total) {
-      //       let newIndex = start%10;
-      //       state.peopledNewsList.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-      //   state.peopledNewsList = res.data.data
-      //   state.peopledNewsTotal = res.data.total
-      // } else if (res.data.current_page ==1 && res.data.total == 0){
-      //   state.peopledNewsList = res.data.data
-      //   state.peopledNewsTotal = res.data.total
-      // }
+      // state.peopledNewsList = res.data
+      // state.peopledNewsTotal = res.data.length
+      if (res.data.data.length !== 0 && res.data.current_page !==1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for(start; start < end; start++){
+          if(start < res.data.total) {
+            let newIndex = start%10;
+            state.peopledNewsList.push(res.data.data[newIndex])
+          }
+        }
+      } else if(res.data.current_page ==1 && res.data.data.length !==0) {
+        state.peopledNewsList = res.data.data
+        state.peopledNewsTotal = res.data.total
+      } else if (res.data.current_page ==1 && res.data.total == 0){
+        state.peopledNewsList = res.data.data
+        state.peopledNewsTotal = res.data.total
+      }
     }
   },
   [types.GET_NEWED_NEWS_LIST](state, res) {
@@ -169,24 +169,24 @@ const mutations = {
       state.newedNewsList = []
       state.newedNewsTotal = 0
     } else {
-      state.newedNewsList = res.data
-      state.newedNewsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !==1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for(start; start < end; start++){
-      //     if(start < res.data.total) {
-      //       let newIndex = start%10;
-      //       state.newedNewsList.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-      //   state.newedNewsList = res.data.data
-      //   state.newedNewsTotal = res.data.total
-      // } else if (res.data.current_page ==1 && res.data.total == 0){
-      //   state.newedNewsList = res.data.data
-      //   state.newedNewsTotal = res.data.total
-      // }
+      // state.newedNewsList = res.data
+      // state.newedNewsTotal = res.data.length
+      if (res.data.data.length !== 0 && res.data.current_page !==1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for(start; start < end; start++){
+          if(start < res.data.total) {
+            let newIndex = start%10;
+            state.newedNewsList.push(res.data.data[newIndex])
+          }
+        }
+      } else if(res.data.current_page ==1 && res.data.data.length !==0) {
+        state.newedNewsList = res.data.data
+        state.newedNewsTotal = res.data.total
+      } else if (res.data.current_page ==1 && res.data.total == 0){
+        state.newedNewsList = res.data.data
+        state.newedNewsTotal = res.data.total
+      }
     }
   },
 

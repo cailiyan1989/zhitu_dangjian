@@ -25,7 +25,7 @@
                         </div>
                         <div class="list_content">
                             <div class="list_title">{{item.title}}</div>
-                            <div class="list_time">{{item.create_time|fmtDate}}</div>
+                            <div class="list_time">{{item.create_time}}</div>
                         </div>
                         </router-link>
                     </template>
