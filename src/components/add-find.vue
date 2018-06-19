@@ -110,50 +110,49 @@
             let reader = new FileReader();
 
             let uploader_files = self.$el.querySelectorAll('.weui_uploader_file')
-            
             reader.onload = function (e) {
-              var src = e.target.result;
+              var src =  e.target.result;
+              let uploaderCustomeFiles = self.$el.querySelector('#uploaderCustomFiles')
 
-              var maxWidth = 800, maxHeight = 800;
-              var img = new Image();
-              img.src = src;
+              var $preview = `<li class="weui_uploader_file weui_uploader_status"><img src="${src}"></li>`;
+              let preview = self.parseToDOM($preview)[0]
 
-              img.onload = function () {
-                var width = img.width;
-                var height = img.height;
-                var shouldResize = (width > maxWidth) || (height > maxHeight);
-                // if (!shouldResize) {
-                //     // 无需压缩
-                //     return;
-                // }
-                var newWidth, newHeight;
-                // 等比压缩
-                if (width > height) {
-                    newHeight = height * (maxWidth / width);
-                    newWidth = maxWidth;
-                } else {
-                    newWidth = width * (maxHeight / height);
-                    newHeight = maxHeight;
-                }
+              uploaderCustomeFiles.appendChild(preview);
 
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                var w = newWidth;
-                var h = newHeight;
-                // 设置 canvas 的宽度和高度
-                canvas.width = w;
-                canvas.height = h;
-                ctx.drawImage(img, 0, 0, w, h);
-                var base64 = canvas.toDataURL(file.type);
+              // var maxWidth = 800, maxHeight = 800;
+              // var img = new Image();
+              // img.onload = function () {
+              //   var width = img.width;
+              //   var height = img.height;
+              //   var shouldResize = (width > maxWidth) || (height > maxHeight);
+              //   // if (!shouldResize) {
+              //   //     // 无需压缩
+              //   //     return;
+              //   // }
+              //   var newWidth, newHeight;
+              //   // 等比压缩
+              //   if (width > height) {
+              //       newHeight = height * (maxWidth / width);
+              //       newWidth = maxWidth;
+              //   } else {
+              //       newWidth = width * (maxHeight / height);
+              //       newHeight = maxHeight;
+              //   }
+
+              //   var canvas = document.createElement('canvas');
+              //   var ctx = canvas.getContext('2d');
+              //   var w = newWidth;
+              //   var h = newHeight;
+              //   // 设置 canvas 的宽度和高度
+              //   canvas.width = w;
+              //   canvas.height = h;
+              //   ctx.drawImage(img, 0, 0, w, h);
+              //   var base64 = canvas.toDataURL(file.type);
    
-                let uploaderCustomeFiles = self.$el.querySelector('#uploaderCustomFiles')
-
-                var $preview = `<li class="weui_uploader_file weui_uploader_status" style="background-image:url(${base64})"></li>`;
-                let preview = self.parseToDOM($preview)[0]
-
-                uploaderCustomeFiles.append(preview);
                 
-              }
+                
+              // }
+              // img.src = e.target.result;
             }
             reader.readAsDataURL(file);
           }
@@ -233,6 +232,10 @@
     list-style: none;
     &:nth-child(3n){
       margin-right: 0;
+    }
+    img{
+      width: 100%;
+      height: 100%;
     }
   }
 
