@@ -91,24 +91,24 @@ const mutations = {
       state.noticedNewsList = []
       state.noticedNewsTotal = 0
     } else {
-      state.noticedNewsList = res.data
-      state.noticedNewsTotal = res.data.length
-      // if (res.data.length !== 0 && res.data.current_page !==1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for(start; start < end; start++){
-      //     if(start < res.data.total) {
-      //       let newIndex = start%10;
-      //       state.noticedNewsList.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if(res.data.current_page ==1 && res.data.length !==0) {
-      //   state.noticedNewsList = res.data.data
-      //   state.noticedNewsTotal = res.data.total
-      // } else {
-      //   state.noticedNewsList = res.data.data
-      //   state.noticedNewsTotal = res.data.total
-      // }
+      // state.noticedNewsList = res.data
+      // state.noticedNewsTotal = res.data.length
+      if (res.data.length !== 0 && res.data.current_page !==1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for(start; start < end; start++){
+          if(start < res.data.total) {
+            let newIndex = start%10;
+            state.noticedNewsList.push(res.data.data[newIndex])
+          }
+        }
+      } else if(res.data.current_page ==1 && res.data.length !==0) {
+        state.noticedNewsList = res.data.data
+        state.noticedNewsTotal = res.data.total
+      } else {
+        state.noticedNewsList = res.data.data
+        state.noticedNewsTotal = res.data.total
+      }
     }
   },
   [types.GET_LEARNED_NEWS_LIST](state, res) {

@@ -64,14 +64,14 @@
       ])
     },
     created() {
-      this.$store.dispatch('getNoticedNewsList')
+      this.$store.dispatch('getNoticedNewsList',{ 'type': 0,'cate':1 })
     },
     watch: {
       errorNewsMsg: function (value) {
         this.$vux.toast.text(value, 'middle')
       },
       noticedNewsList: function (val) {
-        this.list = val.slice(0,9);
+        this.list = val;
       }
     },
     name: "home",

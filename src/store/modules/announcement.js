@@ -106,24 +106,24 @@ const mutations = {
       state.policyNewsList = []
       state.policyNewsTotal = 0
     } else {
-      state.policyNewsList = res.data
-      state.policyNewsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !==1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for(start; start < end; start++){
-      //     if(start < res.data.total) {
-      //       let newIndex = start%10;
-      //       state.policyNewsList.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-      //   state.policyNewsList = res.data.data
-      //   state.policyNewsTotal = res.data.total
-      // } else if (res.data.current_page ==1 && res.data.total == 0){
-      //   state.policyNewsList = res.data.data
-      //   state.policyNewsTotal = res.data.total
-      // }
+      // state.policyNewsList = res.data
+      // state.policyNewsTotal = res.data.length
+      if (res.data.data.length !== 0 && res.data.current_page !==1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for(start; start < end; start++){
+          if(start < res.data.total) {
+            let newIndex = start%10;
+            state.policyNewsList.push(res.data.data[newIndex])
+          }
+        }
+      } else if(res.data.current_page ==1 && res.data.data.length !==0) {
+        state.policyNewsList = res.data.data
+        state.policyNewsTotal = res.data.total
+      } else if (res.data.current_page ==1 && res.data.total == 0){
+        state.policyNewsList = res.data.data
+        state.policyNewsTotal = res.data.total
+      }
     }
   },
   [types.GET_DEEDS_NEWS_LIST](state, res) {
@@ -132,24 +132,24 @@ const mutations = {
       state.deedsNewsList = []
       state.deedsNewsTotal = 0
     } else {
-      state.deedsNewsList = res.data
-      state.deedsNewsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !==1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for(start; start < end; start++){
-      //     if(start < res.data.total) {
-      //       let newIndex = start%10;
-      //       state.deedsNewsList.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-      //   state.deedsNewsList = res.data.data
-      //   state.deedsNewsTotal = res.data.total
-      // } else if (res.data.current_page ==1 && res.data.total == 0){
-      //   state.deedsNewsList = res.data.data
-      //   state.deedsNewsTotal = res.data.total
-      // }
+      // state.deedsNewsList = res.data
+      // state.deedsNewsTotal = res.data.length
+      if (res.data.data.length !== 0 && res.data.current_page !==1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for(start; start < end; start++){
+          if(start < res.data.total) {
+            let newIndex = start%10;
+            state.deedsNewsList.push(res.data.data[newIndex])
+          }
+        }
+      } else if(res.data.current_page ==1 && res.data.data.length !==0) {
+        state.deedsNewsList = res.data.data
+        state.deedsNewsTotal = res.data.total
+      } else if (res.data.current_page ==1 && res.data.total == 0){
+        state.deedsNewsList = res.data.data
+        state.deedsNewsTotal = res.data.total
+      }
     }
   },
   [types.GET_GUIDE_NEWS_LIST](state, res) {
@@ -158,24 +158,24 @@ const mutations = {
       state.guideNewsList = []
       state.guideNewsTotal = 0
     } else {
-      state.guideNewsList = res.data
-      state.guideNewsTotal = res.data.length
-      // if (res.data.data.length !== 0 && res.data.current_page !==1) {
-      //   let end = res.data.current_page * 10
-      //   let start = end - 10
-      //   for(start; start < end; start++){
-      //     if(start < res.data.total) {
-      //       let newIndex = start%10;
-      //       state.guideNewsList.push(res.data.data[newIndex])
-      //     }
-      //   }
-      // } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-      //   state.guideNewsList = res.data.data
-      //   state.guideNewsTotal = res.data.total
-      // } else if (res.data.current_page ==1 && res.data.total == 0){
-      //   state.guideNewsList = res.data.data
-      //   state.guideNewsTotal = res.data.total
-      // }
+      // state.guideNewsList = res.data
+      // state.guideNewsTotal = res.data.length
+      if (res.data.data.length !== 0 && res.data.current_page !==1) {
+        let end = res.data.current_page * 10
+        let start = end - 10
+        for(start; start < end; start++){
+          if(start < res.data.total) {
+            let newIndex = start%10;
+            state.guideNewsList.push(res.data.data[newIndex])
+          }
+        }
+      } else if(res.data.current_page ==1 && res.data.data.length !==0) {
+        state.guideNewsList = res.data.data
+        state.guideNewsTotal = res.data.total
+      } else if (res.data.current_page ==1 && res.data.total == 0){
+        state.guideNewsList = res.data.data
+        state.guideNewsTotal = res.data.total
+      }
     }
   },
   [types.GET_JOBS_NEWS_LIST](state, res) {
