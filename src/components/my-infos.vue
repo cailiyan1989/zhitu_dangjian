@@ -24,7 +24,7 @@
         <!-- 遮罩层 -->
         <popup class="container" v-show="panel" height="100%">
           <div class="popup">
-            <img id="image" :src="url" alt="Picture">
+            <img id="image1" :src="url" alt="Picture">
           </div>
           <div class="operate">
             <button type="button" @click="panel=false">取消</button>
@@ -100,7 +100,7 @@
     mounted() {
       //初始化这个裁剪框
       var self = this;
-      var image = document.getElementById('image');
+      var image = document.getElementById('image1');
       this.cropper = new Cropper(image, {
         aspectRatio: 1,
         viewMode: 1,
@@ -196,7 +196,7 @@
 </script>
 
 <style lang="less">
-  @import '../common/style/uploadImg.less';
+   @import '../common/style/uploadImg.less';
   .my-infos{
     .weui-cells{
       margin-top: .7rem;
