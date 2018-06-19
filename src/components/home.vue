@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <div style="text-align:center;color:#fff;">智慧党建</div>
     <!-- <swiper loop auto :aspect-ratio="361/750" :list="banner_list" :index="banner_index" @on-index-change="banner_onIndexChange"></swiper> -->
     <grid :cols="3">
       <grid-item label="e家行" link="/intro">
@@ -122,7 +123,8 @@
 <style lang="less">
 .home{
   width: 100%;
-  height: 100%;
+  height: calc(100% + 46px);
+  margin-top: -46px;
   background: url('../common/image/homebg.png');
   background-size: 100% 100%;
   .weui-grids {

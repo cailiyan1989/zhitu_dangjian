@@ -1,7 +1,7 @@
 <template>
   <div id="app" style="height:100%;">
     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px" :class="{'hide':$route.path=='/login'}">
-      <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;background-color:#c50000;" :left-options="leftOptions" :title="title" :transition="headerTransition"></x-header>
+      <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;background-color:#c50000;" :left-options="leftOptions" :title="title" :transition="headerTransition" :class="{'hide':$route.path=='/home'}"></x-header>
       <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
         <keep-alive>
           <router-view v-wechat-title="$route.meta.title" class="router-view"></router-view>
