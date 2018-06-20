@@ -11,15 +11,15 @@
     </div>
     <group>
       <cell title="个人信息" :link="{name:'MyInfos', params:{personid: myInfo.id}}">
-        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/geren.png">
+        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/geren@2x.png">
       </cell>
       <cell title="政企党支部" :link="{path:'/member/party/branch'}">
-        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/zhibu.png">
+        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/dang@2x.png">
       </cell>
     </group>
     <group>
       <cell title="我的积分" :link="{path:'/member/my/integral'}">
-        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/jifen.png">
+        <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/jifen@2x.png">
       </cell>
       <!-- <cell title="我的考试" :link="{path:'/member/my/exam'}">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/kaoshi.png">
@@ -36,7 +36,7 @@
 
     <group>
       <cell title="设置" :link="{path:'/member/settings'}">
-        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/setting.png">
+        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../common/image/sezhi@2x.png">
       </cell>
     </group>
     <div class="imgPopup" v-transfer-dom>
