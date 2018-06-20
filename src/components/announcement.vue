@@ -27,7 +27,24 @@
   </template> -->
   <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="newsID">
     <template v-for="(item,index) in currentNews">
-      <router-link tag="div" class="list" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}" :key="index">
+      <div class="list" :key="index">
+        <div class="list_time">{{item.create_time}}</div>
+        <div class="list_body">
+          <div class="list_bigimg">
+            <img src="../common/image/big.png" alt="">
+          </div>
+          <router-link tag="div" class="list_content" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}">
+            <div class="list_text">
+              <div class="list_title">{{item.title}}</div> 
+            </div>
+            <div class="list_img">
+              <span>Loading</span>
+              <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo"  container="#vux_view_box_body"></x-img>
+            </div>
+          </router-link>
+        </div>
+      </div>
+      <!-- <router-link tag="div" class="list" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}" :key="index">
         <div class="list_img">
           <span>Loading</span>
           <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo"  container="#vux_view_box_body"></x-img>
@@ -36,7 +53,7 @@
           <div class="list_title">{{item.title}}</div>
           <div class="list_time">{{item.create_time}}</div>
         </div>
-      </router-link>
+      </router-link> -->
     </template>
   </v-scroll>
 </div>
@@ -450,54 +467,83 @@
   }
   .list {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: .75rem;
+    padding: 10px;
     box-sizing: border-box;
-    background-color: #fff;
+    // background-color: #fff;
     position: relative;
-    &:after{
-      content:'';
-      position: absolute;
-      left:0;
-      right:0;
-      bottom: 0;
-      height: 1px;
-      color:#d9d9d9;
-      transform-origin: 0px 100% 0px;
-      transform: scaleY(0.5);
-      border-bottom: 1px solid #d9d9d9;
+    margin-bottom: 31px;
+    // &:after{
+    //   content:'';
+    //   position: absolute;
+    //   left:0;
+    //   right:0;
+    //   bottom: 0;
+    //   height: 1px;
+    //   color:#d9d9d9;
+    //   transform-origin: 0px 100% 0px;
+    //   transform: scaleY(0.5);
+    //   border-bottom: 1px solid #d9d9d9;
+    // }
+    .list_time{
+      width: 150px;
+      height: 19px;
+      background: rgb(206,206,206);
+      border-radius: 5px;
+      color:rgb(255,255,255);
+      font-size: 13px;
+      line-height: 1.2;
+      margin-bottom: 9px;
+      text-align: center;
+    }
+    .list_body{
+      width: 355px;
+      height: 239px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .list_bigimg{
+      width: 100%;
+      height: 151px;
+      img{
+        width: 100%;
+      }
+    }
+    .list_content{
+      width: 100%;
+      height: 88px;
+      background: #fff;
+      display: flex;
+      padding: 18px 16px 0;
+      box-sizing: border-box;
     }
     .list_img{
-      width: 4.625rem;
-      height: 2.75rem;
-      line-height: 2.75rem;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
       text-align: center;
-      margin-right: .4em;
+      margin-left: 29px;
       font-size: .7rem;
       .ximg-demo {
         width: 100%;
         height: 100%;
       }
     }
-    .list_content {
+    .list_text{
       flex: 1;
       min-width: 0;
-      .list_title{
-        width: auto;
-        font-weight:400;
-        font-size: .6rem;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-      }
-      .list_time{
-        color:#333;
-        font-size: 0.425rem;
-        line-height: 1.2;
-        margin-top: .5rem;
-      }
     }
+    .list_title{
+      color:rgb(51,51,51);
+      font-weight:400;
+      font-size: 15px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+  
   }
 }
 </style>

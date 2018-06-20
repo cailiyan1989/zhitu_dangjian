@@ -193,4 +193,7 @@ export default {
   .vux-tab-container{
     height: 2.3rem !important;
   }
+  .weui-tab__panel{
+    background: rgb(234, 234, 235);
+  }
 </style>
