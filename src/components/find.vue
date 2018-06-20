@@ -2,11 +2,11 @@
   <div class="find">
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="findsID">
       <div class="userBox">
-        <img src="../common/image/findBg.png" class="ximg-bg">
+        <img src="../common/image/banner@2x.png" class="ximg-bg">
         <router-link tag="div" class="userImg" to="/find/my/all">
-          <!--<div class="name">admin</div>-->
+          <div class="name">{{username}}</div>
           <div class="user">
-            <img src="../common/image/head.png" class="img-user">
+            <img src="../common/image/userhead@2x.png" class="img-user">
           </div>
         </router-link>
       </div>
@@ -29,11 +29,11 @@
             </div>
             <div class="list_footer">
               <div class="like">
-                <i class="iconfont" :class="item.is_like ? 'icon-dianzanjihuob' : 'icon-dianzanb'"  @click="liking(item)"></i>
+                <i class="iconfont" :class="item.is_like ? 'icon-aixin1' : 'icon-aixin'"  @click="liking(item)"></i>
                 <span>{{item.like || 0}}</span>
               </div>
               <div class="comment">
-                <i class="iconfont icon-liaotian" @click="commented(item)"></i>
+                <i class="iconfont icon-pinglun" @click="commented(item)"></i>
                 <!-- <span>{{item.comments || 0}}</span> -->
                 <div v-transfer-dom>
                     <popup v-model="isComment" position="bottom" height="50%" should-scroll-top-on-show>
@@ -58,7 +58,7 @@
     </v-scroll>
     <router-link tag="div" to="/find/my/add" class="create_find">
       <div></div>
-      <i class="iconfont icon-tianjia"></i>
+      <i class="add"><img src="../common/image/add@2x.png" alt=""></i>
     </router-link>
   </div>
 </template>
@@ -106,6 +106,7 @@
     },
     data() {
       return {
+        username:'',
         // src: require('../common/image/findBg.png'),
         counter: 1, //当前页
         num: 10, //一页显示多少条数据，
@@ -136,6 +137,8 @@
         this.box.scrollTop = this.scrollTop
       }, 100)
       this.$store.dispatch('getFindsList')
+
+      this.username =window.localStorage.getItem('username');
     },
     filters: {
       fmtDate(time) {
@@ -282,26 +285,31 @@
     font-size: .7rem;
     .userBox{
       width: 100%;
+      height: 6.656rem;
+      position: relative;
+      margin-bottom: 1.792rem;
       .ximg-bg{
         width: 100%;
-        height: 5rem;
+        height: 100%;
       }
       .userImg{
         z-index: 2;
         display: flex;
         justify-content: flex-end;
-        padding-right: 1rem;
+        // padding-right: 10px;
         box-sizing: border-box;
-        transform: translateY(-1.6rem);
+        position: absolute;
+        bottom: -1.365rem;
+        right:.43rem;
         .name{
-          /*color:#fff;*/
-          font-size: .8rem;
-          margin-right: .4rem;
+          color:#fff;
+          font-size: 0.555rem;
+          margin-right: .43rem;
         }
         .user{
-          height: 2rem;
-          width: 2rem;
-          padding: 2px;
+          height: 2.73rem;
+          width: 2.73rem;
+          padding: 0.085rem;
           display: flex;
           align-items: center;
           border:1px solid rgb(217, 217, 217);
@@ -330,7 +338,7 @@
     .find_list{
       width: 100%;
       background: #fff;
-      margin-bottom: 10px;
+      // margin-bottom: 10px;
       position: relative;
       display: flex;
       padding: .2rem 1rem;
@@ -342,19 +350,21 @@
         left:0;
         right:0;
         bottom: 0;
-        height: 1px;
-        color:rgb(217, 217, 217);
+        height: 2px;
+        color:rgb(234, 234, 236);
         transform-origin: 0px 100% 0px;
         transform: scaleY(0.5);
-        border-bottom: 1px solid rgb(217, 217, 217);
+        border-bottom: 2px solid rgb(234, 234, 236);
       }
       .find_user{
-        width: 2rem;
-        height: 2rem;
-        margin-right: .5rem;
+        width: 1.92rem;
+        height: 1.92rem;
+        margin-right: 0.256rem;
+        border-radius: 50%;
         img{
           width: 100%;
           height: 100%;
+          border-radius: 50%;
         }
       }
       .find_list_content{
@@ -362,13 +372,18 @@
       }
       .list_header{
         width: 100%;
-        height: 2rem;
+        height: 1.92rem;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
+        margin-bottom: 0.555rem;
+        .list_poster{
+          font-size: 0.6rem;
+          color:rgb(240,116,48);
+        }
         .list_date{
-          color:#999999;
-          font-size: .7rem;
+          color:rgb(115,115,115);
+          font-size: 0.43rem;
         }
       }
       .list_body{
@@ -376,8 +391,10 @@
         height: auto;
         margin-bottom: .5rem;
         .list_title{
+          font-size: 0.555rem;
+          color:rgb(0,0,0);
           width: 100%;
-          margin-bottom: .5rem;
+          margin-bottom: 0.256rem;
         }
         .list_imgs{
           width: 100%;
@@ -419,18 +436,23 @@
       z-index: 100;
       div {
         background-color: #fff;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
         position: absolute;
-        right: .45rem;
-        top: 1.2rem;
+        top: 0;
         z-index: 2;
+        border-radius: 50%;
       }
-      i {
-        font-size: 2.5rem;
+      i.add {
+        display: inline-block;
+        width: 2.5rem;
+        height: 2.5rem;
         color: red;
         z-index: 10;
         position: relative;
+        img{
+          width: 100%;
+        }
       }
     }
   }
