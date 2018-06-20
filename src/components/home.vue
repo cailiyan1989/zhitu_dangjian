@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div style="text-align:center;color:#fff;">智慧党建</div>
+    <!-- <div style="text-align:center;color:#fff;">智慧党建</div> -->
     <!-- <swiper loop auto :aspect-ratio="361/750" :list="banner_list" :index="banner_index" @on-index-change="banner_onIndexChange"></swiper> -->
     <grid :cols="3">
       <grid-item label="e家行" link="/intro">
@@ -18,7 +18,7 @@
       <grid-item label="在线学习" link="/learn?status=policy">
         <img slot="icon" src="../common/image/zz@2x.png" />
       </grid-item>
-      <grid-item label="VCR视频" link="/learn?status=policy">
+      <grid-item label="VCR视频" link="/vcr">
         <img slot="icon" src="../common/image/vcr@2x.png" />
       </grid-item>
     </grid>
@@ -123,8 +123,7 @@
 <style lang="less">
 .home{
   width: 100%;
-  height: calc(100% + 46px);
-  margin-top: -46px;
+  height: 100%;
   background: url('../common/image/homebg.png');
   background-size: 100% 100%;
   .weui-grids {

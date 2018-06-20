@@ -1,7 +1,7 @@
 <template>
     <div class="ejia">
-        <div class="title">简介</div>
-        <div style="text-align:center;">    
+        <!-- <div class="title">简介</div> -->
+        <div style="text-align:center;padding-top:10px;">    
             <img src="../common/image/e_intro.png" alt="" class="e_img">
         </div>
         <p>广陵新城，一座都市水城，十余载的光阴流转，从昔日村落农舍的炊烟袅袅，到今日城市新区的鳞次栉比，从最初的几个支部、十余名党员，到现如今28个基层党组织、508名党员（含流动党员），缔造了一部速度与激情的传奇。沐浴着新一轮朝阳，万物生机勃发，“新城党建e家”智慧平台应运而生。

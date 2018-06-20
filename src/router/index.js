@@ -106,6 +106,15 @@ export default new Router({
       }
     },
     {
+      path:'/vcr',
+      name:'Vcr',
+      component: resolve => require(['../components/learn.vue'],resolve),
+      meta: {
+        title: '新闻详情',
+        requiresAuth: true
+      } 
+    },
+    {
       path: '/find',
       name: 'Find',
       component: resolve => require(['../components/find'],resolve),

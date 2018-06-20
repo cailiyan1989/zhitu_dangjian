@@ -283,6 +283,9 @@
 <style lang="less">
   .find{
     font-size: .7rem;
+    .yo-scroll{
+      top:0;
+    }
     .userBox{
       width: 100%;
       height: 6.656rem;

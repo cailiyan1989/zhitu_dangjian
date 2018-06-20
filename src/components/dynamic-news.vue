@@ -379,7 +379,7 @@
     padding-top: 2.3rem;
     padding-bottom: 2rem;
     .yo-scroll {
-      top: 2.3rem;
+      top: 0;
     }
     .list {
       display: flex;

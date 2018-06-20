@@ -305,7 +305,7 @@
   /*padding-top: 2.3rem;*/
   /*padding-bottom: 2rem;*/
   .yo-scroll {
-    top: 3.3rem;
+    top: 0;
   }
   .showNull {
     text-align: center;

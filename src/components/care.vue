@@ -233,7 +233,7 @@ export default {
       }
     }
     .yo-scroll {
-      top: calc(2.3rem + 60px);
+      top: 2.3rem;
     }
     .list {
       display: flex;
