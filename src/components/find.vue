@@ -469,7 +469,7 @@
       position: absolute;
       top: .5rem;
       width: 100%;
-      box-shadow: 0px -3px 10px #333;
+      box-shadow: 0px -2px 20px #666;
       background: #fff;
       border-top-left-radius: .4rem;
       border-top-right-radius: .4rem;

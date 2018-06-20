@@ -134,7 +134,7 @@
       }, 100)
       this.$store.dispatch('getUserList')
 
-      this.username =window.localStorage.getItem('username');
+      this.username =window.localStorage.getItem('username')
     },
     filters: {
       fmtDate(time) {
@@ -427,7 +427,7 @@
       position: absolute;
       top: .5rem;
       width: 100%;
-      box-shadow: 0px -3px 10px #333;
+      box-shadow: 0px -2px 20px #666;
       background: #fff;
       border-top-left-radius: .4rem;
       border-top-right-radius: .4rem;
