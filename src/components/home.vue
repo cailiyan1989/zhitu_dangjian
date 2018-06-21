@@ -9,7 +9,7 @@
       <grid-item label="党建动态" link="/dynamic-news">
         <img slot="icon" src="../common/image/d@2x.png" />
       </grid-item>
-      <grid-item label="支部情况" link="/architecture">
+      <grid-item label="支部情况" link="/home/architecture">
         <img slot="icon" src="../common/image/z@2x.png" />
       </grid-item>
       <grid-item label="党员关怀" link="/care?status=relation">

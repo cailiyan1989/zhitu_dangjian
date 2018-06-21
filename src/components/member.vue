@@ -13,7 +13,7 @@
       <cell title="个人信息" :link="{name:'MyInfos', params:{personid: myInfo.id}}">
         <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/geren@2x.png">
       </cell>
-      <cell title="政企党支部" :link="{path:'/member/party/branch'}">
+      <cell title="政企党支部" :link="{name:'Party',params:{partyid: myInfo.department_id}}">
         <img slot="icon" width="25" style="display:block;margin-right:5px;" src="../common/image/dang@2x.png">
       </cell>
     </group>

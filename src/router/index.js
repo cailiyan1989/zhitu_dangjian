@@ -57,7 +57,7 @@ export default new Router({
       }
     },
     {
-      path: '/architecture',
+      path: '/home/architecture',
       name: 'Architecture',
       component: resolve => require(['../components/architecture'], resolve),
       meta: {
@@ -188,7 +188,7 @@ export default new Router({
       }
     },
     {
-      path:'/member/party/branch',
+      path:'/member/party/branch/:partyid',
       name:'Party',
       component: resolve => require(['../components/party-branch'], resolve),
       meta: {

@@ -25,8 +25,14 @@
       }
     },
     created() {
-      let id = window.localStorage.getItem('department')
+      // let id = window.localStorage.getItem('department')
       
+      // this.$store.dispatch('getBranchInfo', {id: id})
+    },
+    activated() {
+      this.department = {}
+
+      let id = this.$route.params.partyid
       this.$store.dispatch('getBranchInfo', {id: id})
     },
     name: "party-branch",
@@ -42,7 +48,7 @@
 <style lang="less">
 .party{
   width: 100%;
-  height: calc(100% + 55px);
+  height: 100% ;
   background: url('../common/image/bgd.png') no-repeat;
   background-size: 100% 100%;
   .ximg-bg{
