@@ -162,5 +162,9 @@ export default {
   //退出
   get_user_out(params) {
     return fetch('/admin/index.php/base/login/logout', params, 'post')
+  },
+  //党费
+  get_party_fee(params) {
+    return fetch('/admin/index.php/dangfei/dangfei/index', params, 'post')
   }
 }
