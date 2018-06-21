@@ -1,5 +1,8 @@
 <template>
 <div class="personal">
+  <div v-if="showLoading">
+    <load-more tip="正在加载"></load-more>
+  </div>
   <group>
     <cell v-for="(item,index) of lists" :key="index" :title="item.realname" :inline-desc="item.job">
       <img slot="icon" width="30" style="display:block;margin-right:5px;" src="../common/image/head.png">
@@ -9,15 +12,17 @@
 </template>
 
 <script>
-  import {Group, Cell} from 'vux'
+  import {Group, Cell, LoadMore} from 'vux'
   import { mapGetters } from 'vuex'
   export default {
     components:{
       Group,
-      Cell
+      Cell,
+      LoadMore
     },
     computed: {
       ...mapGetters([
+        'isLoaded',
         'personalList',
 
         'errorContactMsg'
@@ -32,6 +37,9 @@
       this.$store.dispatch('getPersonalList', {id: this.$route.params.partyid})
     },
     watch: {
+      isLoaded:function(val) {
+        this.showLoading = val
+      },
       personalList: function (val) {
         this.lists = val
       },
@@ -41,7 +49,8 @@
     },
     data() {
       return {
-        lists:[]
+        lists:[],
+        showLoading:''
       }
     },
     name: "personal-list"

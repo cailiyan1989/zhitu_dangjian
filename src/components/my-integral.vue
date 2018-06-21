@@ -10,6 +10,9 @@
         <div class="my-rank">我的排名：{{myScore.paiming}}</div>
       </div>
     </div>
+    <div v-if="showLoading">
+      <load-more tip="正在加载"></load-more>
+    </div>
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="messageID">
       <div class="integral-item" v-for="(item,index) in currentMessage" :key="index">
         <!-- <span class="create_time">{{item.create_time}}</span> -->
@@ -23,7 +26,7 @@
 
 <script>
   import VScroll from './pull-refresh'
-  import {XImg, Group, Cell} from 'vux'
+  import {XImg, Group, Cell, LoadMore} from 'vux'
   import { mapGetters } from 'vuex'
   import {fmtDate} from '../filters/date.js'
   export default {
@@ -31,10 +34,12 @@
       XImg,
       Group,
       Cell,
+      LoadMore,
       VScroll
     },
     computed: {
       ...mapGetters([
+        'isLoaded',
         'myIntegral',
         'integralDetails',
         'integralTotal',
@@ -52,6 +57,9 @@
       }, 100)
     },
     watch: {
+      isLoaded:function(val) {
+        this.showLoading = val
+      },
       myIntegral: function (val) {
         let id = window.localStorage.getItem('user')
         for (let item of val) {
@@ -88,7 +96,8 @@
         num: 10, // 一页显示多少条
         scrollData: {
           noFlag: false //暂无更多数据显示
-        }
+        },
+        showLoading: ''
       }
     },
     filters: {

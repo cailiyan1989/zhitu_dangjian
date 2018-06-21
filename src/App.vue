@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="height:100%;">
-    <view-box ref="viewBox"  body-padding-bottom="55px" :class="{'hide':$route.path=='/login'}">
+    <view-box ref="viewBox"  body-padding-bottom="26px" :class="{'hide':$route.path=='/login'}">
       <!-- <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;background-color:#c50000;" :left-options="leftOptions" :title="title" :transition="headerTransition" :class="{'hide':$route.path=='/home'}"></x-header> -->
       <transition :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
         <keep-alive>
@@ -62,7 +62,8 @@ export default {
   computed: {
     ...mapState({
       isLoading: state => state.common.isLoading,
-      direction: state => state.common.direction
+      direction: state => state.common.direction,
+      isLogin: state => state.common.isLogin
     }),
     isTabbarDemo() {
       return this.$route.path.split('/').length > 2
@@ -111,6 +112,13 @@ export default {
       // if (/notice/.test(this.$route.query.category)) return '党政公告'
       // if (/learn/.test(this.$route.query.category)) return '基层党建'
       // if (/news/.test(this.$route.query.category)) return '消息通知'
+    }
+  },
+  watch:{
+    isLogin:function(val) {
+      if (!val) {
+        this.$router.replace('/login');
+      }
     }
   }
 }

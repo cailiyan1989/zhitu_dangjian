@@ -60,13 +60,13 @@
       XImg,
       XButton
     },
-    computed: {
-      ...mapGetters([
-        'errorNewsMsg',
+    // computed: {
+    //   ...mapGetters([
+    //     'errorNewsMsg',
 
-        'noticedNewsList'
-      ])
-    },
+    //     'noticedNewsList'
+    //   ])
+    // },
     created() {
       // this.$store.dispatch('getNoticedNewsList',{ 'type': 0,'cate':1 })
     },
@@ -124,13 +124,13 @@
 .home{
   width: 100%;
   height: 100%;
-  background: url('../common/image/homebg.png');
+  background: url('../common/image/homebg.jpg');
   background-size: 100% 100%;
   .weui-grids {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 10rem 1rem 0;
+    padding: 11rem 1rem 0;
     // background-color: #fff;
     &::before,
     &::after{

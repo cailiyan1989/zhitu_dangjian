@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import store from '../store/'
 
 // axios 配置
 axios.defaults.timeout = 8000;
@@ -15,6 +16,7 @@ axios.interceptors.request.use((config) => {
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
   }
+  store.dispatch('showLoaded', {isLoaded: true})
   return config;
 }, (error) => {
   return Promise.reject(error);
@@ -22,6 +24,7 @@ axios.interceptors.request.use((config) => {
 
 // 返回状态判断
 axios.interceptors.response.use((res) => {
+  store.dispatch('showLoaded', {isLoaded: false})
   return res;
 }, (error) => {
   return Promise.reject(error)

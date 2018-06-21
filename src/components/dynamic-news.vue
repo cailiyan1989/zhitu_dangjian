@@ -1,7 +1,8 @@
 <template>
   <div class="dynamic-news">
     <div v-show="!noticedNewsTotal" class="showNull">
-      <span>暂时没有数据。。。</span>
+      <load-more tip="正在加载" v-if="showLoading"></load-more>
+      <span v-else>暂时没有数据。。。</span>
     </div>
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="newsID">
       <template v-for="(item,index) in currentNews">
@@ -16,8 +17,8 @@
                 <div class="list_title">{{item.title}}</div> 
               </div>
               <div class="list_img">
-                <span>Loading</span>
-                <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo"  container="#vux_view_box_body"></x-img>
+                <!-- <span>Loading</span> -->
+                <img :src="src" class="ximg-demo">
               </div>
             </router-link>
           </div>
@@ -28,13 +29,13 @@
 </template>
 
 <script>
-  import { XImg } from 'vux'
+  import {  LoadMore } from 'vux'
   import { mapGetters } from 'vuex'
   import VScroll from './pull-refresh'
   import {fmtDate} from '../filters/date.js'
   export default {
     components:{
-      XImg,
+      LoadMore,
       VScroll
       // 'v-scroll': require("./pull-refresh").default
     },
@@ -52,11 +53,13 @@
         scrollData: {
           noFlag: false //暂无更多数据显示
         },
-        src:require('../common/image/7878.png')
+        src:require('../common/image/7878.png'),
+        showLoading:''
       }
     },
     computed: {
       ...mapGetters([
+        'isLoaded',
         'noticedNewsList',
         // 'learnedNewsList',
         // 'peopledNewsList',
@@ -114,6 +117,9 @@
     },
     name: "dynamic-news",
     watch: {
+      isLoaded: function(val) {
+        this.showLoading = val
+      },
       errorNewsMsg: function (value) {
         this.$vux.toast.text(value, 'middle')
       },
@@ -339,16 +345,16 @@
         // }
         done();
       },
-      success (src, ele) {
-        const span = ele.parentNode.querySelector('span')
-        // console.log('success load', src,ele,span)
-        span.style.display = 'none';
-      },
-      error (src, ele, msg) {
-        // console.log('error load', msg, src)
-        const span = ele.parentNode.querySelector('span')
-        span.innerText = 'load error'
-      }
+      // success (src, ele) {
+      //   const span = ele.parentNode.querySelector('span')
+      //   // console.log('success load', src,ele,span)
+      //   span.style.display = 'none';
+      // },
+      // error (src, ele, msg) {
+      //   // console.log('error load', msg, src)
+      //   const span = ele.parentNode.querySelector('span')
+      //   span.innerText = 'load error'
+      // }
     },
     filters: {
       fmtDate(time) {
@@ -366,14 +372,7 @@
       text-align: center;
       line-height: 3.5rem;
       display: flex;
-      &:before {
-        content: '';
-        display: inline-block;
-        width: 5rem;
-        height: 3rem;
-        /*background-size: 70% !important;*/
-        /*background: url(../common/images/nodata.gif) no-repeat center;*/
-      }
+      justify-content: center;
     }
     font-size: .7rem;
     padding-top: 2.3rem;
@@ -417,6 +416,7 @@
         width: 355px;
         height: 239px;
         border-radius: 10px;
+        background: rgb(255,255,255);
         overflow: hidden;
       }
       .list_bigimg{
@@ -429,7 +429,7 @@
       .list_content{
         width: 100%;
         height: 88px;
-        background: #fff;
+        // background: #fff;
         display: flex;
         padding: 18px 16px 0;
         box-sizing: border-box;

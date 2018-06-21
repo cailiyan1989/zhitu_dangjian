@@ -10,6 +10,9 @@
         top="46px"
         @on-submit="onSubmit"
         ref="search"></search>
+      <div v-if="showLoading">
+        <load-more tip="正在加载"></load-more>
+      </div>
       <group>
         <cell :title="item.title" v-for="(item,index) of partys" :key="index" :link="{name:'Personnel',params:{partyid:item.id}}" v-if="item.title">
           <img slot="icon" width="30" style="display:block;margin-right:5px;" src="../common/image/logo.jpg">
@@ -19,17 +22,19 @@
 </template>
 
 <script>
-  import { Search, Group, Cell} from 'vux'
+  import { Search, Group, Cell, LoadMore} from 'vux'
   import { mapGetters } from 'vuex'
   import _ from 'lodash';
   export default {
     components: {
       Search,
       Group,
-      Cell
+      Cell,
+      LoadMore
     },
     computed: {
       ...mapGetters([
+        'isLoaded',
         'partysList',
         'searchInfo',
 
@@ -46,6 +51,9 @@
       this.partys = this.partysList
     },
     watch: {
+      isLoaded:function(val) {
+        this.showLoading = val
+      },
       partysList: function (val) {
         this.partys = val
       },
@@ -83,7 +91,8 @@
       return {
         results: [],//搜索结果
         value:'',//输入neirong
-        partys:[],//党支部
+        partys:[],//党支部,
+        showLoading: ''
       }
     },
     name: "contacts"

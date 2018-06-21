@@ -5,7 +5,6 @@
                 <tab-item class="vux-center" :selected="selected === item" v-for="(item, index) in list" @on-item-click="handler(item)" :key="index">{{item}}</tab-item>
             </tab>
         </div>
-
         <div class="care_content">   
             <template v-if="$route.query.status=='relation'">
                 <div class="rela_content">
@@ -13,22 +12,16 @@
                 </div>
             </template>
             <template v-if="$route.query.status=='pay'">
-                <div v-if="!newedNewsTotal" class="showNull">
-                    <span>暂时没有数据。。。</span>
+                <div v-show="showLoading" class="showNull">
+                  <load-more tip="正在加载" v-if="showLoading"></load-more>
                 </div>
                 <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="newsID">
-                    <template v-for="(item,index) in currentNews">
-                        <router-link tag="div" class="list" :to="{name:'NewsDetail', params: {dynamicid: item.id}}"  :key="index">
-                        <div class="list_img">
-                            <span>Loading</span>
-                            <x-img :src="src" :webp-src="`${src}?type=webp`" @on-success="success" @on-error="error" class="ximg-demo"  container="#vux_view_box_body"></x-img>
-                        </div>
-                        <div class="list_content">
-                            <div class="list_title">{{item.title}}</div>
-                            <div class="list_time">{{item.create_time}}</div>
-                        </div>
-                        </router-link>
-                    </template>
+                    <div class="integral-item" v-for="(item,index) in currentNews" :key="index">
+                      <!-- <span class="create_time">{{item.create_time}}</span> -->
+                      <group>
+                        <cell title="美文阅读" :value="'+'+item.score" :inline-desc="item.create_time|fmtDate"></cell>
+                      </group>
+                    </div>
                 </v-scroll>
             </template>
         </div>
@@ -36,7 +29,7 @@
 </template>
 
 <script>
-import {  Tab, TabItem, XImg} from 'vux'
+import {  Tab, TabItem,Group, Cell, LoadMore} from 'vux'
 import { mapState, mapGetters } from 'vuex'
 import VScroll from './pull-refresh'
 import {fmtDate} from '../filters/date.js'
@@ -46,7 +39,9 @@ export default {
     components: {
       Tab,
       TabItem,
-      XImg,
+      Group,
+      Cell,
+      LoadMore,
       VScroll
     },
     data() {
@@ -61,7 +56,8 @@ export default {
         scrollData: {
           noFlag: false //暂无更多数据显示
         },
-        src:require('../common/image/normal.png')
+        src:require('../common/image/normal.png'),
+        showLoading:''
       }
     },
     computed: {
@@ -69,6 +65,7 @@ export default {
         direction: state => state.common.direction
       }),
       ...mapGetters({
+        'isLoaded': 'isLoaded',
 
         'newedNewsList':'newedNewsList',
 
@@ -95,6 +92,9 @@ export default {
 
           this.currentNews = this.newedNewsList
         }
+      },
+      isLoaded: function(val) {
+        this.showLoading = val
       },
       errorNewsMsg: function (value) {
         this.$vux.toast.text(value, 'middle')
@@ -223,14 +223,15 @@ export default {
       text-align: center;
       line-height: 3.5rem;
       display: flex;
-      &:before {
-        content: '';
-        display: inline-block;
-        width: 5rem;
-        height: 3rem;
-        /*background-size: 70% !important;*/
-        /*background: url(../common/images/nodata.gif) no-repeat center;*/
-      }
+      justify-content: center;
+      // &:before {
+      //   content: '';
+      //   display: inline-block;
+      //   width: 5rem;
+      //   height: 3rem;
+      //   /*background-size: 70% !important;*/
+      //   /*background: url(../common/images/nodata.gif) no-repeat center;*/
+      // }
     }
     .yo-scroll {
       top: 2.3rem;

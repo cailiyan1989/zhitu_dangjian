@@ -11,7 +11,8 @@
         </router-link>
       </div>
       <div v-show="!findsTotal" class="showNull">
-        <span>暂时没有数据。。。</span>
+        <load-more tip="正在加载" v-if="loading"></load-more>
+        <span v-else>暂时没有数据。。。</span>
       </div>
       <template v-for="(item,index) in workList">
         <div class="find_list" :key="index">
@@ -65,7 +66,7 @@
 
 <script>
   import VScroll from './pull-refresh'
-  import { TransferDom,  Popup, Group, Cell, XButton, XInput} from 'vux'
+  import { TransferDom,  Popup, Group, Cell, XButton, XInput, LoadMore} from 'vux'
   import { mapGetters } from 'vuex'
   import api from '../fetch/api'
   import {fmtDate} from '../filters/date.js'
@@ -79,10 +80,12 @@
       Cell,
       XButton,
       XInput,
+      LoadMore,
       VScroll
     },
     computed: {
       ...mapGetters([
+        'isLoaded',
         'findsLists',
         'findsTotal',
 
@@ -94,6 +97,9 @@
       ])
     },
     watch: {
+      isLoaded: function(val) {
+        this.loading = val;
+      },
       errorTaskMsg: function (value) {
         this.$vux.toast.text(value,'middle')
       },
@@ -120,6 +126,7 @@
         postMessages:'',
         imgBase:'http://yf.ztemap.com:8091/',
         clickedComment:null,
+        loading:''
 
       }
     },
@@ -329,14 +336,15 @@
       text-align: center;
       line-height: 3.5rem;
       display: flex;
-      &:before {
-        content: '';
-        display: inline-block;
-        width: 5rem;
-        height: 3rem;
-        background-size: 70% !important;
-        /*background: url(../common/images/nodata.gif) no-repeat center;*/
-      }
+      justify-content: center;
+      // &:before {
+      //   content: '';
+      //   display: inline-block;
+      //   width: 5rem;
+      //   height: 3rem;
+      //   background-size: 70% !important;
+      //   /*background: url(../common/images/nodata.gif) no-repeat center;*/
+      // }
     }
     .find_list{
       width: 100%;
