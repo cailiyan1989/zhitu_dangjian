@@ -7,7 +7,12 @@ const state = {
   integralTotal: 0,
   errorMessageMsg: '',
 
-  integralScrollTop: 0
+  integralScrollTop: 0,
+
+  partyFees:[],
+  partyFeesTotal: 0,
+
+  feesScrollTop: 0
 }
 
 const actions = {
@@ -25,6 +30,14 @@ const actions = {
   },
   updateIntegralPosition({ commit }, top) {
     commit({type: 'updateIntegralPosition', top: top})
+  },
+  getPartyFees({ commit }, params) {
+    api.get_party_fee(params).then(res => {
+      commit(types.GET_PARTY_FEE, res)
+    })
+  },
+  updateFeesPosition({ commit }, top) {
+    commit({type: 'updateFeesPosition', top: top})
   }
 }
 
@@ -34,7 +47,11 @@ const getters = {
   integralTotal: state => state.integralTotal,
   errorMessageMsg: state => state.errorMessageMsg,
 
-  integralScrollTop:state => state.integralScrollTop
+  integralScrollTop:state => state.integralScrollTop,
+
+  partyFees: state => state.partyFees,
+  partyFeesTotal: state => state.partyFeesTotal,
+  feesScrollTop: state => state.feesScrollTop
 }
 
 const mutations = {
@@ -69,13 +86,23 @@ const mutations = {
       // }
     }
   },
-
+  [types.GET_PARTY_FEE](state, res) {
+    if (res.code == 0) {
+      state.errorMessageMsg = res.msg
+    } else {
+      state.partyFees = res.data
+      state.partyFeesTotal =res.data.length
+    }
+  },
   clearMessageMsg(state) {
     state.errorMessageMsg = ''
   },
 
   updateIntegralPosition (state, payload) {
     state.integralScrollTop = payload.top
+  },
+  updateFeesPosition(state, payload) {
+    state.feesScrollTop = payload.top
   }
 }
 

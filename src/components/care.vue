@@ -12,16 +12,20 @@
                 </div>
             </template>
             <template v-if="$route.query.status=='pay'">
-                <div v-show="showLoading" class="showNull">
-                  <load-more tip="正在加载" v-if="showLoading"></load-more>
+                <div v-if="showLoading" class="showNull">
+                  <load-more tip="正在加载"></load-more>
                 </div>
                 <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="newsID">
-                    <div class="integral-item" v-for="(item,index) in currentNews" :key="index">
-                      <!-- <span class="create_time">{{item.create_time}}</span> -->
-                      <group>
-                        <cell title="美文阅读" :value="'+'+item.score" :inline-desc="item.create_time|fmtDate"></cell>
-                      </group>
-                    </div>
+                  <div class="integral-item" v-for="(item,index) in currentNews" :key="index">
+                    <!-- <span class="create_time">{{item.create_time}}</span> -->
+                    <group>
+                      <cell :title="item.title">
+                        <p slot="inline-desc">应交党费：{{item.needmoney}}</p>
+                        <p slot="inline-desc">缴纳时间：{{item.create_time}}</p>
+                        <p :class="{'pass':item.status==1,'check':item.status==0}">{{item.status|filterStatus}}</p>
+                      </cell>
+                    </group>
+                  </div>
                 </v-scroll>
             </template>
         </div>
@@ -67,14 +71,13 @@ export default {
       ...mapGetters({
         'isLoaded': 'isLoaded',
 
-        'newedNewsList':'newedNewsList',
+        'errorMessageMsg': 'errorMessageMsg',
 
-        'newedNewsTotal':'newedNewsTotal',
+        'partyFees':'partyFees',
 
+        'partyFeesTotal': 'partyFeesTotal',
 
-        'errorNewsMsg':'errorNewsMsg',
-
-        'newedNewsScrollTop': 'newedNewsScrollTop'
+        // 'feesScrollTop': 'feesScrollTop'
       })
     },
      watch: {
@@ -85,21 +88,21 @@ export default {
         }else if (to.query.status == "pay") {
           this.selected = "党费缴纳"
           this.index = 1
-          if (this.newedNewsList.length == 0) {
+          if (this.partyFees.length == 0) {
             // this.$el.querySelector('.nullData').style.display = 'none';
-            this.$store.dispatch('getNewedNewsList', { 'type': 0, 'cate':2 })
+            this.$store.dispatch('getPartyFees')
           }
 
-          this.currentNews = this.newedNewsList
+          this.currentNews = this.partyFees
         }
       },
       isLoaded: function(val) {
         this.showLoading = val
       },
-      errorNewsMsg: function (value) {
+      errorMessageMsg: function (value) {
         this.$vux.toast.text(value, 'middle')
       },
-      newedNewsList: function (value) {
+      partyFees: function (value) {
         this.currentNews = value;
         // console.log(this.currentProject)
       },
@@ -110,23 +113,27 @@ export default {
         this.selected = "组织转移"
       } else if (currentSelected == 'pay') {
         this.selected = "党费缴纳"
-        this.$store.dispatch('getNewedNewsList', { 'type':0,'cate':2 })
+        this.$store.dispatch('getPartyFees')
       }
     },
     mounted() {
-    //   this.$nextTick(() => {
-    //     this.box = this.$el.querySelector('#newsID')
-    //     this.box.addEventListener('scroll', this.handler, false)
-    //   })
+      // this.$nextTick(() => {
+      //   this.box = this.$el.querySelector('#newsID')
+      //   this.box.addEventListener('scroll', this.scrollTop, false)
+      // })
     },
     activated() {
-    //   this.$nextTick(() => {
-    //     this.box = this.$el.querySelector('#newsID')
-    //     this.box.scrollTop = this.newedNewsScrollTop
+      // this.$nextTick(() => {
+      //   this.box = this.$el.querySelector('#newsID')
+      //   this.box.scrollTop = this.feesScrollTop
 
-    //   })
+      // })
     },
     methods: {
+        // scrollTop() {
+        //   this.box = document.querySelector('#newsID')
+        //   this.$store.dispatch('updateFeesPosition', this.box.scrollTop)
+        // },
         handler: function(item) {
             this.selected = item
             let path = this.$route.path;
@@ -134,12 +141,12 @@ export default {
                 this.$router.replace(`${path}?status=relation`)
             } else if (item === '党费缴纳') {
                 this.$router.replace(`${path}?status=pay`)
-                this.$store.dispatch('getNewedNewsList', { 'type':0,'cate':2 })
+                this.$store.dispatch('getPartyFees')
             }
 
         },
         onRefresh(done) { 
-            this.$store.dispatch('getNewedNewsList',{ 'type':0,'cate':2})
+            this.$store.dispatch('getPartyFees')
             this.newsNewsedCounter = 1
             done(); // call done
         },
@@ -149,49 +156,52 @@ export default {
             let i = end - this.num;
             let more = this.$el.querySelector('.load-more')
 
-            this.$store.dispatch('getNewedNewsList', { page: this.newsNewsedCounter, 'type':0,'cate':2 }).then(() => {
+            this.$store.dispatch('getPartyFees', { page: this.newsNewsedCounter}).then(() => {
                 for (i; i < end; i++) {
-                if (i >= this.newedNewsTotal) {
-                    more.style.display = 'none'; //隐藏加载条
-                    //走完数据调用方法
-                    this.scrollData.noFlag = true;
-                    break;
-                } else {
-                    // let newIndex = i % 10
-                    // if (res.data.data.length !== 0) {
-                    //     this.currentTime.push(res.data.data[newIndex])
-                    // }
-                    more.style.display = 'none'; //隐藏加载条
+                  if (i >= this.partyFeesTotal) {
+                      more.style.display = 'none'; //隐藏加载条
+                      //走完数据调用方法
+                      this.scrollData.noFlag = true;
+                      break;
+                  } else {
+                      // let newIndex = i % 10
+                      // if (res.data.data.length !== 0) {
+                      //     this.currentTime.push(res.data.data[newIndex])
+                      // }
+                      more.style.display = 'none'; //隐藏加载条
+                  }
                 }
-                }
-                if (!this.newedNewsTotal) {
-                this.$nextTick(() => {
-                    this.$el.querySelector('.nullData').style.display = 'none';
-                })
-                } else {
-                this.$nextTick(() => {
-                    this.$el.querySelector('.nullData').style.display = '';
-                })
-                }
+                // if (!this.newedNewsTotal) {
+                //   this.$nextTick(() => {
+                //       this.$el.querySelector('.nullData').style.display = 'none';
+                //   })
+                // } else {
+                //   this.$nextTick(() => {
+                //       this.$el.querySelector('.nullData').style.display = '';
+                //   })
+                // }
             })
 
             done();
         },
-        success (src, ele) {
-            const span = ele.parentNode.querySelector('span')
-            // console.log('success load', src,ele,span)
-            span.style.display = 'none';
-        },
-        error (src, ele, msg) {
-            // console.log('error load', msg, src)
-            const span = ele.parentNode.querySelector('span')
-            span.innerText = 'load error'
-        }
+        // success (src, ele) {
+        //     const span = ele.parentNode.querySelector('span')
+        //     // console.log('success load', src,ele,span)
+        //     span.style.display = 'none';
+        // },
+        // error (src, ele, msg) {
+        //     // console.log('error load', msg, src)
+        //     const span = ele.parentNode.querySelector('span')
+        //     span.innerText = 'load error'
+        // }
     },
     filters: {
-      fmtDate(time) {
-        let date = new Date(time)
-        return fmtDate(date, 'yyyy-MM-dd')
+      filterStatus(val) {
+        if(val == 0) {
+          return '未缴纳'
+        }else if(val == 1){
+          return '已缴纳'
+        }
       }
     },
     
@@ -236,56 +246,27 @@ export default {
     .yo-scroll {
       top: 2.3rem;
     }
-    .list {
-      display: flex;
-     /*  align-items: center; */
-      padding: 15px;
-      box-sizing: border-box;
-      background-color: #fff;
-      position: relative;
-      &:after{
-        content:'';
-        position: absolute;
-        left:0;
-        right:0;
-        bottom: 0;
-        height: 1px;
-        color:#d9d9d9;
-        transform-origin: 0px 100% 0px;
-        transform: scaleY(0.5);
-        border-bottom: 1px solid #d9d9d9;
+    .vux-cell-bd { 
+      font-size: .8rem;
+      
+    }
+    .vux-label-desc{
+       p {
+        color: #666;
       }
-      .list_img{
-        width: 4.625rem;
-        height: 2.75rem;
-        line-height: 2.75rem;
-        text-align: center;
-        margin-right: .4em;
-        font-size: .7rem;
-        .ximg-demo {
-          width: 100%;
-          height: 100%;
+      font-size: .7rem;
+      line-height: 1.6;
+    }
+    .weui-cell__ft {
+        .check {
+            color: #E64340;
         }
-      }
-      .list_content {
-        flex: 1;
-        min-width: 0;
-        .list_title{
-          width: auto;
-          font-weight:400;
-          font-size: .6rem;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
+        .pass {
+            color: #1AAD19;
         }
-        .list_time{
-          color:#333;
-          font-size: 0.425rem;
-          line-height: 1.2;
-          margin-top: .5rem;
+        p {
+            font-size: .7rem;
         }
-      }
     }
  }
 
