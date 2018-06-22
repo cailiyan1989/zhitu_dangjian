@@ -467,22 +467,26 @@
     //   /*background-size: 70% !important;*/
     //   /*background: url(../common/images/nodata.gif) no-repeat center;*/
     // }
+    .vux-loadmore{
+      z-index: 111;
+    }
   }
   font-size: .7rem;
   padding-top: 2.3rem;
   padding-bottom: 2rem;
   .yo-scroll {
     top: 2.3rem;
+    background: rgb(234,234,235);
   }
   .list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: .43rem;
     box-sizing: border-box;
     // background-color: #fff;
     position: relative;
-    margin-bottom: 31px;
+    margin-bottom: 1.32rem;
     // &:after{
     //   content:'';
     //   position: absolute;
@@ -496,45 +500,49 @@
     //   border-bottom: 1px solid #d9d9d9;
     // }
     .list_time{
-      width: 150px;
-      height: 19px;
+      width:  6.4rem;
+      height: .81rem;
       background: rgb(206,206,206);
-      border-radius: 5px;
+      border-radius: .213rem;
       color:rgb(255,255,255);
-      font-size: 13px;
+      font-size: 0.55rem;
       line-height: 1.2;
-      margin-bottom: 9px;
+      margin-bottom: .384rem;
       text-align: center;
     }
     .list_body{
-      width: 355px;
-      height: 239px;
-      border-radius: 10px;
+      width: 15.15rem;
+      height: 10.20rem;
+      border-radius: .43rem;
+      background: rgb(255,255,255);
       overflow: hidden;
     }
     .list_bigimg{
       width: 100%;
-      height: 151px;
+      height: 6.44rem;
+      background: rgb(247, 247, 247);
       img{
         width: 100%;
+        height: 100%;
       }
     }
     .list_content{
       width: 100%;
-      height: 88px;
-      background: #fff;
+      height: 3.75rem;
+      // background: #fff;
       display: flex;
-      padding: 18px 16px 0;
+      padding: .768rem .683rem 0;
       box-sizing: border-box;
     }
     .list_img{
-      width: 60px;
-      height: 60px;
-      line-height: 60px;
+      width: 2.56rem;
+      height: 2.56rem;
+      line-height: 2.56rem;
       text-align: center;
-      margin-left: 29px;
+      margin-left: 1.24rem;
       font-size: .7rem;
-      .ximg-demo {
+      background: rgb(247, 247, 247);
+      img {
         width: 100%;
         height: 100%;
       }
@@ -546,7 +554,7 @@
     .list_title{
       color:rgb(51,51,51);
       font-weight:400;
-      font-size: 15px;
+      font-size: .64rem;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;

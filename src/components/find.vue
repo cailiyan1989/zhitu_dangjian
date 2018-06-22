@@ -298,6 +298,7 @@
       height: 6.656rem;
       position: relative;
       margin-bottom: 1.792rem;
+      background: rgb(247,247,247);
       .ximg-bg{
         width: 100%;
         height: 100%;

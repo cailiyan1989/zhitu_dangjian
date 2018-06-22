@@ -1,6 +1,8 @@
 <template>
   <div class="party">
-    <img src="../common/image/bg.png" class="ximg-bg">
+    <div class="ximg-bg">
+      <img src="../common/image/danghui@2x.png">
+    </div>
     <div class="party_name">{{department.title}}</div>
     <div class="party_descript" v-html="department.desc"></div>
   </div>
@@ -49,24 +51,30 @@
 .party{
   width: 100%;
   height: 100% ;
-  background: url('../common/image/bgd.png') no-repeat;
+  background: url('../common/image/zhibu.png') no-repeat;
   background-size: 100% 100%;
   .ximg-bg{
-    width: 100%;
-    height: 6rem;
-    margin-bottom: 1rem;
+    width: 2.816rem;
+    height: 2.816rem;
+    padding: 1.26rem 0 .512rem;
+    margin: 0 auto;
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
   .party_name{
-    font-size: 1rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.06rem;
+    padding: 0 2.005rem;
+    margin-bottom: 2.688rem;
     text-align: center;
   }
   .party_descript{
     font-size: .7rem;
-    color: #999999;
-    line-height: .8rem;
-    padding: 0 1rem;
-    text-indent: 2em;
+    color: #000;
+    line-height: .9rem;
+    padding: 0 2.005rem;;
+    // text-indent: 2em;
   }
 }
 </style>

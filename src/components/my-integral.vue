@@ -1,7 +1,9 @@
 <template>
   <div class="integral">
     <div class="userBox">
-      <img src="../common/image/findBg.png" class="ximg-bg">
+      <div class="ximg-bg">
+        <img src="../common/image/findBg.png">
+      </div>
       <div class="userImg">
         <div class="my-integral">我的积分：{{myScore.score}}</div>
         <div class="user">
@@ -155,6 +157,11 @@
       .ximg-bg {
         width: 100%;
         height: 5rem;
+        background: rgb(247,247,247);
+        img{
+          width: 100%;
+          height: 100%;
+        }
       }
       .userImg {
         display: flex;
