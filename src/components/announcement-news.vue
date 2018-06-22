@@ -15,7 +15,7 @@
   import {  Tab, TabItem, } from 'vux'
   import { mapState } from 'vuex'
 
-  const list = () => ['方针政策', '党建ABC', '基本纪律']
+  const list = () => ['方针政策', '党建ABC', '党员准则']
   export default {
     components:{
       Tab,
@@ -48,7 +48,7 @@
       } else if (currentSelected == 'deeds') {
         this.selected = '党建ABC'
       } else if (currentSelected == 'guide') {
-        this.selected = '基本纪律'
+        this.selected = '党员准则'
       } 
       // else if (currentSelected == 'jobs') {
       //   this.selected = '工作监办'
@@ -73,7 +73,7 @@
           } else {
             this.$router.replace(`${path}?status=deeds`)
           }
-        } else if (item == '基本纪律') {
+        } else if (item == '党员准则') {
           if (this.$route.params.status) {
             this.$router.replace({ name: 'Status', params: { status: this.$route.params.status} });
           } else {

@@ -52,22 +52,26 @@ export default {
 .architec{
     width: 100%;
     height: 100% ;
-    background: url('../common/image/bgd.png');
+    background: url('../common/image/ditu11.png');
     background-size: 100% 100%;
     position: relative;
     .partys{
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 15rem;
+        height: 30%;
         overflow: auto;
     }
     .party_list{
         width: 100%;
         height: auto;
     }
+    .vux-tap-active:active {
+        background-color: rgba(0,0,0,.3);
+    }
     .weui-cells{
         background: transparent;
+        margin-top: 0;
         &::before,
         &::after{
             display: none;
@@ -79,7 +83,7 @@ export default {
         }
     }
     .vux-label{
-        // color:rgb(255,255,255);
+        color:rgb(255,255,255);
         font-size: 0.64rem;
     }
 }
