@@ -31,7 +31,7 @@ export default new Router({
       }
     },
     {
-      path: '/intro',
+      path: '/home/intro',
       component: resolve => require(['../components/intro'], resolve),
       meta: {
         title:'e家行',
@@ -39,7 +39,7 @@ export default new Router({
       }
     },
     {
-      path: '/dynamic-news',
+      path: '/home/dynamic-news',
       name: 'dynamicNews',
       component: resolve => require(['../components/dynamic-news'],resolve),
       meta: {
@@ -66,7 +66,7 @@ export default new Router({
       }
     },
     {
-      path: '/care',
+      path: '/home/care',
       name: 'Care',
       component: resolve => require(['../components/care'], resolve),
       meta: {
@@ -84,7 +84,7 @@ export default new Router({
     //   }
     // },
     {
-      path: '/learn',
+      path: '/home/learn',
       component: resolve => require(['../components/announcement-news'], resolve),
       children: [{
         path: '/',
@@ -106,7 +106,7 @@ export default new Router({
       }
     },
     {
-      path:'/vcr',
+      path:'/home/vcr',
       name:'Vcr',
       component: resolve => require(['../components/learn.vue'],resolve),
       meta: {

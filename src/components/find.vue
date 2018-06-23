@@ -58,8 +58,8 @@
       </template>
     </v-scroll>
     <router-link tag="div" to="/find/my/add" class="create_find">
-      <div></div>
-      <i class="add"><img src="../common/image/add@2x.png" alt=""></i>
+      <!-- <div></div> -->
+      <i class="add"><img src="../common/image/comment.png" alt=""></i>
     </router-link>
   </div>
 </template>

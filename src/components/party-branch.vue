@@ -54,8 +54,8 @@
   background: url('../common/image/zhibu.png') no-repeat;
   background-size: 100% 100%;
   .ximg-bg{
-    width: 2.816rem;
-    height: 2.816rem;
+    width: 1.408rem;
+    height: 1.408rem;
     padding: 1.26rem 0 .512rem;
     margin: 0 auto;
     img{

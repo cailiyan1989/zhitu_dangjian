@@ -3,22 +3,22 @@
     <!-- <div style="text-align:center;color:#fff;">智慧党建</div> -->
     <!-- <swiper loop auto :aspect-ratio="361/750" :list="banner_list" :index="banner_index" @on-index-change="banner_onIndexChange"></swiper> -->
     <grid :cols="3">
-      <grid-item label="e家行" link="/intro">
+      <grid-item label="e家行" link="/home/intro">
         <img slot="icon" src="../common/image/e@2x.png" />
       </grid-item>
-      <grid-item label="党建动态" link="/dynamic-news">
+      <grid-item label="党建动态" link="/home/dynamic-news">
         <img slot="icon" src="../common/image/d@2x.png" />
       </grid-item>
       <grid-item label="支部情况" link="/home/architecture">
         <img slot="icon" src="../common/image/z@2x.png" />
       </grid-item>
-      <grid-item label="党员关怀" link="/care?status=relation">
+      <grid-item label="党员关怀" link="/home/care?status=relation">
         <img slot="icon" src="../common/image/dy@2x.png" />
       </grid-item>
-      <grid-item label="在线学习" link="/learn?status=policy">
+      <grid-item label="在线学习" link="/home/learn?status=policy">
         <img slot="icon" src="../common/image/zz@2x.png" />
       </grid-item>
-      <grid-item label="VCR视频" link="/vcr">
+      <grid-item label="VCR视频" link="/home/vcr">
         <img slot="icon" src="../common/image/vcr@2x.png" />
       </grid-item>
     </grid>
