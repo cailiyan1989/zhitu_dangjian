@@ -149,7 +149,10 @@
     },
     filters: {
       fmtDate(time) {
-        let publishTime = Date.parse(time)/1000;
+        let arr = time.split(/[- / :]/);
+        let date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);
+        
+        let publishTime = Date.parse(date)/1000;
         let timeNow = Date.now()/1000;
 
         let d = timeNow - publishTime,

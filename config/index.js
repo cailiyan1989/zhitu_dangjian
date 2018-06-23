@@ -11,11 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/dangjian': {
-        target: 'http://yf.ztemap.com:8091/dangjian',
+      '/djejx': {
+        target: 'http://yf.ztemap.com:8091/djejx',
         changeOrigin: true,
         pathRewrite: {
-          '^/dangjian': ''
+          '^/djejx': ''
         }
       }
     },

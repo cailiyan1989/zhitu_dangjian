@@ -1,15 +1,13 @@
 <template>
     <div class="contact">
-      <search
+      <!-- <search
         @result-click="resultClick"
         @on-change="getResult"
         :results="results"
         v-model="value"
-        position="absolute"
         auto-scroll-to-top
-        top="46px"
         @on-submit="onSubmit"
-        ref="search"></search>
+        ref="search"></search> -->
       <div v-if="showLoading">
         <load-more tip="正在加载"></load-more>
       </div>
@@ -36,7 +34,7 @@
       ...mapGetters([
         'isLoaded',
         'partysList',
-        'searchInfo',
+        // 'searchInfo',
 
         'errorContactMsg'
       ])
@@ -57,14 +55,14 @@
       partysList: function (val) {
         this.partys = val
       },
-      searchInfo: function (val) {
-        val.forEach(item => {
-          this.results.push({
-            title: item.username,
-            id: item.id
-          })
-        })
-      },
+      // searchInfo: function (val) {
+      //   val.forEach(item => {
+      //     this.results.push({
+      //       title: item.username,
+      //       id: item.id
+      //     })
+      //   })
+      // },
       errorContactMsg: function(val) {
         this.$vux.toast.text(val,'middle')
       }

@@ -30,23 +30,23 @@
   </template> -->
   <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="newsID">
     <template v-for="(item,index) in currentNews">
-      <div class="list" :key="index">
+      <router-link tag="div" class="list" :key="index" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}">
         <div class="list_time">{{item.create_time}}</div>
         <div class="list_body">
           <div class="list_bigimg">
-            <img src="../common/image/big.png" alt="">
+            <div v-if="item.img" v-html="item.img"></div>
+            <img v-else src="../common/image/big.png" alt="">
           </div>
-          <router-link tag="div" class="list_content" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}">
+          <div tag="div" class="list_content" >
             <div class="list_text">
               <div class="list_title">{{item.title}}</div> 
             </div>
-            <div class="list_img">
-              <!-- <span>Loading</span> -->
+            <!-- <div class="list_img">
               <img :src="src" class="ximg-demo">
-            </div>
-          </router-link>
+            </div> -->
+          </div>
         </div>
-      </div>
+      </router-link>
       <!-- <router-link tag="div" class="list" :to="{name:'announcementDetail',params:{announcementid:item.id,state:$route.query.status}}" :key="index">
         <div class="list_img">
           <span>Loading</span>
@@ -521,6 +521,8 @@
       width: 100%;
       height: 6.44rem;
       background: rgb(247, 247, 247);
+      overflow: hidden;
+      div,
       img{
         width: 100%;
         height: 100%;
@@ -548,8 +550,7 @@
       }
     }
     .list_text{
-      flex: 1;
-      min-width: 0;
+      width: 100%;
     }
     .list_title{
       color:rgb(51,51,51);

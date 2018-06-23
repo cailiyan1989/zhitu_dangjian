@@ -19,10 +19,10 @@
                   <div class="integral-item" v-for="(item,index) in currentNews" :key="index">
                     <!-- <span class="create_time">{{item.create_time}}</span> -->
                     <group>
-                      <cell :title="item.title">
-                        <p slot="inline-desc">应交党费：{{item.needmoney}}</p>
+                      <cell :title="item.realname">
+                        <p slot="inline-desc">所在支部：{{item.title}}</p>
                         <p slot="inline-desc">缴纳时间：{{item.create_time}}</p>
-                        <p :class="{'pass':item.status==1,'check':item.status==0}">{{item.status|filterStatus}}</p>
+                        <p class="pass">已缴纳 {{item.needmoney}}</p>
                       </cell>
                     </group>
                   </div>

@@ -14,7 +14,7 @@
       </group>
       <group>
         <cell title="所在公司" :value="users.company"></cell>
-        <cell title="岗位" :value="users.job"></cell>
+        <!-- <cell title="岗位" :value="users.job"></cell> -->
         <cell title="所在党支部" :value="users.title"></cell>
         <cell title="政治面貌" :value="users.political|filterStatus"></cell>
         <cell title="手机号" :value="users.mobile"></cell>
