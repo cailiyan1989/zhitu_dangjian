@@ -1,15 +1,18 @@
 <template>
   <div class="integral">
     <div class="userBox">
-      <div class="ximg-bg">
+      <!-- <div class="ximg-bg">
         <img src="../common/image/findBg.png">
-      </div>
-      <div class="userImg">
-        <div class="my-integral">我的积分：{{myScore.score}}</div>
-        <div class="user">
+      </div> -->
+      <div class="user">
+        <div class="username">{{myScore.realname}}</div>
+        <div class="userImg">
           <img src="../common/image/head.png" class="img-user">
         </div>
-        <div class="my-rank">我的排名：{{myScore.paiming}}</div>
+        <div class="userscore">
+          <div class="my-integral">我的积分：{{myScore.score}}</div>
+          <div class="my-rank">我的排名：{{myScore.paiming}}</div>
+        </div>
       </div>
     </div>
     <div v-if="showLoading">
@@ -154,43 +157,55 @@
   .integral{
     .userBox {
       width: 100%;
-      .ximg-bg {
-        width: 100%;
-        height: 5rem;
-        background: rgb(247,247,247);
-        img{
-          width: 100%;
-          height: 100%;
-        }
-      }
-      .userImg {
+      height: 8.79rem;
+      background: url('../common/image/jf_bg.png');
+      background-size: 100% 100%;
+      // .ximg-bg {
+      //   width: 100%;
+      //   height: 5rem;
+      //   background: rgb(247,247,247);
+      //   img{
+      //     width: 100%;
+      //     height: 100%;
+      //   }
+      // }
+      .user{
         display: flex;
-        justify-content: center;
-        .user{
-          height: 2rem;
-          width: 2rem;
-          margin: 0 .5rem;
+        flex-direction: column;
+        align-items: center;
+        color:rgb(255,255,255);
+        font-size: .683rem;
+        padding: .896rem 1.067rem 1.701rem;
+        .userImg{
+          height: 3.03rem;
+          width: 3.03rem;
+          margin: .427rem 0 1.408rem;
           padding: 2px;
           display: flex;
           align-items: center;
           border:1px solid rgb(217, 217, 217);
           box-sizing: border-box;
           background: #fff;
-          transform: translateY(-1.1rem);
+          // transform: translateY(-1.1rem);
           .img-user{
             width: 100%;
             height: 100%;
           }
         }
-        .my-integral,
-        .my-rank{
-          color:#999;
-          font-size: .7rem;
+        .userscore{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
         }
+        // .my-integral,
+        // .my-rank{
+        //   color:#rgb;
+        //   font-size: .7rem;
+        // }
       }
     }
     .yo-scroll{
-      top:6.5rem;
+      top:8.79rem;
     }
     .integral-item {
       margin-bottom: .7rem;
@@ -203,16 +218,16 @@
         padding: .2rem;
       }
       .weui-cells{
-        margin-top: .7rem;
+        margin-top: 0;
       }
       .vux-label{
-        font-size: .7rem
+        font-size: .725rem;
       }
       .vux-label-desc{
-        font-size: .6rem
+        font-size: .64rem;
       }
       .weui-cell__ft{
-        font-size: .6rem
+        font-size: .64rem;
       }
     }
   }

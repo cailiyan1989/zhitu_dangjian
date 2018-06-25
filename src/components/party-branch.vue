@@ -54,13 +54,12 @@
   background: url('../common/image/zhibu.png') no-repeat;
   background-size: 100% 100%;
   .ximg-bg{
-    width: 1.408rem;
-    height: 1.408rem;
+    display: flex;
     padding: 1.26rem 0 .512rem;
-    margin: 0 auto;
+    justify-content: center;
     img{
-      width: 100%;
-      height: 100%;
+      width: 1.408rem;
+      height: 1.408rem;
     }
   }
   .party_name{

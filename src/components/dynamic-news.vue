@@ -412,7 +412,9 @@
         font-size: 0.55rem;
         line-height: 1.2;
         margin-bottom: .384rem;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       .list_body{
         width: 15.15rem;
