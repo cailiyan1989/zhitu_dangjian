@@ -35,7 +35,11 @@
         <div class="list_body">
           <div class="list_bigimg">
             <div v-if="item.img" v-html="item.img"></div>
-            <img v-else src="../common/image/big.png" alt="">
+            <div v-else>
+              <img  src="../common/image/fangzhen.png" alt="" v-if="$route.query.status=='policy'">
+              <img  src="../common/image/fangzhen2.png" alt="" v-if="$route.query.status=='deeds'">
+              <img  src="../common/image/fangzhen3.png" alt="" v-if="$route.query.status=='guide'">
+            </div>  
           </div>
           <div tag="div" class="list_content" >
             <div class="list_text">
@@ -535,7 +539,7 @@
       height: 3.75rem;
       // background: #fff;
       display: flex;
-      padding: .768rem .683rem 0;
+      padding: 0 .683rem 0;
       box-sizing: border-box;
     }
     .list_img{
@@ -552,7 +556,9 @@
       }
     }
     .list_text{
+      display: flex;
       width: 100%;
+      align-items: center;
     }
     .list_title{
       color:rgb(51,51,51);

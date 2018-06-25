@@ -439,7 +439,7 @@
         height:3.75rem;
         // background: #fff;
         display: flex;
-        padding: .768rem .683rem 0;
+        padding: 0 .683rem 0;
         box-sizing: border-box;
       }
       .list_img{
@@ -456,7 +456,9 @@
         }
       }
       .list_text{
+        display: flex;
         width: 100%;
+        align-items: center;
       }
       .list_title{
         color:rgb(51,51,51);

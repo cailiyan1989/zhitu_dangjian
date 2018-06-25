@@ -298,7 +298,7 @@
     }
     .userBox{
       width: 100%;
-      height: 6.656rem;
+      height: 8.576rem;
       position: relative;
       margin-bottom: 1.792rem;
       background: rgb(247,247,247);

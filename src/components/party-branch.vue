@@ -72,7 +72,9 @@
     font-size: .7rem;
     color: #000;
     line-height: .9rem;
-    padding: 0 2.005rem;;
+    padding: 0 2.005rem;
+    height: 16.668rem;
+    overflow: auto;
     // text-indent: 2em;
   }
 }

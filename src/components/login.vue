@@ -110,9 +110,15 @@
             if (res.code === 1) {
               _this.showLoading=false
               _this.$store.dispatch('updateLoginStatus', { isLogin: true })
+
+              let date = new Date();
+              date = date.getTime();
+              let dateStr = JSON.stringify(date);
+
               window.localStorage.removeItem('user')
 
               window.localStorage.setItem('user', res.data.id)
+              window.localStorage.setItem('time', dateStr); 
 
               if (_this.$route.query.redirect) {
                 _this.$router.replace(decodeURIComponent(_this.$route.query.redirect))

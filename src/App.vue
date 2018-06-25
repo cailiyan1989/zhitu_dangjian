@@ -59,6 +59,15 @@ export default {
       "leaveAnimate": ""
     }
   },
+  created() {
+    let date = new Date();
+    date = date.getTime();
+    if(window.localStorage.getItem('time') && date - window.localStorage.getItem('time')>3600000) {
+
+      window.localStorage.removeItem('time');
+      this.$router.replace('/login');
+    }
+  },
   computed: {
     ...mapState({
       isLoading: state => state.common.isLoading,
@@ -129,9 +138,9 @@ export default {
   @import './common/style/animate.css';
   @import './common/font/iconfont.css';
   @import './common/style/common';
-  body {
-    background-color: #fbf9fe;
-  }
+  // body {
+  //   background-color: #fbf9fe;
+  // }
 
   .vux-header {
     width: 100%;
@@ -201,7 +210,8 @@ export default {
   .vux-tab-container{
     height: 2.3rem !important;
   }
-  .weui-tab__panel{
-    // background: rgb(234, 234, 235);
-  }
+  // .weui-tab__panel{
+  //   background: rgb(234, 234, 235);
+  // }
 </style>
+    
