@@ -22,7 +22,7 @@
                       <cell :title="item.realname">
                         <p slot="inline-desc">所在支部：{{item.title}}</p>
                         <p slot="inline-desc">缴纳时间：{{item.create_time}}</p>
-                        <p class="pass">已缴纳 {{item.needmoney}}</p>
+                        <p class="pass">已缴纳 {{item.money}}</p>
                       </cell>
                     </group>
                   </div>

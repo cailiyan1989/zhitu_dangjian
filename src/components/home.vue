@@ -124,7 +124,7 @@
 .home{
   width: 100%;
   height: 100%;
-  background: url('../common/image/homebg.png');
+  background: url('../common/image/bg_home2.png');
   background-size: 100% 100%;
   .weui-grids {
     display: flex;

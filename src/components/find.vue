@@ -25,7 +25,7 @@
             <div class="list_body">
               <div class="list_title">{{item.content}}</div>
               <div class="list_imgs">
-                  <img class="previewer-demo-img" v-for="(src,i) of item.images"  :src="src" alt="" :key="i">
+                  <img class="previewer-demo-img" v-for="(src,i) of item.images"  v-preview="src" :src="src" alt="" :key="i">
               </div>
             </div>
             <div class="list_footer">
@@ -57,6 +57,7 @@
         </div>
       </template>
     </v-scroll>
+    <lg-preview></lg-preview>
     <router-link tag="div" to="/find/my/add" class="create_find">
       <!-- <div></div> -->
       <i class="add"><img src="../common/image/comment.png" alt=""></i>

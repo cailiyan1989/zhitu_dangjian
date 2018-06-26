@@ -10,6 +10,7 @@ import './config/rem'
 import  { AlertPlugin } from 'vux'
 import { ToastPlugin } from 'vux'
 import { ConfirmPlugin } from 'vux'
+import vuePicturePreview from 'vue-picture-preview'
 // import VueScroller from 'vue-scroller'
 
 // Vue.use(VueScroller) //使用vue-scroller
@@ -19,6 +20,8 @@ Vue.use(require('vue-wechat-title')) //微信动态改版头部
 Vue.use(AlertPlugin)
 Vue.use(ConfirmPlugin)
 Vue.use(ToastPlugin)
+
+Vue.use(vuePicturePreview)
 
 FastClick.attach(document.body)
 

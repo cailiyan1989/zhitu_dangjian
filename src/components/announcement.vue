@@ -518,7 +518,7 @@
     }
     .list_body{
       width: 15.15rem;
-      height: 10.20rem;
+      // height: 10.20rem;
       border-radius: .43rem;
       background: rgb(255,255,255);
       overflow: hidden;
@@ -536,10 +536,10 @@
     }
     .list_content{
       width: 100%;
-      height: 3.75rem;
+      // height: 3.75rem;
       // background: #fff;
       display: flex;
-      padding: 0 .683rem 0;
+      padding: .683rem;
       box-sizing: border-box;
     }
     .list_img{
@@ -563,7 +563,7 @@
     .list_title{
       color:rgb(51,51,51);
       font-weight:400;
-      font-size: .64rem;
+      font-size: .74rem;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;

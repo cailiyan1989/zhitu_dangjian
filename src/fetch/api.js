@@ -165,7 +165,7 @@ export default {
   },
   //党费
   get_party_fee(params) {
-    return fetch('/admin/index.php/dangfei/dangfei/index', params, 'post')
+    return fetch('/admin/index.php/index/dang/index', params, 'post')
   },
   //阅读获取积分
   get_read_integral(params) {

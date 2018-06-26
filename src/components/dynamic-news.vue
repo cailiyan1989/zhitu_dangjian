@@ -11,7 +11,7 @@
           <div class="list_body">
             <div class="list_bigimg">
               <div v-if="item.img" v-html="item.img"></div>
-              <img v-else src="../common/image/big.png" alt="">
+              <img v-else src="../common/image/dongtai.png" alt="">
             </div>
             <div class="list_content">
               <div class="list_text">
@@ -418,7 +418,7 @@
       }
       .list_body{
         width: 15.15rem;
-        height: 10.20rem;
+        // height: 10.20rem;
         border-radius: .43rem;
         background: rgb(255,255,255);
         overflow: hidden;
@@ -436,10 +436,10 @@
       }
       .list_content{
         width: 100%;
-        height:3.75rem;
+        // height:3.75rem;
         // background: #fff;
         display: flex;
-        padding: 0 .683rem 0;
+        padding: .683rem;
         box-sizing: border-box;
       }
       .list_img{
@@ -464,7 +464,7 @@
         color:rgb(51,51,51);
         width: auto;
         font-weight:400;
-        font-size: .64rem;
+        font-size: .74rem;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
