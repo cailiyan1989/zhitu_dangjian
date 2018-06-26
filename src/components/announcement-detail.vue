@@ -34,11 +34,19 @@
             this.news = value
           }
         })
+        
+        api.get_read_integral({id:this.$route.params.dynamicid}).then(res => {
+          console.log(res)
+        })
       } else if (this.$route.params.state == 'deeds') {
         this.deedsNewsList.forEach((value, index) => {
           if (value.id == this.$route.params.announcementid) {
             this.news = value
           }
+        })
+
+        api.get_read_integral({id:this.$route.params.dynamicid}).then(res => {
+          console.log(res)
         })
       } else if (this.$route.params.state == 'guide') {
         this.guideNewsList.forEach((value, index) => {
@@ -46,11 +54,11 @@
             this.news = value
           }
         })
-      }
-      
-      api.get_read_integral({id:this.$route.params.dynamicid}).then(res => {
+
+        api.get_read_integral({id:this.$route.params.dynamicid}).then(res => {
           console.log(res)
-      })
+        })
+      }
       // else if (this.$route.params.state == 'jobs') {
       //   this.jobsNewsList.forEach((value, index) => {
       //     if (value.id == this.$route.params.announcementid) {
