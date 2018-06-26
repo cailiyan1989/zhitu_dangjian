@@ -41,7 +41,7 @@
                         </group>
                         <div class="comment-title">评论专区</div>
                         <group class="commentMsg">
-                          <cell v-for="(comment, index) in currentComments" :key="index" :title="comment.realname" align-items="flex-start" :value="item.create_time">
+                          <cell v-for="(comment, i) in currentComments" :key="i" :title="comment.realname" align-items="flex-start" :value="comment.create_time">
                             <p slot="after-title" class="vux-label-desc">{{comment.content}}</p>
                           </cell>
                         </group>

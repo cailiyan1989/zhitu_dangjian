@@ -65,7 +65,7 @@
   .party_name{
     font-size: 1.06rem;
     padding: 0 2.005rem;
-    margin-bottom: 2.688rem;
+    margin-bottom: .688rem;
     text-align: center;
   }
   .party_descript{
@@ -73,7 +73,7 @@
     color: #000;
     line-height: .9rem;
     padding: 0 2.005rem;
-    height: 16.668rem;
+    height: 12.11rem;
     overflow: auto;
     // text-indent: 2em;
   }

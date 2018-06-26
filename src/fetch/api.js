@@ -166,5 +166,9 @@ export default {
   //党费
   get_party_fee(params) {
     return fetch('/admin/index.php/dangfei/dangfei/index', params, 'post')
+  },
+  //阅读获取积分
+  get_read_integral(params) {
+    return fetch('/admin/index.php/portal/neirong/view', params, 'post')
   }
 }

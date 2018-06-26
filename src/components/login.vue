@@ -5,10 +5,10 @@
     </div>
     <group label-margin-right="2em" label-align="right">
       <x-input title="用户名：" v-model="username" placeholder="请输入用户名" required>
-        <img slot="label" style="padding-right:10px;display:block;" src="../common/image/user.png" width="24" height="24">
+        <img slot="label" style="padding-right:10px;display:block;" src="../common/image/user.png" width="15.5" height="18.5">
       </x-input>
       <x-input title="密 码：" type="password" placeholder="请输入密码" v-model="password" required>
-        <img slot="label" style="padding-right:10px;display:block;" src="../common/image/mima.png" width="24" height="24">
+        <img slot="label" style="padding-right:10px;display:block;" src="../common/image/mima.png" width="18" height="18">
       </x-input>
     </group>
      <x-button type="warn" :show-loading="showLoading" @click.native="login">登录</x-button>

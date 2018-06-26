@@ -22,7 +22,7 @@
       <div class="integral-item" v-for="(item,index) in currentMessage" :key="index">
         <!-- <span class="create_time">{{item.create_time}}</span> -->
         <group>
-          <cell title="美文阅读" :value="'+'+item.score" :inline-desc="item.create_time|fmtDate"></cell>
+          <cell title="美文阅读" :value="'+'+item.score" :inline-desc="item.create_time"></cell>
         </group>
       </div>
     </v-scroll>
@@ -68,7 +68,7 @@
       myIntegral: function (val) {
         let id = window.localStorage.getItem('user')
         for (let item of val) {
-          if (item.id == id) this.myScore = item
+          if (item.userid == id) this.myScore = item
         }
       },
       integralDetails: function (value) {

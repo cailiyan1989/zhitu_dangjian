@@ -14,6 +14,7 @@
   import { Card } from 'vux'
   import { mapGetters } from 'vuex'
   import {fmtDate} from '../filters/date.js'
+  import api from '../fetch/api'
   export default {
     components:{
       Card
@@ -32,6 +33,9 @@
           if (value.id == this.$route.params.dynamicid) {
             this.news = value
           }
+        })
+        api.get_read_integral({id:this.$route.params.dynamicid}).then(res => {
+          console.log(res)
         })
       // } else if (this.$route.params.cate == 'learn') {
       //   this.learnedNewsList.forEach((value, index) => {
