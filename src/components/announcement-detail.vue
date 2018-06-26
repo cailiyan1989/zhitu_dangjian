@@ -13,6 +13,7 @@
 <script>
   import { Card } from 'vux'
   import { mapGetters } from 'vuex'
+  import api from '../fetch/api'
   export default {
     components:{
       Card
@@ -22,8 +23,8 @@
         'policyNewsList',
         'deedsNewsList',
         'guideNewsList',
-        'jobsNewsList',
-        'democracyNewsList'
+        // 'jobsNewsList',
+        // 'democracyNewsList'
       ])
     },
     activated() {
@@ -45,19 +46,24 @@
             this.news = value
           }
         })
-      } else if (this.$route.params.state == 'jobs') {
-        this.jobsNewsList.forEach((value, index) => {
-          if (value.id == this.$route.params.announcementid) {
-            this.news = value
-          }
-        })
-      } else if (this.$route.params.state == 'democracy') {
-        this.democracyNewsList.forEach((value, index) => {
-          if (value.id == this.$route.params.announcementid) {
-            this.news = value
-          }
-        })
       }
+      
+      api.get_read_integral({id:this.$route.params.dynamicid}).then(res => {
+          console.log(res)
+      })
+      // else if (this.$route.params.state == 'jobs') {
+      //   this.jobsNewsList.forEach((value, index) => {
+      //     if (value.id == this.$route.params.announcementid) {
+      //       this.news = value
+      //     }
+      //   })
+      // } else if (this.$route.params.state == 'democracy') {
+      //   this.democracyNewsList.forEach((value, index) => {
+      //     if (value.id == this.$route.params.announcementid) {
+      //       this.news = value
+      //     }
+      //   })
+      // }
 
     },
     name: "announcement-detail",
