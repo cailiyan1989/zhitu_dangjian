@@ -102,13 +102,10 @@ const mutations = {
             state.noticedNewsList.push(res.data.data[newIndex])
           }
         }
-      } else if(res.data.current_page ==1 && res.data.length !==0) {
+      } else if (res.data.current_page == 1 && res.data.data.length !==0) {
         state.noticedNewsList = res.data.data
         state.noticedNewsTotal = res.data.total
-      } else {
-        state.noticedNewsList = res.data.data
-        state.noticedNewsTotal = res.data.total
-      }
+      } 
     }
   },
   [types.GET_LEARNED_NEWS_LIST](state, res) {
@@ -128,10 +125,7 @@ const mutations = {
             state.learnedNewsList.push(res.data.data[newIndex])
           }
         }
-      } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-        state.learnedNewsList = res.data.data
-        state.learnedNewsTotal = res.data.total
-      } else if (res.data.current_page ==1 && res.data.total == 0){
+      } else if (res.data.current_page == 1 && res.data.data.length !==0) {
         state.learnedNewsList = res.data.data
         state.learnedNewsTotal = res.data.total
       }
@@ -157,10 +151,7 @@ const mutations = {
       } else if(res.data.current_page ==1 && res.data.data.length !==0) {
         state.peopledNewsList = res.data.data
         state.peopledNewsTotal = res.data.total
-      } else if (res.data.current_page ==1 && res.data.total == 0){
-        state.peopledNewsList = res.data.data
-        state.peopledNewsTotal = res.data.total
-      }
+      } 
     }
   },
   [types.GET_NEWED_NEWS_LIST](state, res) {
@@ -181,9 +172,6 @@ const mutations = {
           }
         }
       } else if(res.data.current_page ==1 && res.data.data.length !==0) {
-        state.newedNewsList = res.data.data
-        state.newedNewsTotal = res.data.total
-      } else if (res.data.current_page ==1 && res.data.total == 0){
         state.newedNewsList = res.data.data
         state.newedNewsTotal = res.data.total
       }

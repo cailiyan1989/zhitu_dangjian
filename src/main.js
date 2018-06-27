@@ -10,7 +10,7 @@ import './config/rem'
 import  { AlertPlugin } from 'vux'
 import { ToastPlugin } from 'vux'
 import { ConfirmPlugin } from 'vux'
-import vuePicturePreview from 'vue-picture-preview'
+import Viewer from 'v-viewer'
 // import VueScroller from 'vue-scroller'
 
 // Vue.use(VueScroller) //使用vue-scroller
@@ -21,7 +21,14 @@ Vue.use(AlertPlugin)
 Vue.use(ConfirmPlugin)
 Vue.use(ToastPlugin)
 
-Vue.use(vuePicturePreview)
+Vue.use(Viewer, { 
+  defaultOptions: {
+    toolbar: false ,
+    movable: false,
+    rotatable: false
+  }
+})
+
 
 FastClick.attach(document.body)
 

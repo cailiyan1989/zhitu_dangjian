@@ -71,6 +71,9 @@ export default {
   get_news_list(params) {
     return fetch('/admin/index.php/index/post/index', params, 'post')
   },
+  get_news_list2(params) {
+    return fetch('/admin/index.php/index/post/index1', params, 'post')
+  },
   //获取百姓
   get_people_list(params) {
     return fetch('/admin/index.php/index/xinsheng/index',params,'get')

@@ -1,6 +1,9 @@
 <template>
   <div class="add-find">
     <group>
+      <cell title="需管理员审核通过才能显示"></cell>
+    </group>
+    <group>
       <x-textarea :max="200" placeholder="这一刻想法..." v-model="myMessage"></x-textarea>
       <div class="weui-cells weui-cells_form" id="uploaderCustom">
         <div class="weui-cell">
@@ -22,12 +25,13 @@
 </template>
 
 <script>
-  import {Group, XTextarea, XButton } from 'vux'
+  import {Group, Cell, XTextarea, XButton } from 'vux'
   import api from '../fetch/api'
   import axios from 'axios'
   export default {
     components: {
       Group,
+      Cell,
       XTextarea,
       XButton
     },
@@ -201,6 +205,10 @@
 <style lang="less">
 .add-find{
   font-size: .7rem;
+  .vux-label{
+    color:red;
+    font-size: .6rem;
+  }
   .weui-uploader__bd {
     margin-bottom: -4px;
     overflow: hidden;

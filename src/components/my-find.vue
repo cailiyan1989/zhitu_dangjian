@@ -20,13 +20,15 @@
                 </div>
                 <div class="list_body">
                   <div class="list_title">{{item.content}}</div>
-                  <div class="list_imgs">
-                    <img v-for="(src,index) of item.images" v-preview="src"  :src="src" alt="" :key="index">
+                  <div class="list_imgs" v-viewer>
+                    <div class="previewer-demo-img" v-for="(src,i) of item.images" :key="i">
+                      <img  :src="src" alt="">
+                    </div>
                   </div>
                 </div>
                 <div class="list_footer">
                   <div class="like">
-                    <i class="iconfont" :class="item.is_like?'icon-aixin1':'icon-aixin'" @click="liking(item)"></i>
+                    <i class="iconfont" :class="item.is_like?'icon-like':'icon-aixin'" @click="liking(item)"></i>
                     <span>{{item.like || 0}}</span>
                   </div>
                   <div class="comment">
@@ -55,7 +57,6 @@
         </transition>
       </swipeout>
     </v-scroll>
-    <lg-preview></lg-preview>
   </div>
 </template>
 
@@ -397,11 +398,15 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        img{
-          width: 30%;
+        .previewer-demo-img{
+          max-width: 30%;
           height: 4rem;
           margin-right: .3rem;
           margin-bottom: .3rem;
+          overflow: hidden;
+          img{
+            height: 100%;
+          }
         }
       }
     }

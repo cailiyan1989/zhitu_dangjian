@@ -5,7 +5,7 @@
         <img src="../common/image/findBg.png">
       </div> -->
       <div class="user">
-        <div class="username">{{myScore.realname}}</div>
+        <div class="username">{{myScore.realname || '未登录'}}</div>
         <div class="userImg">
           <img src="../common/image/head.png" class="img-user">
         </div>

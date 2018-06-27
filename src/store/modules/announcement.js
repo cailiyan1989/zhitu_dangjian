@@ -27,35 +27,35 @@ const actions = {
   getPolicyNewsList({commit}, params) {
     commit('clearNewsMsg')
 
-    api.get_news_list(params).then(res => {
+    api.get_news_list2(params).then(res => {
       commit(types.GET_POLICY_NEWS_LIST, res)
     })
   },
   getDeedsNewsList({commit}, params) {
     commit('clearNewsMsg')
 
-    api.get_news_list(params).then(res => {
+    api.get_news_list2(params).then(res => {
       commit(types.GET_DEEDS_NEWS_LIST, res)
     })
   },
   getGuideNewsList({commit}, params) {
     commit('clearNewsMsg')
 
-    api.get_news_list(params).then(res => {
+    api.get_news_list2(params).then(res => {
       commit(types.GET_GUIDE_NEWS_LIST, res)
     })
   },
   getJobsNewsList({commit}, params) {
     commit('clearNewsMsg')
 
-    api.get_jobs_list(params).then(res => {
+    api.get_jobs_list2(params).then(res => {
       commit(types.GET_JOBS_NEWS_LIST, res)
     })
   },
   getDemocracyNewsList({commit}, params) {
     commit('clearNewsMsg')
 
-    api.get_democracy_list(params).then(res => {
+    api.get_democracy_list2(params).then(res => {
       commit(types.GET_DEMOCRACY_NEWS_LIST, res)
     })
   },
@@ -120,10 +120,7 @@ const mutations = {
       } else if(res.data.current_page ==1 && res.data.data.length !==0) {
         state.policyNewsList = res.data.data
         state.policyNewsTotal = res.data.total
-      } else if (res.data.current_page ==1 && res.data.total == 0){
-        state.policyNewsList = res.data.data
-        state.policyNewsTotal = res.data.total
-      }
+      } 
     }
   },
   [types.GET_DEEDS_NEWS_LIST](state, res) {
@@ -146,10 +143,7 @@ const mutations = {
       } else if(res.data.current_page ==1 && res.data.data.length !==0) {
         state.deedsNewsList = res.data.data
         state.deedsNewsTotal = res.data.total
-      } else if (res.data.current_page ==1 && res.data.total == 0){
-        state.deedsNewsList = res.data.data
-        state.deedsNewsTotal = res.data.total
-      }
+      } 
     }
   },
   [types.GET_GUIDE_NEWS_LIST](state, res) {
@@ -172,10 +166,7 @@ const mutations = {
       } else if(res.data.current_page ==1 && res.data.data.length !==0) {
         state.guideNewsList = res.data.data
         state.guideNewsTotal = res.data.total
-      } else if (res.data.current_page ==1 && res.data.total == 0){
-        state.guideNewsList = res.data.data
-        state.guideNewsTotal = res.data.total
-      }
+      } 
     }
   },
   [types.GET_JOBS_NEWS_LIST](state, res) {

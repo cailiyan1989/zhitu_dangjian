@@ -7,7 +7,7 @@
         <!--<span v-else>上传头像</span>-->
         <input type="file" accept="image" @change="change" style=" position: absolute;left: 0; top:0;width:100%;height:100%;opacity: 0;">
       </div>
-      <div class="myInfo">{{myInfo.realname}} {{myInfo.sex|filterSex}}</div>
+      <div class="myInfo">{{myInfo.realname || '未登录'}} {{myInfo.sex|filterSex}}</div>
     </div>
     <group>
       <cell title="个人信息" :link="{name:'MyInfos', params:{personid: myInfo.id}}">
