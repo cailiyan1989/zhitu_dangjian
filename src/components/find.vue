@@ -20,24 +20,67 @@
           <div class="find_list_content">
             <div class="list_header">
               <span class="list_poster">{{item.realname}}</span>
-              <span class="list_date">{{item.create_time|fmtDate}}</span>
+              <span class="list_date">{{item.create_time | fmtDate}}</span>
             </div>
             <div class="list_body">
               <div class="list_title">{{item.content}}</div>
-              <div class="list_imgs" v-viewer>
+              <div class="list_imgs" v-show="item.images" v-viewer>
                 <div class="previewer-demo-img" v-for="(src,i) of item.images" :key="i">
                   <img  :src="src" alt="">
                 </div>
               </div>
+              <div class="commonbutton">
+                <div class="button_right">
+                  <svg class="button_svg" @click="showDiscuss(item)">
+										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#comment"></use>
+									</svg>
+
+                  <div class="discuss" v-if="item.criticism" :class="{discusshow : item.reviewshow, discusshide : item.reviewhide}">
+                    <div @click="supportThing(item)" >
+                      <svg fill="#fff" :class="{surportdiv : likediv}">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#like"></use>
+                      </svg>
+                      <span ref="suporttext">{{item.is_like | fmtHtml}}</span>
+                    </div>
+                    <div @click="criticismThing(item)">
+                      <svg fill="#fff">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#discuss"></use>
+                      </svg>
+                      <span>评论</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
             </div>
             <div class="list_footer">
-              <div class="like">
+              <div class="retext" v-show="item.likers || item.comment">
+                <svg class="retext_trigon" fill="#efefef">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#trigon"></use>
+                </svg>
+
+                <div class="retext_like clear" :class="{likeborder: item.comment.length > 0}" v-show="item.likers">
+                  <svg class="retext_like_svg" fill="#8792b0">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#like"></use>
+                  </svg>
+                  <span v-for="(name, i) of [item.likers]" :key="i">{{name}}<i>,</i> </span>
+                </div>
+
+                <div class="retext_revert" v-show="item.comment.length > 0">
+                  <ul>
+                    <li v-for="(value, index) of item.comment" :key="index">
+                      <span>{{value.realname}}</span>：{{value.content}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- <div class="like">
                 <i class="iconfont" :class="item.is_like ? 'icon-like' : 'icon-aixin'"  @click="liking(item)"></i>
                 <span>{{item.like || 0}}</span>
               </div>
               <div class="comment">
                 <i class="iconfont icon-pinglun" @click="commented(item)"></i>
-                <!-- <span>{{item.comments || 0}}</span> -->
+                <span>{{item.comments || 0}}</span>
                 <div v-transfer-dom>
                     <popup v-model="isComment" position="bottom" height="50%" should-scroll-top-on-show>
                       <group class="postComment">
@@ -53,12 +96,18 @@
                       </group>
                     </popup>
                   </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
       </template>
     </v-scroll>
+    <section class="criticism" v-if="criticismstate">
+      <div class="criticism_con">
+        <textarea name="" id="" cols="30" rows="10" ref="textinput" v-model="postMessages" @input="inputCriticism" @keyup.enter="enterThing"></textarea>
+        <span :class="{notempty:changeinput}" @click="commentSend">发送</span>
+      </div>
+    </section>
     <router-link tag="div" to="/find/my/add" class="create_find">
       <!-- <div></div> -->
       <i class="add"><img src="../common/image/comment.png" alt=""></i>
@@ -73,6 +122,8 @@
   import { mapGetters } from 'vuex'
   import api from '../fetch/api'
   import {fmtDate} from '../filters/date.js'
+import { clearTimeout, setTimeout } from 'timers';
+import { EHOSTUNREACH } from 'constants';
   export default {
     directives: {
       TransferDom
@@ -119,14 +170,138 @@
         // src: require('../common/image/findBg.png'),
         counter: 1, //当前页
         num: 10, //一页显示多少条数据，
-        workList: [], //下拉更新数据存放数组
+        workList: [
+          // {
+          //   "wxid":"chenchangsheng",
+          //   "headurl":'chenchangsheng.jpg',
+          //   "petname":"陈长生",
+          //   "sex":0,
+          //   "remarks":"",
+          //   "statements":"逆天改命",
+          //   "time":"20分钟前",
+          //   "postimage":[
+              
+          //   ],
+          //   "like":['楚乔',"嗯",],
+          //   "comment":[],
+          //   "reviewshow":false,		
+          //   "reviewhide":false,		
+          //   "criticism":false,		
+          //   "flag":true,			
+          //   "suporthtml":"赞",		
+          // },{
+          //   "wxid":"812571880",
+          //   "headurl":'chen.jpg',
+          //   "petname":"百里辰",
+          //   "sex":1,
+          //   "remarks":"",
+          //   "statements":"身边总有几个这样的朋友，第一次遇见斯斯文文的，熟识之后会发与不知道是哪个精神病院放出来的。",
+          //   "time":"5分钟前",
+          //   "postimage":[
+          //     'chen.jpg','cangdu.jpg','chuqiao.jpg','h.jpg','dinglan.jpg','fengmian.jpg',
+          //   ],
+          //   "like":[
+          //     "嗯",
+          //   ],
+          //   "comment":[
+          //     {
+          //       "wxid":"enen",
+          //       "petname":"嗯",
+          //       "remarks":"嗯",
+          //       "commentext":"看好你呦！"
+          //     },
+          //     {
+          //       "wxid":"achuqiao",
+          //       "petname":"a楚乔",
+          //       "remarks":"楚乔",
+          //       "commentext":"披荆斩棘",
+          //     },
+          //   ],
+          //   "reviewshow":false,		
+          //   "reviewhide":false,		
+          //   "criticism":false,		
+          //   "flag":true,			
+          //   "suporthtml":"赞",		
+          // },
+          
+          // {
+          //   "wxid":"chenyuan",
+          //   "headurl":'chenyuan.jpg',
+          //   "petname":"程鸢",
+          //   "sex":0,
+          //   "remarks":"",
+          //   "statements":"",
+          //   "time":"20分钟前",
+          //   "postimage":[
+          //     'd.jpg',
+          //   ],
+          //   "like":[],
+          //   "comment":[
+          //     {
+          //       "wxid":"enen",
+          //       "petname":"嗯",
+          //       "remarks":"嗯",
+          //       "commentext":"看好你呦！"
+          //     },
+          //     {
+          //       "wxid":"achuqiao",
+          //       "petname":"a楚乔",
+          //       "remarks":"楚乔",
+          //       "commentext":"披荆斩棘",
+          //     },
+          //   ],
+          //   "reviewshow":false,		
+          //   "reviewhide":false,		
+          //   "criticism":false,		
+          //   "flag":true,			
+          //   "suporthtml":"赞",		
+          // },
+          // {
+          //   "wxid":"shugeuifei",
+          //   "headurl":'mengfeng.jpg',
+          //   "petname":"魏贵妃",
+          //   "sex":0,
+          //   "remarks":"",
+          //   "statements":"",
+          //   "time":"1小时前",
+          //   "postimage":[
+          //     'mengfeng.jpg','wudaoya.jpg',
+          //   ],
+          //   "like":[],
+          //   "comment":[
+          //     {
+          //       "wxid":"enen",
+          //       "petname":"嗯",
+          //       "remarks":"嗯",
+          //       "commentext":"看好你呦！"
+          //     },
+          //     {
+          //       "wxid":"achuqiao",
+          //       "petname":"a楚乔",
+          //       "remarks":"楚乔",
+          //       "commentext":"披荆斩棘",
+          //     },
+          //   ],
+          //   "reviewshow":false,		
+          //   "reviewhide":false,		
+          //   "criticism":false,		
+          //   "flag":true,			
+          //   "suporthtml":"赞",		
+          // },
+        ], //下拉更新数据存放数组
         scrollData: {
           noFlag: false //暂无更多数据显示
         },
+        timer: null,
+        timers: null, //点赞定时器
+        likediv:false, //点击svg图放大
         isComment:false,
         currentComments: [],
         showLoading:false,
         postMessages:'',
+        changeinput:false,		//控制发送按钮状态的改变
+        criticismstate:false, //评论显隐
+        itemlist: {}, //当前点击的动态信息
         imgBase:'http://yf.ztemap.com:8091/',
         clickedComment:null,
         loading:''
@@ -141,6 +316,8 @@
     },
     beforeDestroy() {
       this.box.removeEventListener('scroll', this.handler, false)
+      clearTimeout(this.timer)
+      clearTimeout(this.timers)
     },
     activated() {
       setTimeout(() => {
@@ -181,6 +358,13 @@
         } else if (d_days >= 30) {
           return fmtDate(publishTime, 'yyyy-MM-dd')
         } 
+      },
+      fmtHtml(val) {
+        if (val) {
+          return '取消'
+        } else {
+          return '赞'
+        }
       }
     },
     methods: {
@@ -228,66 +412,147 @@
 
         done();
       },
-      liking(item){
-        item.is_like = !item.is_like
+      // liking(item){
+      //   item.is_like = !item.is_like
 
-        if (item.is_like) {
-          this.$vux.toast.text('已点赞', 'middle')
-          if(!item.like) {
-            item.like = 1
-          } else {
-            item.like = Number(item.like) + 1
-          }
-        } else {
-          this.$vux.toast.text('已取消', 'middle')
-          item.like = Number(item.like) - 1
-        }
+      //   if (item.is_like) {
+      //     this.$vux.toast.text('已点赞', 'middle')
+      //     if(!item.like) {
+      //       item.like = 1
+      //     } else {
+      //       item.like = Number(item.like) + 1
+      //     }
+      //   } else {
+      //     this.$vux.toast.text('已取消', 'middle')
+      //     item.like = Number(item.like) - 1
+      //   }
       
+      //   let author_uid = window.localStorage.getItem('user')
+
+      //   api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
+      //     // item.like = res.data[0].like  
+      //   })
+      // },
+      // commented(item) {
+      //   this.isComment = true
+
+      //   this.clickedComment = item.id
+
+      //   this.$store.dispatch('getCommentList',{id: item.id});
+      // },
+      // submit(commentid) {
+      //   if (this.postMessages == '') {
+      //     this.$vux.toast.text('请发表评论', 'middle')
+      //   } else {
+      //     const _this = this
+
+      //     _this.showLoading = true
+
+      //     let data = {
+      //       realname: '党员',
+      //       content: _this.postMessages
+      //     }
+
+      //     let author_uid = window.localStorage.getItem('user')
+      //     api.add_comment({id: commentid, author_uid: author_uid, comment:_this.postMessages}).then(res => {
+      //       if(res.code == 1) {
+      //         _this.showLoading = false
+
+      //         // _this.currentComments.push(data)
+
+      //         _this.isComment = false
+
+      //         _this.postMessages = ''
+      //       } else {
+      //         this.$vux.toast.text(res.msg, 'middle')
+      //         _this.showLoading = false
+      //       }
+      //     }).catch(error => {
+
+      //     })
+      //   }
+      // },
+      commentShow(item) {
+        item.criticism = true
+        item.reviewshow = true
+				item.reviewhide = false
+        item.flag = false
+      },
+      commentHide(item) {
+        item.reviewshow = false
+				item.reviewhide = true
+        this.timer=setTimeout(() => {
+					clearTimeout(this.timer)
+					item.criticism = false
+				},1000)
+        item.flag = true;
+      },
+      showDiscuss(item) {
+        if (item.flag) {
+          this.commentShow(item)
+        }else {
+          this.commentHide(item)
+        }
+      },
+      supportThing(item) {
+        this.likediv = true
+        clearTimeout(this.timers)
+        this.timers = setTimeout(() => {
+          this.likediv = false
+        },200)
+        this.commentHide(item)
+        if(!item.is_like) {
+          item.is_like = false
+          // let current_like = item.likers ? [] : item.likers.split(',')
+          // item.likers = current_like.push(this.username).join(',')
+        } else {
+          item.is_like = true
+          // item.likers = item.likers.split(',').pop().join()
+        }
+
         let author_uid = window.localStorage.getItem('user')
 
         api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
-          // item.like = res.data[0].like  
+          item.likers = res.data[0].likers  
         })
       },
-      commented(item) {
-        this.isComment = true
-
-        this.clickedComment = item.id
-
-        this.$store.dispatch('getCommentList',{id: item.id});
+      criticismThing(item) {
+        this.itemlist = {}
+        this.itemlist = item
+        this.criticismstate=true;
+        this.$nextTick(() => {
+          this.$refs.textinput.focus();
+        })
+        this.commentHide(item)
       },
-      submit(commentid) {
-        if (this.postMessages == '') {
-          this.$vux.toast.text('请发表评论', 'middle')
-        } else {
-          const _this = this
+      inputCriticism() {
+        this.postMessages ? this.changeinput = true :this.changeinput = false
+      },
+      commentSend() {
+        let author_uid = window.localStorage.getItem('user')
 
-          _this.showLoading = true
-
-          let data = {
-            realname: '党员',
-            content: _this.postMessages
+        if (this.changeinput) {
+          if (this.postMessages) {
+            this.itemlist.comment.push({
+							author_uid: author_uid ,
+							realname: this.username,
+							content: this.postMessages
+						})
           }
-
-          let author_uid = window.localStorage.getItem('user')
-          api.add_comment({id: commentid, author_uid: author_uid, comment:_this.postMessages}).then(res => {
+        
+          api.add_comment({id: this.itemlist.id, author_uid: author_uid, comment:this.postMessages}).then(res => {
             if(res.code == 1) {
-              _this.showLoading = false
-
-              // _this.currentComments.push(data)
-
-              _this.isComment = false
-
-              _this.postMessages = ''
+              this.criticismstate=false;
+              this.postMessages='';
+              this.changeinput=false;
             } else {
               this.$vux.toast.text(res.msg, 'middle')
-              _this.showLoading = false
             }
           }).catch(error => {
 
           })
         }
-      },
+      }
       
     }
   }
@@ -429,11 +694,120 @@
             }
           }
         }
+        .commonbutton{
+          display: flex;
+          justify-content: flex-end;
+          .button_right{
+            margin-top:0.6826666667rem;
+            position: relative;
+            width: .93867rem;
+            height: .64rem;
+            .button_svg{
+              display: block;
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .discuss{
+            position: absolute;
+            width: 8.23467rem;
+            height: 1.70667rem;
+            background: #373b3e;
+            border-radius: 3px;
+            right:1.408rem;
+            top: -.5973333333rem;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            div{
+              width: 50%;
+              float: left;
+              display: flex;
+              justify-content: center;
+              svg{
+                display: block;
+                width: .768rem;
+                height: .768rem;
+                margin-right:0.2133333333rem;
+              }
+              span{
+                display: block;
+                font-size: .55467rem;
+                color:#fff;
+              }
+            }
+            div:first-child{
+              border-right: 2px solid #2f3336;
+            }
+            .surportdiv{
+              animation: pulse 0.5s;
+            }
+          }
+          .discusshow{
+            animation: flipInX 1s 1 ease-in-out both;
+          }
+          .discusshide{
+            animation: flipOutX 1s 1 ease-in-out both;
+          }
+        }
       }
       .list_footer{
         width: 100%;
         display: flex;
         align-items: center;
+        .retext{
+          margin-top: 0.128rem;
+          width: 100%;
+          .retext_trigon{
+            display: block;
+            width: .8rem;
+            height: .4rem;
+            margin-left: .4266666667rem;
+          }
+          .retext_like {
+            background: #efefef;
+            padding: 0.3413333333rem;
+            .retext_like_svg{
+              float: left;
+              width: .512rem;
+              height: .512rem;
+              margin-right: .2133333333rem;
+              margin-top: .064rem;
+            }
+            span{
+              float: left;
+              margin-right: .2133333333rem;
+              font-size: .512rem;
+              color: #8792b0;
+            }
+            span:last-child{
+              font-size: .512rem;
+              color: #8792b0;
+              i{
+                display: none;
+              }
+            }
+          }
+          .likeborder {
+            border-bottom: 1px solid #e2e2e2;
+          }
+          .retext_revert{
+            background: #efefef;
+            ul{
+              padding: .3413333333rem;
+              li{
+                border: 0;
+                padding-bottom: .1rem;
+                font-size: .55467rem;
+                color:#333;
+                span{
+                  display: inline-block;
+                  color:#8792b0;
+                }
+              }
+            }
+          }
+        }
         .like,
         .comment{
           display: flex;
@@ -447,6 +821,50 @@
         }
         .like{
           margin-right: 2rem;
+        }
+      }
+    }
+    .criticism {
+      position: fixed;
+      left:0;
+      z-index: 600;
+      bottom:0;
+      width: 100%;
+      background: #ebebeb;
+      .criticism_con{
+        padding: .4266666667rem .64rem;
+        display: flex;
+        justify-content: space-between;
+        textarea{
+          display: block;
+          width: 12rem;
+          height: 1.5rem;
+          max-height: 3.2rem;
+          border:0;
+          border-bottom: 2px solid #18ae17;
+          resize: none;
+          font-size: .64rem;
+          color:#333;
+          line-height: .768rem;
+          background: none;
+          padding-top: .32rem;
+          box-sizing: border-box;
+        }
+        span{
+          display: block;
+          width: 1.8rem;
+          font-size: .55467rem;
+          color:#d2d2d2;
+          border:1px solid #d7d7d7;
+          text-align: center;
+          border-radius: 5px;
+          line-height: 1.3653333333rem;
+
+        }
+        .notempty{
+          background: #18ae17;
+          color: #fff;
+          border-color: #3e8d3e;
         }
       }
     }
@@ -526,5 +944,64 @@
       font-size: .7rem;
     }
   }
+
+  @keyframes flipInX {
+	  from {
+	    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+	    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+	    -webkit-animation-timing-function: ease-in;
+	    animation-timing-function: ease-in;
+	    opacity: 0;
+	  }
+	  40% {
+	    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+	    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+	    -webkit-animation-timing-function: ease-in;
+	    animation-timing-function: ease-in;
+	  }
+	  60% {
+	    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+	    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+	    opacity: 1;
+	  }
+	  80% {
+	    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+	    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+	  }
+	  100% {
+	    -webkit-transform: perspective(400px);
+	    transform: perspective(400px);
+	  }
+	}
+	@keyframes flipOutX {
+	  from {
+	    -webkit-transform: perspective(400px);
+	    transform: perspective(400px);
+	  }
+	  30% {
+	    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+	    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+	    opacity: 1;
+	  }
+	  100% {
+	    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+	    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+	    opacity: 0;
+	  }
+	}
+	@keyframes pulse {
+	  from {
+	    -webkit-transform: scale3d(1, 1, 1);
+	    transform: scale3d(1, 1, 1);
+	  }
+	  50% {
+	    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+	    transform: scale3d(1.1, 1.1, 1.1);
+	  }
+	  100% {
+	    -webkit-transform: scale3d(1, 1, 1);
+	    transform: scale3d(1, 1, 1);
+	  }
+	}
   
 </style>

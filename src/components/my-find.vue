@@ -26,14 +26,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="list_footer">
+                <!-- <div class="list_footer">
                   <div class="like">
                     <i class="iconfont" :class="item.is_like?'icon-like':'icon-aixin'" @click="liking(item)"></i>
                     <span>{{item.like || 0}}</span>
                   </div>
                   <div class="comment">
                     <i class="iconfont icon-pinglun" @click="commented(item)"></i>
-                    <!-- <span>{{item.comments || 0}}</span> -->
+                    <span>{{item.comments || 0}}</span>
                     <div v-transfer-dom>
                       <popup v-model="isComment" position="bottom" height="50%" should-scroll-top-on-show>
                         <group class="postComment">
@@ -50,7 +50,7 @@
                       </popup>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </swipeout-item>
@@ -222,32 +222,32 @@
 
         done();
       },
-      liking(item){
-        item.is_like = !item.is_like
-        if (item.is_like) {
-          this.$vux.toast.text('已点赞', 'middle')
-          if(!item.like) {
-            item.like = 1
-          } else {
-            item.like = Number(item.like) + 1
-          }
-        } else {
-          this.$vux.toast.text('已取消', 'middle')
-          item.like = Number(item.like) - 1
-        }
+      // liking(item){
+      //   item.is_like = !item.is_like
+      //   if (item.is_like) {
+      //     this.$vux.toast.text('已点赞', 'middle')
+      //     if(!item.like) {
+      //       item.like = 1
+      //     } else {
+      //       item.like = Number(item.like) + 1
+      //     }
+      //   } else {
+      //     this.$vux.toast.text('已取消', 'middle')
+      //     item.like = Number(item.like) - 1
+      //   }
 
-        let author_uid = window.localStorage.getItem('user')
-        api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
-          // item.like = res.data[0].like
-        })
-      },
-      commented(item) {
-        this.isComment = true
+      //   let author_uid = window.localStorage.getItem('user')
+      //   api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
+      //     // item.like = res.data[0].like
+      //   })
+      // },
+      // commented(item) {
+      //   this.isComment = true
 
-        this.clickedComment = item.id
+      //   this.clickedComment = item.id
 
-        this.$store.dispatch('getCommentList',{id: item.id});
-      },
+      //   this.$store.dispatch('getCommentList',{id: item.id});
+      // },
       deleteItem(item) {
         //请求接口
         // console.log(item.deleteMsg + '+++++++++')
@@ -275,38 +275,38 @@
         // })
 
       },
-      submit(commentid) {
-        if (this.postMessages == '') {
-          this.$vux.toast.text('请发表评论', 'middle')
-        } else {
-          const _this = this
+      // submit(commentid) {
+      //   if (this.postMessages == '') {
+      //     this.$vux.toast.text('请发表评论', 'middle')
+      //   } else {
+      //     const _this = this
 
-          _this.showLoading = true
+      //     _this.showLoading = true
 
-          let data = {
-            realname: '党员',
-            content: _this.postMessages
-          }
+      //     let data = {
+      //       realname: '党员',
+      //       content: _this.postMessages
+      //     }
 
-          let author_uid = window.localStorage.getItem('user')
-          api.add_comment({id: commentid, author_uid: author_uid, comment:_this.postMessages}).then(res => {
-            if(res.code == 1) {
-              _this.showLoading = false
+      //     let author_uid = window.localStorage.getItem('user')
+      //     api.add_comment({id: commentid, author_uid: author_uid, comment:_this.postMessages}).then(res => {
+      //       if(res.code == 1) {
+      //         _this.showLoading = false
 
-              // _this.currentComments.push(data)
+      //         // _this.currentComments.push(data)
 
-              _this.isComment = false
+      //         _this.isComment = false
 
-              _this.postMessages = ''
-            } else {
-              this.$vux.toast.text(res.msg, 'middle')
-              _this.showLoading = false
-            }
-          }).catch(error => {
+      //         _this.postMessages = ''
+      //       } else {
+      //         this.$vux.toast.text(res.msg, 'middle')
+      //         _this.showLoading = false
+      //       }
+      //     }).catch(error => {
 
-          })
-        }
-      }
+      //     })
+      //   }
+      // }
     }
   }
 </script>
