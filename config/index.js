@@ -11,8 +11,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/admin': {
-        target: 'http://dangjian.ztemap.com:8086/',
+      '/djejx': {
+        target: 'http://dangjian.ztemap.com:8086/djejx',
         changeOrigin: true,
         pathRewrite: {
           '^/djejx': ''

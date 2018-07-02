@@ -9,7 +9,7 @@ axios.defaults.headers.post['x-requested-with'] = 'xmlhttprequest';//ajax请求
 axios.defaults.headers.get['x-requested-with'] = 'xmlhttprequest';//ajax请求
 axios.defaults.headers.common['ZT-Mobile'] = 'weixin';
 
-// axios.defaults.baseURL = './';
+axios.defaults.baseURL = '/djejx';
 
 // post传参序列化
 axios.interceptors.request.use((config) => {

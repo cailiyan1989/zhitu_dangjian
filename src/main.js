@@ -23,6 +23,9 @@ Vue.use(ToastPlugin)
 
 Vue.use(Viewer, { 
   defaultOptions: {
+    button: false,
+    title: false,
+    navbar:false,
     toolbar: false ,
     movable: false,
     rotatable: false

@@ -1,5 +1,5 @@
 <template>
-  <div class="find">
+  <div class="find" @click.stop="findClick">
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :dataList="scrollData" id="findsID">
       <div class="userBox">
         <img src="../common/image/banner@2x.png" class="ximg-bg">
@@ -31,18 +31,18 @@
               </div>
               <div class="commonbutton">
                 <div class="button_right">
-                  <svg class="button_svg" @click="showDiscuss(item)">
+                  <svg class="button_svg" @click.stop="showDiscuss(item)">
 										<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#comment"></use>
 									</svg>
 
                   <div class="discuss" v-if="item.criticism" :class="{discusshow : item.reviewshow, discusshide : item.reviewhide}">
-                    <div @click="supportThing(item)" >
+                    <div @click.stop="supportThing(item)" >
                       <svg fill="#fff" :class="{surportdiv : likediv}">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#like"></use>
                       </svg>
                       <span ref="suporttext">{{item.is_like | fmtHtml}}</span>
                     </div>
-                    <div @click="criticismThing(item)">
+                    <div @click.stop="criticismThing(item)">
                       <svg fill="#fff">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#discuss"></use>
                       </svg>
@@ -102,10 +102,11 @@
         </div>
       </template>
     </v-scroll>
+    <div class="overplay" @click.stop="hideCriticism" v-if="criticismstate"></div>
     <section class="criticism" v-if="criticismstate">
       <div class="criticism_con">
         <textarea name="" id="" cols="30" rows="10" ref="textinput" v-model="postMessages" @input="inputCriticism" @keyup.enter="enterThing"></textarea>
-        <span :class="{notempty:changeinput}" @click="commentSend">发送</span>
+        <span :class="{notempty:changeinput}" @click.stop="commentSend">发送</span>
       </div>
     </section>
     <router-link tag="div" to="/find/my/add" class="create_find">
@@ -170,125 +171,7 @@ import { EHOSTUNREACH } from 'constants';
         // src: require('../common/image/findBg.png'),
         counter: 1, //当前页
         num: 10, //一页显示多少条数据，
-        workList: [
-          // {
-          //   "wxid":"chenchangsheng",
-          //   "headurl":'chenchangsheng.jpg',
-          //   "petname":"陈长生",
-          //   "sex":0,
-          //   "remarks":"",
-          //   "statements":"逆天改命",
-          //   "time":"20分钟前",
-          //   "postimage":[
-              
-          //   ],
-          //   "like":['楚乔',"嗯",],
-          //   "comment":[],
-          //   "reviewshow":false,		
-          //   "reviewhide":false,		
-          //   "criticism":false,		
-          //   "flag":true,			
-          //   "suporthtml":"赞",		
-          // },{
-          //   "wxid":"812571880",
-          //   "headurl":'chen.jpg',
-          //   "petname":"百里辰",
-          //   "sex":1,
-          //   "remarks":"",
-          //   "statements":"身边总有几个这样的朋友，第一次遇见斯斯文文的，熟识之后会发与不知道是哪个精神病院放出来的。",
-          //   "time":"5分钟前",
-          //   "postimage":[
-          //     'chen.jpg','cangdu.jpg','chuqiao.jpg','h.jpg','dinglan.jpg','fengmian.jpg',
-          //   ],
-          //   "like":[
-          //     "嗯",
-          //   ],
-          //   "comment":[
-          //     {
-          //       "wxid":"enen",
-          //       "petname":"嗯",
-          //       "remarks":"嗯",
-          //       "commentext":"看好你呦！"
-          //     },
-          //     {
-          //       "wxid":"achuqiao",
-          //       "petname":"a楚乔",
-          //       "remarks":"楚乔",
-          //       "commentext":"披荆斩棘",
-          //     },
-          //   ],
-          //   "reviewshow":false,		
-          //   "reviewhide":false,		
-          //   "criticism":false,		
-          //   "flag":true,			
-          //   "suporthtml":"赞",		
-          // },
-          
-          // {
-          //   "wxid":"chenyuan",
-          //   "headurl":'chenyuan.jpg',
-          //   "petname":"程鸢",
-          //   "sex":0,
-          //   "remarks":"",
-          //   "statements":"",
-          //   "time":"20分钟前",
-          //   "postimage":[
-          //     'd.jpg',
-          //   ],
-          //   "like":[],
-          //   "comment":[
-          //     {
-          //       "wxid":"enen",
-          //       "petname":"嗯",
-          //       "remarks":"嗯",
-          //       "commentext":"看好你呦！"
-          //     },
-          //     {
-          //       "wxid":"achuqiao",
-          //       "petname":"a楚乔",
-          //       "remarks":"楚乔",
-          //       "commentext":"披荆斩棘",
-          //     },
-          //   ],
-          //   "reviewshow":false,		
-          //   "reviewhide":false,		
-          //   "criticism":false,		
-          //   "flag":true,			
-          //   "suporthtml":"赞",		
-          // },
-          // {
-          //   "wxid":"shugeuifei",
-          //   "headurl":'mengfeng.jpg',
-          //   "petname":"魏贵妃",
-          //   "sex":0,
-          //   "remarks":"",
-          //   "statements":"",
-          //   "time":"1小时前",
-          //   "postimage":[
-          //     'mengfeng.jpg','wudaoya.jpg',
-          //   ],
-          //   "like":[],
-          //   "comment":[
-          //     {
-          //       "wxid":"enen",
-          //       "petname":"嗯",
-          //       "remarks":"嗯",
-          //       "commentext":"看好你呦！"
-          //     },
-          //     {
-          //       "wxid":"achuqiao",
-          //       "petname":"a楚乔",
-          //       "remarks":"楚乔",
-          //       "commentext":"披荆斩棘",
-          //     },
-          //   ],
-          //   "reviewshow":false,		
-          //   "reviewhide":false,		
-          //   "criticism":false,		
-          //   "flag":true,			
-          //   "suporthtml":"赞",		
-          // },
-        ], //下拉更新数据存放数组
+        workList: [], //下拉更新数据存放数组
         scrollData: {
           noFlag: false //暂无更多数据显示
         },
@@ -304,7 +187,7 @@ import { EHOSTUNREACH } from 'constants';
         itemlist: {}, //当前点击的动态信息
         imgBase:'http://yf.ztemap.com:8091/',
         clickedComment:null,
-        loading:''
+        loading:'',
 
       }
     },
@@ -388,7 +271,7 @@ import { EHOSTUNREACH } from 'constants';
         
           // if (res.code == 1) {
           for (i; i < end; i++) {
-            if (i >= this.findsTotal) {
+            if (i >= this.findsTotal || end >= this.findsTotal) {
               more.style.display = 'none'; //隐藏加载条
               //走完数据调用方法
               this.scrollData.noFlag = true;
@@ -488,6 +371,7 @@ import { EHOSTUNREACH } from 'constants';
         item.flag = true;
       },
       showDiscuss(item) {
+        this.itemlist = item
         if (item.flag) {
           this.commentShow(item)
         }else {
@@ -501,20 +385,17 @@ import { EHOSTUNREACH } from 'constants';
           this.likediv = false
         },200)
         this.commentHide(item)
-        if(!item.is_like) {
-          item.is_like = false
-          // let current_like = item.likers ? [] : item.likers.split(',')
-          // item.likers = current_like.push(this.username).join(',')
-        } else {
-          item.is_like = true
-          // item.likers = item.likers.split(',').pop().join()
-        }
 
         let author_uid = window.localStorage.getItem('user')
 
         api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
           item.likers = res.data[0].likers  
+          item.is_like = res.data[0].is_like
         })
+      },
+      hideCriticism() {
+        this.criticismstate=false;
+        this.itemlist = {}
       },
       criticismThing(item) {
         this.itemlist = {}
@@ -552,6 +433,16 @@ import { EHOSTUNREACH } from 'constants';
 
           })
         }
+      },
+      findClick() {
+        this.itemlist.reviewshow = false
+        this.itemlist.reviewhide = true
+        this.timer=setTimeout(() => {
+					clearTimeout(this.timer)
+          this.itemlist.criticism = false
+        },1000)
+        this.itemlist.flag = true
+        
       }
       
     }
@@ -894,6 +785,12 @@ import { EHOSTUNREACH } from 'constants';
           width: 100%;
         }
       }
+    }
+    .overplay{
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      z-index: 551
     }
   }
   .vux-popup-dialog{
