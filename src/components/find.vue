@@ -624,7 +624,7 @@ import { EHOSTUNREACH } from 'constants';
       // margin-bottom: 10px;
       position: relative;
       display: flex;
-      padding: .2rem 1rem;
+      padding: .2rem .5rem;
       box-sizing: border-box;
       overflow: hidden;
       &:after{
@@ -832,13 +832,13 @@ import { EHOSTUNREACH } from 'constants';
       width: 100%;
       background: #ebebeb;
       .criticism_con{
-        padding: .4266666667rem .64rem;
+        padding: .5266666667rem .64rem;
         display: flex;
         justify-content: space-between;
         textarea{
           display: block;
           width: 12rem;
-          height: 1.5rem;
+          height: 40px;
           max-height: 3.2rem;
           border:0;
           border-bottom: 2px solid #18ae17;
@@ -858,7 +858,7 @@ import { EHOSTUNREACH } from 'constants';
           border:1px solid #d7d7d7;
           text-align: center;
           border-radius: 5px;
-          line-height: 1.3653333333rem;
+          line-height: 1.7653333333rem;
 
         }
         .notempty{
