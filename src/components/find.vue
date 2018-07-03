@@ -24,8 +24,8 @@
             </div>
             <div class="list_body">
               <div class="list_title">{{item.content}}</div>
-              <div class="list_imgs" v-show="item.images" v-viewer>
-                <div class="previewer-demo-img" v-for="(src,i) of item.images" :key="i">
+              <div class="list_imgs" v-show="item.thumbs" v-viewer>
+                <div class="previewer-demo-img" v-for="(src,i) of item.thumbs" :key="i">
                   <img  :src="src" alt="">
                 </div>
               </div>
@@ -68,7 +68,7 @@
 
                 <div class="retext_revert" v-show="item.comment.length > 0">
                   <ul>
-                    <li v-for="(value, index) of item.comment" :key="index">
+                    <li v-for="(value, index) of item.comment" :key="index" @click.stop="replySend(value)">
                       <span>{{value.realname}}</span>：{{value.content}}
                     </li>
                   </ul>
@@ -160,18 +160,26 @@ import { EHOSTUNREACH } from 'constants';
       },
       findsLists: function (value) {
         this.workList = value
+        this.copyList = new Array(value.length)
       },
       commentList: function (val) {
         this.currentComments = val
+      },
+      workList: function(val) {
+        val.forEach(item => {
+          item.criticism == true
+        })
       }
     },
     data() {
       return {
+        userId: '',
         username:'',
         // src: require('../common/image/findBg.png'),
         counter: 1, //当前页
         num: 10, //一页显示多少条数据，
         workList: [], //下拉更新数据存放数组
+        copyList: [], //标识数组
         scrollData: {
           noFlag: false //暂无更多数据显示
         },
@@ -208,7 +216,8 @@ import { EHOSTUNREACH } from 'constants';
       }, 100)
       this.$store.dispatch('getFindsList')
 
-      this.username =window.localStorage.getItem('username');
+      this.username =window.localStorage.getItem('username')
+      this.userId = window.localStorage.getItem('user')
     },
     filters: {
       fmtDate(time) {
@@ -360,6 +369,7 @@ import { EHOSTUNREACH } from 'constants';
         item.reviewshow = true
 				item.reviewhide = false
         item.flag = false
+        this.itemlist = item
       },
       commentHide(item) {
         item.reviewshow = false
@@ -368,10 +378,12 @@ import { EHOSTUNREACH } from 'constants';
 					clearTimeout(this.timer)
 					item.criticism = false
 				},1000)
-        item.flag = true;
+        item.flag = true
+        this.itemlist = {}
       },
       showDiscuss(item) {
-        this.itemlist = item
+        let i = this.workList.indexOf(item)
+        this.copyList[i] = 1
         if (item.flag) {
           this.commentShow(item)
         }else {
@@ -386,9 +398,9 @@ import { EHOSTUNREACH } from 'constants';
         },200)
         this.commentHide(item)
 
-        let author_uid = window.localStorage.getItem('user')
+        // let author_uid = window.localStorage.getItem('user')
 
-        api.isLiking({id: item.id, author_uid: author_uid}).then(res => {
+        api.isLiking({id: item.id, author_uid: this.userId}).then(res => {
           item.likers = res.data[0].likers  
           item.is_like = res.data[0].is_like
         })
@@ -400,7 +412,7 @@ import { EHOSTUNREACH } from 'constants';
       criticismThing(item) {
         this.itemlist = {}
         this.itemlist = item
-        this.criticismstate=true;
+        this.criticismstate = true;
         this.$nextTick(() => {
           this.$refs.textinput.focus();
         })
@@ -410,18 +422,19 @@ import { EHOSTUNREACH } from 'constants';
         this.postMessages ? this.changeinput = true :this.changeinput = false
       },
       commentSend() {
-        let author_uid = window.localStorage.getItem('user')
+        // let author_uid = window.localStorage.getItem('user')
 
         if (this.changeinput) {
           if (this.postMessages) {
             this.itemlist.comment.push({
+              arc_id: this.itemlist.id,
 							author_uid: author_uid ,
 							realname: this.username,
 							content: this.postMessages
 						})
           }
         
-          api.add_comment({id: this.itemlist.id, author_uid: author_uid, comment:this.postMessages}).then(res => {
+          api.add_comment({id: this.itemlist.id, author_uid: this.userId, comment:this.postMessages}).then(res => {
             if(res.code == 1) {
               this.criticismstate=false;
               this.postMessages='';
