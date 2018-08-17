@@ -65,7 +65,7 @@ router.beforeEach(function (to, from ,next) {
     store.dispatch('updateDirection', { direction: 'forward' })
    }
 
-  next()
+  next() 
 
   //登录状态验证
   if(to.matched.some(record => record.meta.requiresAuth)) {
